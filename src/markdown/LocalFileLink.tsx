@@ -62,7 +62,8 @@ const LocalFileLink: React.FC<LocalFileLinkProps> = ({ reference, children, onOp
     <span className='inline-flex items-center gap-4px max-w-full'>
       <span className='truncate'>{label}</span>
       {locationLabel && (
-        <span className='flex-shrink-0 rd-4px bg-fill-2 px-4px text-11px font-mono text-t-secondary'>
+        // UnoCSS classes do not reach the Markdown shadow root; ShadowView styles markdown-local-file-line.
+        <span className='markdown-local-file-line flex-shrink-0 rd-4px bg-fill-2 px-4px text-11px font-mono text-t-secondary'>
           {locationLabel}
         </span>
       )}

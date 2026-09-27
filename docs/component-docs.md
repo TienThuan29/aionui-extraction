@@ -99,11 +99,11 @@ The existing smoke and dist tests are unchanged. Visual checks use playground sc
    - the playground header is now the real title bar of its frameless window, with working `WindowControls`;
    - the preload is built as CommonJS `preload/index.js`: it was emitted as `index.mjs` while the main process loads `index.js`, so the window bridge never loaded (a playground bug that predates the docs).
 
-### Known issues found while documenting (pre-existing in AionUi, not fixed: out of scope)
+### Pre-existing issues found while documenting (fixed after step 4, with tests in `tests/markdownFixes.dom.test.tsx`)
 
-- Mermaid flowchart labels are clipped inside `Markdown`: Mermaid measures text with the page font but the shadow root renders it in another font. Standalone `MermaidBlock` is fine.
-- The line badge of `LocalFileLink` (`L12`) is unstyled inside `Markdown`: it uses UnoCSS classes, which do not reach the shadow root (`ShadowView` styles a `.markdown-local-file-line` class the component never sets).
-- `Diff2Html` writes `title` into the header with `innerHTML`; untrusted titles would be injected as HTML.
+- Mermaid labels were clipped inside `Markdown`: Mermaid measures text in `document.body`'s font, but the diagram inherited the code block's monospace font. MermaidBlock now displays the SVG in the measured font.
+- The `LocalFileLink` line badge (`L12`) was unstyled inside `Markdown`: its UnoCSS classes do not reach the shadow root. It now also carries `markdown-local-file-line`, which `ShadowView` styles.
+- `Diff2Html` wrote `title` into the header with `innerHTML`; it now uses `textContent`.
 
 ## Decision log
 

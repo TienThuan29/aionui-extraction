@@ -653,7 +653,7 @@
         "name": "title",
         "type": "string",
         "required": false,
-        "description": "Header title; defaults to the file path. It is inserted as HTML, so never pass untrusted text.\nA leading `File:` is stripped for the preview request."
+        "description": "Header title (plain text); defaults to the file path. A leading `File:` is stripped for the\npreview request."
       },
       {
         "name": "file_path",

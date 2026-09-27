@@ -61,6 +61,10 @@ function MermaidBlock({ code, style, showOpenInPanelButton = true, enablePanZoom
   const blockIdRef = useRef(`mermaid-${Math.random().toString(36).slice(2, 10)}`);
   const preferredViewModeRef = useRef<'preview' | 'source' | null>(null);
   const [svg, setSvg] = useState<string | null>(null);
+  // Mermaid sizes labels using the font of document.body, where it renders off-screen. Display the
+  // SVG in that same font: inside Markdown it would otherwise inherit the code block's monospace
+  // font and overflow its boxes.
+  const [measuredFont, setMeasuredFont] = useState<string | undefined>(undefined);
   const [isRendering, setIsRendering] = useState(false);
   const [viewMode, setViewMode] = useState<'preview' | 'source'>('source');
   const [debouncedCode, setDebouncedCode] = useState(code);
@@ -186,6 +190,7 @@ function MermaidBlock({ code, style, showOpenInPanelButton = true, enablePanZoom
 
         if (!cancelled) {
           setSvg(withResponsiveSvg(renderedSvg));
+          setMeasuredFont(getComputedStyle(document.body).fontFamily || undefined);
           setIsRendering(false);
           setViewMode(preferredViewModeRef.current === 'source' ? 'source' : 'preview');
         }
@@ -378,6 +383,7 @@ function MermaidBlock({ code, style, showOpenInPanelButton = true, enablePanZoom
                   transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
                   transformOrigin: 'center center',
                   transition: isPanning ? 'none' : 'transform 0.1s ease-out',
+                  fontFamily: measuredFont,
                 }}
                 dangerouslySetInnerHTML={{ __html: svg }}
               />
@@ -392,6 +398,7 @@ function MermaidBlock({ code, style, showOpenInPanelButton = true, enablePanZoom
                 display: 'flex',
                 justifyContent: 'center',
                 cursor: 'zoom-in',
+                fontFamily: measuredFont,
               }}
               onClick={() => setIsZoomOpen(true)}
               dangerouslySetInnerHTML={{ __html: svg }}

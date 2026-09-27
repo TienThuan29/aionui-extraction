@@ -30,8 +30,8 @@ const Diff2Html = ({
   /** Class name on the card. */
   className?: string;
   /**
-   * Header title; defaults to the file path. It is inserted as HTML, so never pass untrusted text.
-   * A leading `File:` is stripped for the preview request.
+   * Header title (plain text); defaults to the file path. A leading `File:` is stripped for the
+   * preview request.
    */
   title?: string;
   /** File path; read from the diff headers when omitted or a bare name. */
@@ -146,7 +146,7 @@ const Diff2Html = ({
 
       const name = header.querySelector('.d2h-file-name') as HTMLDivElement;
       if (name && title) {
-        name.innerHTML = title;
+        name.textContent = title;
       }
     } else {
       console.warn('[Diff2Html] Header or operatorRef missing', { hasHeader: !!header, hasRef: !!operatorRef.current });

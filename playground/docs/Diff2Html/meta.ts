@@ -21,10 +21,7 @@ const page: DocPage = {
         'With MarkdownHostProvider `onPreviewDiff`, a preview button hands you the path, language and diff; `diffPreviewLoading` disables it while you open it.',
     },
   ],
-  notes: [
-    '`title` is inserted into the header as HTML: pass only trusted text, such as a file path you control.',
-    '`parseDiff`, `parseFilePathFromDiff` and `extractContentFromDiff` are exported for working with diff text.',
-  ],
+  notes: ['`parseDiff`, `parseFilePathFromDiff` and `extractContentFromDiff` are exported for working with diff text.'],
 };
 
 export default page;

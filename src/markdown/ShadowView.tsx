@@ -111,6 +111,9 @@ export const createInitStyle = (
     white-space: nowrap;
   }
   .markdown-local-file-line {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-family: var(--font-mono);
     padding: 0 4px;
     border-radius: 4px;
     background: var(--bg-3);

@@ -1,0 +1,135 @@
+/**
+ * @license
+ * Copyright 2025 AionUi (aionui.com)
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Styles for AionSteps / AionModal (from AionUi arco-override.css). */
+/* AionUi Steps wrapper styles */
+.aionui-steps .arco-steps-item-process .arco-steps-item-icon {
+  background-color: var(--aou-6-brand) !important;
+  border-color: var(--aou-6-brand) !important;
+}
+
+.aionui-steps .arco-steps-item-finish .arco-steps-item-icon {
+  background-color: #e8f3ff !important;
+  border-color: #e8f3ff !important;
+  border-radius: 50% !important;
+}
+
+.aionui-steps .arco-steps-item-finish .arco-steps-item-icon .arco-steps-icon {
+  line-height: 28px !important;
+}
+
+/* AionUi Modal wrapper styles */
+.aionui-modal .arco-modal-content {
+  background: var(--dialog-fill-0) !important;
+  border: 1px solid var(--border-base) !important;
+  border-radius: 16px !important;
+}
+
+/* standard 变体：清除 Arco content 默认内边距，让三段（标题/内容/按钮）铺满到弹窗边框，
+   分隔线得以贯穿全宽，三段背景统一、无“盒子”割裂感。
+   注意：内边距清零后不能在此处 overflow:hidden —— Select/下拉等 popup 会挂在
+   .arco-modal-content 下（在内层 wrapper 之外），一旦这里裁剪就会遮住下拉。
+   圆角裁剪改到内层 .aionui-modal-wrapper 上（见下），popup 作为其兄弟节点不受影响。 */
+.aionui-modal-standard .arco-modal-content {
+  padding: 0 !important;
+}
+
+/* 圆角裁剪落在内层 wrapper：只裁三段（标题/内容/按钮），让它们的直角贴合弹窗圆角；
+   下拉 popup 挂在 wrapper 之外，因此不会被裁掉、能正常浮出弹窗。
+   同时给内层 wrapper 设视口上限并裁掉溢出：内容过多时，标题区/按钮区固定，
+   中间内容区（flex-1 + overflow-y:auto）自动缩短并滚动，整窗不会超出屏幕。
+   弹窗自身不设固定高度时按内容自适应，因此短内容不会留白、长内容会滚动。 */
+.aionui-modal-standard .aionui-modal-wrapper {
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  max-height: calc(100vh - 64px);
+}
+
+/* 三段只保留一条分隔线：标题区仅下边线、按钮区仅上边线，其余边框一律清零，
+   避免外部样式给这些容器叠加多余边框而形成“盒子”。 */
+.aionui-modal-standard .aionui-modal-wrapper > * {
+  border: 0 !important;
+}
+.aionui-modal-standard .aionui-modal-std-header {
+  border-bottom: 1px solid var(--bg-3) !important;
+}
+.aionui-modal-standard .aionui-modal-std-footer {
+  border-top: 1px solid var(--bg-3) !important;
+}
+
+.aionui-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px;
+}
+
+.aionui-modal-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.aionui-modal-close-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.aionui-modal-close-btn:hover {
+  background: var(--color-fill-1);
+}
+
+/* WindowControls (from AionUi Titlebar/titlebar.css). */
+.app-window-controls {
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+  -webkit-app-region: no-drag;
+}
+
+.app-window-controls__button {
+  width: 40px;
+  /* Match the parent titlebar height so system buttons go edge-to-edge
+     like native Windows chrome. */
+  height: 100%;
+  align-self: stretch;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.app-window-controls__button:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.app-window-controls__button:active {
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.app-window-controls__button--close:hover {
+  background-color: #e81123;
+  color: #fff;
+}
+
+.app-window-controls__button--close:active {
+  background-color: #c10f1f;
+  color: #fff;
+}

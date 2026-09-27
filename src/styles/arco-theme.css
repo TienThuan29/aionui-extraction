@@ -1,0 +1,373 @@
+/**
+ * @license
+ * Copyright 2025 AionUi (aionui.com)
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Opt-in global look: restyles ALL Arco components, html/body font + background, scrollbars. */
+/* Arco Design custom overrides - non-theme related */
+
+/*
+ * Arco Spin 垂直居中修正。
+ *
+ * 现象：「思考过程」「执行步骤」这类标题栏，加载中显示 <Spin size={12} />，完成后换成
+ * icon-park 的静态图标。实测加载中的转圈圈比相邻文字、以及完成后的静态图标低 3.5px，
+ * 看起来整体偏下、切换状态时还会跳一下。
+ *
+ * 成因有三层叠加（数值均为 Chromium 实测）：
+ *   1. Arco 给所有 `.arco-icon` 设了 `vertical-align: -2px`，SVG 被强行下移；
+ *   2. `.arco-spin-icon` 是 inline-block，SVG 按文字基线排布，行盒被撑到 23px
+ *      （只为容纳 12px 的图标），底部留下大段基线间隙；
+ *   3. `.arco-spin` 自身也是 inline-block，行盒 13.58px 容纳 12px 图标，再贡献 0.78px。
+ *
+ * 修正：让这两层都变成居中的 inline-flex 并清掉基线偏移 —— 与 base.css 里的 `.i-icon`
+ * 修正同一思路。实测偏移由 3.5px 精确归零，与静态图标像素级对齐。
+ *
+ * 为何改 `.arco-spin` 是安全的（已实测验证）：
+ *   - 包裹式用法 `<Spin loading>内容</Spin>`：display 由 inline-block 变 inline-flex，
+ *     但被包裹内容尺寸、遮罩层圈圈的居中、后续兄弟元素位置均零变化（`.arco-spin-children`
+ *     是唯一的流内子元素，遮罩层为绝对定位）。
+ *   - 传了自定义 flex 类的用法（如 `<Spin loading className='flex flex-1 …'/>`）：
+ *     行内/工具类 display 优先级更高，不受影响。
+ *   - 图标只匹配 `.arco-spin` 的直接子级，包裹式用法的图标嵌在
+ *     `.arco-spin-loading-layer-inner` 内，不会被这条规则命中。
+ */
+.arco-spin,
+.arco-spin > .arco-spin-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.arco-spin > .arco-spin-icon > .arco-icon {
+  display: block;
+  vertical-align: middle;
+}
+
+/* Arco's arco.css puts 'Inter' first in font-family, which causes very thin
+   text on systems that have Inter installed. Override to use system fonts. */
+html,
+body {
+  /* Global ("app") region font. --app-font-family is set by applyFontFamilies
+     when a global font is chosen (empty otherwise), so this falls back to the
+     built-in system stack — keeping default rendering unchanged. Regions that
+     pick no font of their own inherit this global font. */
+  font-family: var(
+    --app-font-family,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    sans-serif
+  );
+  /* Global ("app") region font size. --app-font-size defaults to 14px (Arco's
+     base), so the whole app scales with the global size, while regions with
+     their own size var (chat/markdown/code) still override within their scope. */
+  font-size: var(--app-font-size, 14px);
+  /* Global ("app") region font weight. --app-font-weight is set by
+     applyFontWeights when a global weight is chosen (empty otherwise), so this
+     falls back to `normal`, keeping default rendering unchanged. Only text that
+     sets no weight of its own inherits it (headings/strong/buttons keep theirs). */
+  font-weight: var(--app-font-weight, normal);
+  /* 根元素必须自己铺底色。Electron 窗口底色是固定的白色，html/body 若保持透明，
+     任何布局缝隙都会漏出白色 —— 深色模式下就是刺眼的白边。
+     The root must paint its own background. The Electron window's own background
+     is a fixed white, so if html/body stay transparent any layout gap leaks white
+     through — glaringly so in dark mode. */
+  background-color: var(--bg-1);
+}
+
+html body .arco-tooltip-content,
+html body .arco-popover-content,
+html body .arco-popconfirm-content {
+  background: var(--aion-overlay-bg) !important;
+  color: var(--aion-overlay-text) !important;
+  border: 1px solid var(--aion-overlay-border) !important;
+  box-shadow: var(--aion-overlay-shadow) !important;
+}
+
+html[data-theme='dark'] body .arco-tooltip-content,
+html[data-theme='dark'] body .arco-popover-content,
+html[data-theme='dark'] body .arco-popconfirm-content,
+body[arco-theme='dark'] .arco-tooltip-content,
+body[arco-theme='dark'] .arco-popover-content,
+body[arco-theme='dark'] .arco-popconfirm-content {
+  background: var(--aion-overlay-bg) !important;
+  color: var(--aion-overlay-text) !important;
+  border: 1px solid var(--aion-overlay-border) !important;
+  box-shadow: var(--aion-overlay-shadow) !important;
+}
+
+html body .arco-tooltip-content-inner,
+html body .arco-popover-title,
+html body .arco-popover-inner-content,
+html body .arco-popconfirm-title,
+html body .arco-popconfirm-inner-content {
+  color: var(--aion-overlay-text) !important;
+}
+
+html body .arco-trigger-arrow.arco-tooltip-arrow,
+html body .arco-popover-arrow.arco-trigger-arrow,
+html body .arco-popconfirm-arrow.arco-trigger-arrow {
+  background: var(--aion-overlay-bg) !important;
+  border: 1px solid var(--aion-overlay-border) !important;
+}
+
+/* Override Arco Design component backgrounds to white in light mode */
+/* 覆盖 Arco Design 组件背景色为白色（浅色模式） */
+/* .arco-input,
+.arco-textarea,
+.arco-select-view,
+.arco-picker,
+.arco-input-number,
+.arco-cascader-view,
+.arco-tree-select-view,
+.arco-auto-complete-view,
+.arco-mentions-view {
+  background-color: #ffffff !important;
+}
+
+.arco-input-wrapper {
+  background-color: #ffffff !important;
+}
+
+.arco-select-popup .arco-select-option {
+  &:hover {
+    background-color: #fafafa !important;
+  }
+} */
+
+.arco-btn {
+  &.arco-btn-outline {
+    border-color: #86909c;
+    color: #86909c;
+  }
+}
+
+.arco-btn-primary.arco-btn-disabled {
+  background-color: var(--aou-2) !important;
+  border-color: var(--aou-2) !important;
+}
+
+.arco-collapse {
+  border: none;
+  border-radius: 8px;
+  .arco-collapse-item-header {
+    border-bottom: none;
+  }
+}
+
+/* Arco Tag dark mode styles - enhance contrast with semi-transparent backgrounds */
+/* Arco Tag 深色模式样式 - 使用半透明背景增强对比度 */
+body[arco-theme='dark'] .arco-tag-checked.arco-tag-blue {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+  color: rgb(96, 165, 250) !important;
+}
+
+body[arco-theme='dark'] .arco-tag-checked.arco-tag-green {
+  background-color: rgba(34, 197, 94, 0.2) !important;
+  color: rgb(74, 222, 128) !important;
+}
+
+body[arco-theme='dark'] .arco-tag-checked.arco-tag-red {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  color: rgb(248, 113, 113) !important;
+}
+
+body[arco-theme='dark'] .arco-tag-checked.arco-tag-orange {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+  color: rgb(251, 191, 36) !important;
+}
+
+body[arco-theme='dark'] .arco-tag-checked.arco-tag-gray {
+  background-color: rgba(156, 163, 175, 0.2) !important;
+  color: rgb(209, 213, 219) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-content {
+  background-color: var(--dialog-fill-0) !important;
+  border: 1px solid var(--border-base) !important;
+}
+
+body[arco-theme='dark'] .arco-modal {
+  background-color: var(--dialog-fill-0) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-header {
+  background-color: var(--dialog-fill-0) !important;
+  border-bottom-color: var(--border-base) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-body,
+body[arco-theme='dark'] .arco-modal-footer {
+  background-color: var(--dialog-fill-0) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-footer {
+  border-top-color: var(--border-base) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-title {
+  color: var(--text-primary) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-body,
+body[arco-theme='dark'] .arco-modal-confirm-title,
+body[arco-theme='dark'] .arco-modal-confirm-content {
+  color: var(--text-primary) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-close-icon {
+  color: var(--text-secondary) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-close-icon:hover {
+  color: var(--text-primary) !important;
+  background-color: var(--color-fill-1) !important;
+}
+
+body[arco-theme='dark'] .arco-modal-confirm-icon {
+  color: var(--warning) !important;
+}
+
+/* Modal form controls need visible idle outlines so fields don't disappear into the dialog surface. */
+.arco-modal
+  .arco-input:not(.arco-input-disabled):not(.arco-input-error):not(.arco-input-warning):not(.arco-input-focus):not(
+    :focus
+  ),
+.arco-modal
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):not(.arco-input-inner-wrapper-error):not(
+    .arco-input-inner-wrapper-warning
+  ):not(.arco-input-inner-wrapper-focus),
+.arco-modal
+  .arco-textarea:not(.arco-textarea-disabled):not(.arco-textarea-error):not(.arco-textarea-warning):not(
+    .arco-textarea-focus
+  ):not(:focus),
+.arco-modal
+  .arco-select:not(.arco-select-disabled):not(.arco-select-error):not(.arco-select-warning):not(.arco-select-focused)
+  .arco-select-view,
+.arco-modal
+  .arco-cascader:not(.arco-cascader-disabled):not(.arco-cascader-error):not(.arco-cascader-warning):not(
+    .arco-cascader-focused
+  )
+  .arco-cascader-view,
+.arco-modal
+  .arco-tree-select:not(.arco-tree-select-disabled):not(.arco-tree-select-error):not(.arco-tree-select-warning):not(
+    .arco-tree-select-focused
+  )
+  .arco-tree-select-view,
+.arco-modal
+  .arco-picker:not(.arco-picker-disabled):not(.arco-picker-error):not(.arco-picker-warning):not(.arco-picker-focused) {
+  border-color: var(--border-base) !important;
+}
+
+.arco-modal
+  .arco-input:not(.arco-input-disabled):not(.arco-input-error):not(.arco-input-warning):not(.arco-input-focus):hover,
+.arco-modal
+  .arco-input-inner-wrapper:not(.arco-input-inner-wrapper-disabled):not(.arco-input-inner-wrapper-error):not(
+    .arco-input-inner-wrapper-warning
+  ):not(.arco-input-inner-wrapper-focus):hover,
+.arco-modal
+  .arco-textarea:not(.arco-textarea-disabled):not(.arco-textarea-error):not(.arco-textarea-warning):not(
+    .arco-textarea-focus
+  ):hover,
+.arco-modal
+  .arco-select:not(.arco-select-disabled):not(.arco-select-error):not(.arco-select-warning):not(
+    .arco-select-focused
+  ):hover
+  .arco-select-view,
+.arco-modal
+  .arco-cascader:not(.arco-cascader-disabled):not(.arco-cascader-error):not(.arco-cascader-warning):not(
+    .arco-cascader-focused
+  ):hover
+  .arco-cascader-view,
+.arco-modal
+  .arco-tree-select:not(.arco-tree-select-disabled):not(.arco-tree-select-error):not(.arco-tree-select-warning):not(
+    .arco-tree-select-focused
+  ):hover
+  .arco-tree-select-view,
+.arco-modal
+  .arco-picker:not(.arco-picker-disabled):not(.arco-picker-error):not(.arco-picker-warning):not(
+    .arco-picker-focused
+  ):hover {
+  border-color: var(--bg-4) !important;
+}
+
+/* Arco Message custom styles */
+.arco-message {
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+/* Light mode */
+.arco-message-success {
+  background: linear-gradient(270deg, #f9fff2 0%, #d2ffd9 100%) !important;
+}
+
+.arco-message-warning {
+  background: linear-gradient(90deg, #fff3dc 0%, #fff8de 100%) !important;
+}
+
+.arco-message-info {
+  background: linear-gradient(90deg, #e8f3ff 0%, #f8f8ff 49.52%) !important;
+}
+
+.arco-message-error {
+  background: linear-gradient(90deg, #ffdddb 0%, #fff3f0 100%) !important;
+}
+
+/* Dark mode */
+body[arco-theme='dark'] .arco-message-success {
+  background: linear-gradient(270deg, rgba(249, 255, 242, 0.3) 0%, rgba(210, 255, 217, 0.3) 100%) !important;
+}
+
+body[arco-theme='dark'] .arco-message-warning {
+  background: linear-gradient(90deg, rgba(255, 243, 220, 0.3) 0%, rgba(255, 248, 222, 0.3) 100%) !important;
+}
+
+body[arco-theme='dark'] .arco-message-info {
+  background: linear-gradient(90deg, rgba(232, 243, 255, 0.3) 0%, rgba(248, 248, 255, 0.3) 49.52%) !important;
+}
+
+body[arco-theme='dark'] .arco-message-error {
+  background: linear-gradient(90deg, rgba(255, 221, 219, 0.3) 0%, rgba(255, 243, 240, 0.3) 100%) !important;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] *:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}

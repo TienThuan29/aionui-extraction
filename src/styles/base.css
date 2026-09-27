@@ -1,0 +1,108 @@
+/**
+ * @license
+ * Copyright 2025 AionUi (aionui.com)
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Font + overlay tokens (from AionUi arco-override.css). */
+/* Centralized font tokens. --font-mono is inherited (custom properties cross
+   the shadow DOM boundary), so Markdown rendered in shadow roots can reference it.
+   集中的字体 token。--font-mono 会被继承（自定义属性可穿透 Shadow DOM 边界），
+   因此 Shadow DOM 内渲染的 Markdown 也能引用它。 */
+:root {
+  /* Code-region font. applyFontFamilies sets --code-font-family only when the
+     user picks a code font (empty otherwise), so --font-mono resolves to the
+     chosen font or falls back to the built-in stack. Every existing
+     var(--font-mono) site (markdown code, editors, chat shadow) follows the
+     selection for free — no need to touch those call sites. */
+  --font-mono: var(
+    --code-font-family,
+    ui-monospace,
+    'SF Mono',
+    SFMono-Regular,
+    Menlo,
+    'Cascadia Code',
+    'Roboto Mono',
+    Consolas,
+    'Liberation Mono',
+    monospace
+  );
+  /* Code-region font weight, mirroring --font-mono. applyFontWeights sets
+     --code-font-weight only when the user picks a code weight (empty otherwise),
+     so this falls back to `inherit`, keeping the built-in weight. Every
+     var(--font-mono) site declares font-weight: var(--font-mono-weight) next to
+     it, so the code-region weight follows the selection for free. */
+  --font-mono-weight: var(--code-font-weight, inherit);
+  --code-font-size: 13px;
+  --aion-overlay-bg: #ffffff;
+  --aion-overlay-text: #1d2129;
+  --aion-overlay-border: #e5e6eb;
+  --aion-overlay-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+}
+
+html[data-theme='dark'],
+body[arco-theme='dark'] {
+  --aion-overlay-bg: #0e0e0e;
+  --aion-overlay-text: #f2f3f5;
+  --aion-overlay-border: #333333;
+  --aion-overlay-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Icon alignment + utilities (from AionUi themes/base.css). */
+.i-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.loading {
+  animation: loading 1s linear infinite;
+}
+
+.bg-animate {
+  animation: bg-animate 1s alternate infinite;
+}
+
+@keyframes bg-animate {
+  0% {
+    background-color: var(--bg-2);
+  }
+  100% {
+    background-color: var(--bg-3);
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* Hide scrollbar while keeping scroll behavior */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* LTR islands (paths, file names) inside an RTL layout (from AionUi styles/layout.css). */
+[dir='rtl'] .rtl-text-right {
+  text-align: right;
+}

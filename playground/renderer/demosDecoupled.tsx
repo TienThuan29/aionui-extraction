@@ -25,7 +25,7 @@ import {
   useTabOverflow,
   useUi,
   type TabContextMenuState,
-} from '../../src';
+} from '@aionui/ui';
 import type { PlaygroundWindowControls } from '../preload';
 
 type Demo = { name: string; render: () => React.ReactNode };

@@ -6,7 +6,8 @@ import { join } from 'node:path';
 function createWindow(): BrowserWindow {
   const win = new BrowserWindow({
     width: 1280,
-    height: 860,
+    // Screenshot mode can use a taller window to capture whole docs pages.
+    height: Number(process.env.PLAYGROUND_SHOT_HEIGHT) || 860,
     frame: false,
     // Stay visible even in screenshot mode: hidden windows stop painting and capturePage() returns stale frames.
     webPreferences: {

@@ -6,7 +6,8 @@
     "emitDeclarationOnly": true,
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {}
   },
   "include": ["src"],
   "exclude": ["src/tokens/unoPreset.ts"]

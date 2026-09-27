@@ -28,7 +28,9 @@ export type SectionProps = {
   id: string;
   /** Header label (already localized by the caller). */
   title: string;
+  /** Whether the body is hidden (controlled). */
   collapsed: boolean;
+  /** Called when the header is clicked; flip `collapsed` here. */
   onToggleCollapsed: () => void;
   /**
    * Header-right action slot (e.g. the Changes section's tree/list toggle and bulk
@@ -37,6 +39,7 @@ export type SectionProps = {
   actions?: React.ReactNode;
   /** A short count/summary rendered dimmed after the title (e.g. changed-file count). */
   badge?: React.ReactNode;
+  /** Section body, rendered only while expanded. */
   children: React.ReactNode;
 };
 
@@ -88,7 +91,9 @@ export const Section: React.FC<SectionProps> = ({
  * visible line with a wider invisible grab area, so it is easy to grab.
  */
 export const SectionDivider: React.FC<{
+  /** Called while dragging with the total vertical distance (px) since the drag started. */
   onDrag: (totalDeltaY: number) => void;
+  /** Called once when the drag ends (e.g. to persist the new height). */
   onDragEnd?: () => void;
   /** Double-click resets the split (caller clears the stored height → natural size). */
   onDoubleReset?: () => void;

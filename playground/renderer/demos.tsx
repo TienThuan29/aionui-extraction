@@ -24,7 +24,7 @@ import {
   ShimmerText,
   SlashCommandMenu,
   ThemedLogo,
-} from '../../src';
+} from '@aionui/ui';
 import { decoupledDemos } from './demosDecoupled';
 import { markdownDemos } from './demosMarkdown';
 

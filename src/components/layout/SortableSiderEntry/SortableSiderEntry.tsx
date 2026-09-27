@@ -9,9 +9,13 @@ import { CSS } from '@dnd-kit/utilities';
 import React from 'react';
 
 type SortableSiderEntryProps = {
+  /** Unique id; must match an entry of the surrounding `SortableContext` `items`. */
   id: string;
+  /** Temporarily exclude this entry from dragging. */
   disabled?: boolean;
+  /** The draggable content (the whole entry is the drag handle). */
   children: React.ReactNode;
+  /** `data-testid` on the wrapper. */
   testId?: string;
 };
 

@@ -9,23 +9,23 @@ import classNames from 'classnames';
 import React from 'react';
 
 export type CollapseGroupProps = {
-  /** 是否展开 */
+  /** Whether the group is expanded (controlled). */
   expanded: boolean;
-  /** 切换展开状态的回调 */
+  /** Called when the header is clicked; flip `expanded` here. */
   onToggle: () => void;
-  /** 折叠面板的标题 */
+  /** Header content, shown next to the folder icon. */
   header: React.ReactNode;
-  /** 折叠面板的内容 */
+  /** Group content, rendered only while expanded. */
   children: React.ReactNode;
-  /** 额外的类名 */
+  /** Extra class name on the root element. */
   className?: string;
-  /** 侧栏是否折叠 - 折叠时隐藏组标题并移除缩进 */
+  /** Collapsed-sidebar mode: hides the header and removes the content indent. */
   siderCollapsed?: boolean;
-  /** 标题尾部插槽 - 例如 hover 显示的菜单按钮，点击不会触发 onToggle */
+  /** Slot at the end of the header (e.g. a hover menu button). Clicks here do not toggle the group. */
   trailing?: React.ReactNode;
-  /** 让头部在滚动时吸顶常驻 - 用于会话过长的项目组，下滑时逐个切换项目标题 */
+  /** Keep the header pinned to the top of the scroll container while its content scrolls past. */
   stickyHeader?: boolean;
-  /** 吸顶时距滚动容器顶部的偏移(px)，用于让位给上方常驻的分区标题 */
+  /** Offset (px) from the top of the scroll container while sticky, e.g. to clear a pinned title above. */
   stickyTop?: number;
 };
 

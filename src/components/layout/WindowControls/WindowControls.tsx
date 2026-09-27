@@ -24,8 +24,10 @@ const WindowRestoreIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
 );
 
 export type WindowControlsProps = {
+  /** Current window state; switches the middle button between Maximize and Restore. */
   isMaximized: boolean;
   onMinimize: () => void;
+  /** Maximize when restored, restore when maximized. */
   onToggleMaximize: () => void;
   onClose: () => void;
 };

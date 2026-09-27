@@ -25,18 +25,38 @@ export function iconParkPlugin(): Plugin {
       // Never wrap inside the HOC itself (it imports from @icon-park/react/es/runtime).
       if (id.replace(/\\/g, '/') === hocPath) return null;
       if (!source.includes('@icon-park/react')) return null;
+      // Handles multi-line lists, digits in names (Share2) and aliases (`Message as MessageIcon`);
+      // `type` specifiers are left untouched.
       const transformed = source.replace(
-        /import\s+\{\s+([a-zA-Z, ]*)\s+\}\s+from\s+['"]@icon-park\/react['"](;?)/g,
-        (str, match: string) => {
-          if (!match) return str;
-          const components = match.split(',');
-          const importComponent = str.replace(match, components.map((key) => `${key} as _${key.trim()}`).join(', '));
-          const hoc = `import { lazyIconParkHOC } from '${hocPath}';
-          ${components.map((key) => `const ${key.trim()} = lazyIconParkHOC(() => _${key.trim()})`).join(';\n')}`;
-          return importComponent + ';' + hoc;
+        /import\s*\{([\w\s,]*)\}\s*from\s*['"]@icon-park\/react['"];?/g,
+        (str, list: string) => {
+          const specifiers = list
+            .split(',')
+            .map((spec) => spec.trim())
+            .filter(Boolean);
+          const icons = specifiers
+            .filter((spec) => !spec.startsWith('type '))
+            .map((spec) => {
+              const [imported, local = imported] = spec.split(/\s+as\s+/);
+              return { imported, local };
+            });
+          if (icons.length === 0) return str;
+          const types = specifiers.filter((spec) => spec.startsWith('type '));
+          const imports = [...icons.map(({ imported, local }) => `${imported} as _${local}`), ...types].join(', ');
+          const wrappers = icons.map(({ local }) => `const ${local} = lazyIconParkHOC(() => _${local});`).join('\n');
+          return `import { ${imports} } from '@icon-park/react';\nimport { lazyIconParkHOC } from '${hocPath}';\n${wrappers}`;
         }
       );
       return transformed === source ? null : { code: transformed, map: null };
     },
   };
 }
+
+/**
+ * Docs/examples import the package by name, exactly as consumers do; resolve it to the source.
+ * Used by the playground and tests only — library source keeps relative imports.
+ */
+export const selfAlias = [
+  { find: /^@aionui\/ui\/markdown$/, replacement: resolve(uiSrc, 'markdown.ts') },
+  { find: /^@aionui\/ui$/, replacement: resolve(uiSrc, 'index.ts') },
+];

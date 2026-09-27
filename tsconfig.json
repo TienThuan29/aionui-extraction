@@ -12,7 +12,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom/vitest"]
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom/vitest"],
+    "paths": {
+      "@aionui/ui": ["./src/index.ts"],
+      "@aionui/ui/markdown": ["./src/markdown.ts"]
+    }
   },
-  "include": ["src", "tests", "playground", "vitePlugins.ts", "vite.config.ts", "vitest.config.ts", "uno.config.ts"]
+  "include": [
+    "src",
+    "tests",
+    "playground",
+    "scripts",
+    "vitePlugins.ts",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "uno.config.ts"
+  ]
 }

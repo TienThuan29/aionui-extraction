@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'electron-vite';
 import UnoCSS from 'unocss/vite';
-import { iconParkPlugin } from '../vitePlugins';
+import { iconParkPlugin, selfAlias } from '../vitePlugins';
 
 const out = (dir: string) => resolve(__dirname, 'out', dir);
 
@@ -15,6 +15,7 @@ export default defineConfig({
   },
   renderer: {
     root: resolve(__dirname, 'renderer'),
+    resolve: { alias: selfAlias },
     plugins: [iconParkPlugin(), UnoCSS({ configFile: resolve(__dirname, '../uno.config.ts') })],
     build: { outDir: out('renderer'), rollupOptions: { input: resolve(__dirname, 'renderer/index.html') } },
   },

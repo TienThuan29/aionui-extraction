@@ -1,0 +1,2148 @@
+{
+  "AionCollapse": {
+    "source": "src/components/display/AionCollapse/AionCollapse.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "额外的类名 / Additional class name"
+      },
+      {
+        "name": "defaultActiveKey",
+        "type": "string | string[]",
+        "required": false,
+        "description": "非受控模式下默认展开的面板 key / Default active keys in uncontrolled mode"
+      },
+      {
+        "name": "activeKey",
+        "type": "string | string[]",
+        "required": false,
+        "description": "受控模式下当前展开的面板 key / Active keys in controlled mode"
+      },
+      {
+        "name": "onChange",
+        "type": "(keys: string[]) => void",
+        "required": false,
+        "description": "面板状态变化回调 / Callback when panel state changes"
+      },
+      {
+        "name": "accordion",
+        "type": "boolean",
+        "required": false,
+        "description": "手风琴模式，每次只能展开一个面板 / Accordion mode, only one panel can be expanded at a time"
+      },
+      {
+        "name": "expandIcon",
+        "type": "(active: boolean) => React.ReactNode",
+        "required": false,
+        "description": "自定义展开图标 / Custom expand icon"
+      },
+      {
+        "name": "expandIconPosition",
+        "type": "'left' | 'right'",
+        "required": false,
+        "default": "'left'",
+        "description": "展开图标位置 / Expand icon position"
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "是否显示边框 / Whether to show border"
+      }
+    ],
+    "inherits": []
+  },
+  "AionInlineSearchInput": {
+    "source": "src/components/inputs/AionInlineSearchInput/AionInlineSearchInput.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "description": "当前输入值（受控）"
+      },
+      {
+        "name": "onChange",
+        "type": "(value: string) => void",
+        "required": true,
+        "description": "值变化回调，返回最新字符串"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "autoFocus",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "data-testid",
+        "type": "string",
+        "required": false,
+        "description": "落在原生 input 上（测试用 fill 需要它指向真实输入框）"
+      },
+      {
+        "name": "wrapTestId",
+        "type": "string",
+        "required": false,
+        "description": "落在外层容器上，用于定位整块搜索栏"
+      },
+      {
+        "name": "inputProps",
+        "type": "Omit< InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'placeholder' | 'disabled' | 'autoFocus' | 'className' >",
+        "required": false,
+        "description": "透传给原生 input 的额外属性（如 onKeyDown、aria-label 等）"
+      }
+    ],
+    "inherits": []
+  },
+  "AionModal": {
+    "source": "src/components/overlays/AionModal/AionModal.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "variant",
+        "type": "'standard'",
+        "required": false,
+        "description": "布局变体。'standard' 启用统一的任务型三段式布局：\n标题区(自带标准内边距 + 下分隔线) / 内容区(标准内边距、超出滚动) / 按钮区(上分隔线 + 标准内边距)。\n不传时保持既有行为（便于逐个弹窗平滑迁移）。"
+      },
+      {
+        "name": "size",
+        "type": "ModalSize",
+        "required": false,
+        "description": "预设尺寸，会被 style 中的 width/height 覆盖"
+      },
+      {
+        "name": "header",
+        "type": "React.ReactNode | ModalHeaderConfig",
+        "required": false,
+        "description": "Header 配置，可以是简单的 title 字符串或完整配置对象"
+      },
+      {
+        "name": "footer",
+        "type": "React.ReactNode | ModalFooterConfig | null",
+        "required": false,
+        "description": "Footer 配置，可以是 ReactNode 或配置对象"
+      },
+      {
+        "name": "contentStyle",
+        "type": "ModalContentStyleConfig",
+        "required": false,
+        "description": "Modal 内容区域样式配置"
+      },
+      {
+        "name": "title",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "showCustomClose",
+        "type": "boolean",
+        "required": false,
+        "default": "true"
+      }
+    ],
+    "inherits": ["ModalProps"]
+  },
+  "AionScrollArea": {
+    "source": "src/components/layout/AionScrollArea/AionScrollArea.tsx",
+    "props": [
+      {
+        "name": "direction",
+        "type": "'y' | 'x' | 'both'",
+        "required": false,
+        "default": "'y'",
+        "description": "Scroll direction: `y` vertical, `x` horizontal, `both` both axes."
+      },
+      {
+        "name": "disableOverflow",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Disable scrolling entirely (e.g. when the page is embedded in another scroller)."
+      }
+    ],
+    "inherits": ["HTML attributes"]
+  },
+  "AionSearchInput": {
+    "source": "src/components/inputs/AionSearchInput/AionSearchInput.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "description": "当前输入值（受控）"
+      },
+      {
+        "name": "onChange",
+        "type": "(value: string) => void",
+        "required": true,
+        "description": "值变化回调，返回最新字符串"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "allowClear",
+        "type": "boolean",
+        "required": false,
+        "description": "是否显示清除按钮（有内容时），默认 true"
+      },
+      {
+        "name": "onClear",
+        "type": "() => void",
+        "required": false,
+        "description": "自定义清除逻辑，默认清空为 ''"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "CSSProperties",
+        "required": false
+      },
+      {
+        "name": "autoFocus",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "data-testid",
+        "type": "string",
+        "required": false,
+        "description": "落在原生 input 上（测试用 fill 需要它指向真实输入框）"
+      },
+      {
+        "name": "wrapTestId",
+        "type": "string",
+        "required": false,
+        "description": "落在外层容器上，用于定位整块搜索栏"
+      },
+      {
+        "name": "inputProps",
+        "type": "Omit< InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'placeholder' | 'disabled' | 'autoFocus' | 'className' >",
+        "required": false,
+        "description": "透传给原生 input 的额外属性（如 onKeyDown、aria-label 等）"
+      }
+    ],
+    "inherits": []
+  },
+  "AionSelect": {
+    "source": "src/components/inputs/AionSelect/AionSelect.tsx",
+    "props": [
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "额外的类名 / Additional class name"
+      },
+      {
+        "name": "size",
+        "type": "AionSelectSize",
+        "required": false,
+        "description": "统一尺寸，新增 middle（32px）/ Unified size with additional \"middle\" (32px)"
+      }
+    ],
+    "inherits": ["InputTagProps", "SelectProps", "SelectViewCommonProps"]
+  },
+  "AionSteps": {
+    "source": "src/components/display/AionSteps/AionSteps.tsx",
+    "props": [
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "额外的类名 / Additional class name"
+      }
+    ],
+    "inherits": ["StepsProps"]
+  },
+  "AppLoader": {
+    "source": "src/components/layout/AppLoader/AppLoader.tsx",
+    "props": [],
+    "inherits": []
+  },
+  "CodeBlock": {
+    "source": "src/markdown/blocks/CodeBlock.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "node",
+        "type": "unknown",
+        "required": false
+      },
+      {
+        "name": "hiddenCodeCopyButton",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "codeStyle",
+        "type": "React.CSSProperties",
+        "required": false
+      },
+      {
+        "name": "diagramPanZoom",
+        "type": "boolean",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "CollapseGroup": {
+    "source": "src/components/layout/CollapseGroup/CollapseGroup.tsx",
+    "props": [
+      {
+        "name": "expanded",
+        "type": "boolean",
+        "required": true,
+        "description": "Whether the group is expanded (controlled)."
+      },
+      {
+        "name": "onToggle",
+        "type": "() => void",
+        "required": true,
+        "description": "Called when the header is clicked; flip `expanded` here."
+      },
+      {
+        "name": "header",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Header content, shown next to the folder icon."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Group content, rendered only while expanded."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "Extra class name on the root element."
+      },
+      {
+        "name": "siderCollapsed",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Collapsed-sidebar mode: hides the header and removes the content indent."
+      },
+      {
+        "name": "trailing",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "Slot at the end of the header (e.g. a hover menu button). Clicks here do not toggle the group."
+      },
+      {
+        "name": "stickyHeader",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Keep the header pinned to the top of the scroll container while its content scrolls past."
+      },
+      {
+        "name": "stickyTop",
+        "type": "number",
+        "required": false,
+        "description": "Offset (px) from the top of the scroll container while sticky, e.g. to clear a pinned title above."
+      }
+    ],
+    "inherits": []
+  },
+  "CollapsibleContent": {
+    "source": "src/components/display/CollapsibleContent/CollapsibleContent.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "maxHeight",
+        "type": "number",
+        "required": false,
+        "default": "240",
+        "description": "最大高度（像素），超过此高度时显示展开/折叠按钮\nMaximum height in pixels, show expand/collapse button when content exceeds this height"
+      },
+      {
+        "name": "defaultCollapsed",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "初始是否折叠\nWhether initially collapsed"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "自定义样式类名\nCustom className"
+      },
+      {
+        "name": "contentClassName",
+        "type": "string",
+        "required": false,
+        "description": "内容区域样式类名\nContent area className"
+      },
+      {
+        "name": "useMask",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "是否使用 mask 模式（适用于有背景色的场景，如 Alert）\nWhether to use mask mode (suitable for scenarios with background color, like Alert)"
+      },
+      {
+        "name": "allowHorizontalScroll",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "是否允许横向滚动，避免宽内容被裁剪\nAllow horizontal scrolling to prevent clipping wide content"
+      }
+    ],
+    "inherits": []
+  },
+  "ConfigRow": {
+    "source": "src/components/settings/SectionCard/SectionCard.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "hint",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "icon",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "Optional leading icon shown before the label text."
+      }
+    ],
+    "inherits": []
+  },
+  "ContextUsageIndicator": {
+    "source": "src/components/display/ContextUsageIndicator/ContextUsageIndicator.tsx",
+    "props": [
+      {
+        "name": "tokenUsage",
+        "type": "TokenUsageData | null",
+        "required": true
+      },
+      {
+        "name": "context_limit",
+        "type": "number",
+        "required": true,
+        "description": "Agent-reported context window size. Without it (<= 0) the ring stays a\nhollow track and the popover shows the raw token count instead of a\npercentage — never a percentage against a guessed denominator."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": "''"
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "default": "20"
+      }
+    ],
+    "inherits": []
+  },
+  "DiagramZoomOverlay": {
+    "source": "src/markdown/blocks/DiagramZoomOverlay.tsx",
+    "props": [
+      {
+        "name": "svg",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": true,
+        "description": "Accessible name for the dialog (e.g. the diagram type title)."
+      },
+      {
+        "name": "panelBackground",
+        "type": "string",
+        "required": false,
+        "description": "Explicit card backdrop color. Diagram types whose strokes depend on the\nbackdrop (WaveDrom: the dark skin paints pure-white lines) pass a\ndeterministic color here so lines stay visible even when the --bg-1 token\nresolves to the wrong value; other types keep the token default."
+      }
+    ],
+    "inherits": []
+  },
+  "Diff2Html": {
+    "source": "src/markdown/diff/Diff2Html.tsx",
+    "props": [
+      {
+        "name": "diff",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "file_path",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "DirInputItem": {
+    "source": "src/components/inputs/DirInputItem/DirInputItem.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "field",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "onBrowse",
+        "type": "(currentPath: string) => Promise<string | undefined>",
+        "required": true,
+        "description": "Opens the host's directory picker; resolves to the chosen path, or undefined when cancelled."
+      },
+      {
+        "name": "browseLabel",
+        "type": "string",
+        "required": false,
+        "description": "Tooltip/aria-label of the browse button."
+      }
+    ],
+    "inherits": []
+  },
+  "EmojiPicker": {
+    "source": "src/components/inputs/EmojiPicker/EmojiPicker.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "onChange",
+        "type": "(emoji: string) => void",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "placement",
+        "type": "PopoverPosition",
+        "required": false,
+        "default": "'bl'"
+      },
+      {
+        "name": "builtinAvatars",
+        "type": "Array<{ id: string; label: string; src: string; }>",
+        "required": false,
+        "default": "[]"
+      }
+    ],
+    "inherits": []
+  },
+  "FieldLabel": {
+    "source": "src/components/settings/SectionCard/SectionCard.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "icon",
+        "type": "React.ReactNode",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "FileChangesPanel": {
+    "source": "src/components/display/FileChangesPanel/FileChangesPanel.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "面板标题 / Panel title"
+      },
+      {
+        "name": "files",
+        "type": "FileChangeItem[]",
+        "required": true,
+        "description": "文件变更列表 / File changes list"
+      },
+      {
+        "name": "defaultExpanded",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "默认是否展开 / Default expanded state"
+      },
+      {
+        "name": "onFileClick",
+        "type": "(file: FileChangeItem) => void",
+        "required": false,
+        "description": "点击预览按钮的回调 / Callback when preview button is clicked"
+      },
+      {
+        "name": "onDiffClick",
+        "type": "(file: FileChangeItem) => void",
+        "required": false,
+        "description": "点击变更统计的回调（+8/-3 数字触发，打开 diff 对比）/ Callback when change stats are clicked (opens diff view)"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "额外的类名 / Additional class name"
+      }
+    ],
+    "inherits": []
+  },
+  "FilePreview": {
+    "source": "src/components/files/FilePreview/FilePreview.tsx",
+    "props": [
+      {
+        "name": "path",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "description": "File size in bytes; shows a placeholder until known."
+      },
+      {
+        "name": "imageSrc",
+        "type": "string",
+        "required": false,
+        "description": "Image data/URL for image files; a skeleton shows until it is provided."
+      },
+      {
+        "name": "onRemove",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "description": "Optional tooltip shown on the chip (e.g. \"sent as a file path\")."
+      }
+    ],
+    "inherits": []
+  },
+  "FlexFullContainer": {
+    "source": "src/components/layout/FlexFullContainer/FlexFullContainer.tsx",
+    "props": [
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "Class name of the outer flex item (`flex-1 relative min-h-0`)."
+      },
+      {
+        "name": "containerClassName",
+        "type": "string",
+        "required": false,
+        "description": "Class name of the inner absolutely-positioned box that fills the item."
+      }
+    ],
+    "inherits": ["PropsWithChildren"]
+  },
+  "FontSizeStepper": {
+    "source": "src/components/inputs/FontSizeStepper/FontSizeStepper.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "defaultValue",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "resetLabel",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "onChange",
+        "type": "(next: number) => void",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "ForkBranchIcon": {
+    "source": "src/icons/ForkBranchIcon/ForkBranchIcon.tsx",
+    "props": [
+      {
+        "name": "size",
+        "type": "number | string",
+        "required": false,
+        "default": "16"
+      },
+      {
+        "name": "fill",
+        "type": "string",
+        "required": false,
+        "default": "'currentColor'"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "HorizontalScroller": {
+    "source": "src/components/layout/HorizontalScroller/HorizontalScroller.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Items laid out in a single row; left/right buttons appear when they overflow."
+      }
+    ],
+    "inherits": []
+  },
+  "IconParkHOC": {
+    "source": "src/icons/IconParkHOC/IconParkHOC.tsx",
+    "props": [],
+    "inherits": ["FunctionComponent"]
+  },
+  "LocalFileLink": {
+    "source": "src/markdown/LocalFileLink.tsx",
+    "props": [
+      {
+        "name": "reference",
+        "type": "LocalFileLinkReference",
+        "required": true
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "onOpen",
+        "type": "(path: string, reference?: LocalFileLinkReference) => void | Promise<void>",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "Markdown": {
+    "source": "src/markdown/Markdown.tsx",
+    "props": [
+      {
+        "name": "onOpenLink",
+        "type": "(href: string) => void",
+        "required": false,
+        "description": "Open an http(s) or other link. Default: `window.open(href, '_blank', 'noopener')`."
+      },
+      {
+        "name": "onOpenPreview",
+        "type": "(content: string, options: { title: string }) => void",
+        "required": false,
+        "description": "Open diagram source in the host's preview panel; hides the \"open in panel\" button when absent."
+      },
+      {
+        "name": "renderLocalImage",
+        "type": "(image: { src: string; alt: string; className?: string }) => React.ReactNode",
+        "required": false,
+        "description": "Render images whose src is a local path. Default: a plain <img>."
+      },
+      {
+        "name": "customCss",
+        "type": "string",
+        "required": false,
+        "description": "Theme CSS injected into markdown shadow roots (made `!important`)."
+      },
+      {
+        "name": "onPreviewDiff",
+        "type": "(request: DiffPreviewRequest) => void",
+        "required": false,
+        "description": "Open a diff card's file in the host's preview surface; hides the preview button when absent."
+      },
+      {
+        "name": "diffPreviewLoading",
+        "type": "boolean",
+        "required": false,
+        "description": "True while the host is opening a diff preview (disables the button)."
+      },
+      {
+        "name": "children",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "hiddenCodeCopyButton",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "codeStyle",
+        "type": "React.CSSProperties",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "onRef",
+        "type": "(el?: HTMLDivElement | null) => void",
+        "required": false
+      },
+      {
+        "name": "onLocalFileLink",
+        "type": "(path: string, reference?: LocalFileLinkReference) => void | Promise<void>",
+        "required": false
+      },
+      {
+        "name": "allowHtml",
+        "type": "boolean",
+        "required": false,
+        "description": "Enable raw HTML rendering in markdown content. Use with caution — only for trusted sources."
+      }
+    ],
+    "inherits": []
+  },
+  "MarkdownHostProvider": {
+    "source": "src/markdown/MarkdownHost.tsx",
+    "props": [
+      {
+        "name": "onOpenLink",
+        "type": "(href: string) => void",
+        "required": false,
+        "description": "Open an http(s) or other link. Default: `window.open(href, '_blank', 'noopener')`."
+      },
+      {
+        "name": "onOpenPreview",
+        "type": "(content: string, options: { title: string }) => void",
+        "required": false,
+        "description": "Open diagram source in the host's preview panel; hides the \"open in panel\" button when absent."
+      },
+      {
+        "name": "renderLocalImage",
+        "type": "(image: { src: string; alt: string; className?: string }) => React.ReactNode",
+        "required": false,
+        "description": "Render images whose src is a local path. Default: a plain <img>."
+      },
+      {
+        "name": "customCss",
+        "type": "string",
+        "required": false,
+        "description": "Theme CSS injected into markdown shadow roots (made `!important`)."
+      },
+      {
+        "name": "onPreviewDiff",
+        "type": "(request: DiffPreviewRequest) => void",
+        "required": false,
+        "description": "Open a diff card's file in the host's preview surface; hides the preview button when absent."
+      },
+      {
+        "name": "diffPreviewLoading",
+        "type": "boolean",
+        "required": false,
+        "description": "True while the host is opening a diff preview (disables the button)."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "MarkdownTable": {
+    "source": "src/markdown/markdownComponents.tsx",
+    "props": [],
+    "inherits": []
+  },
+  "MarkdownTd": {
+    "source": "src/markdown/markdownComponents.tsx",
+    "props": [],
+    "inherits": []
+  },
+  "MarqueePillLabel": {
+    "source": "src/components/display/RuntimeSelectorPill/MarqueePillLabel.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "MentionMenuShell": {
+    "source": "src/components/overlays/MentionMenuShell/MentionMenuShell.tsx",
+    "props": [
+      {
+        "name": "activeIndex",
+        "type": "number",
+        "required": true,
+        "description": "Index of the active option. A change scrolls that option back into view."
+      },
+      {
+        "name": "itemCount",
+        "type": "number",
+        "required": true,
+        "description": "Number of rendered options. Re-runs the scroll sync when the option set\nchanges while `activeIndex` stays put."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "description": "Accessible name for the listbox."
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "description": "Visible header title. Omit for a headerless menu."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "description": "Secondary header text; only rendered alongside a title."
+      },
+      {
+        "name": "maxHeight",
+        "type": "string",
+        "required": false,
+        "default": "DEFAULT_MAX_HEIGHT"
+      },
+      {
+        "name": "bodyClassName",
+        "type": "string",
+        "required": false,
+        "description": "Extra classes for the scroll region (e.g. `flex flex-col gap-2px`)."
+      },
+      {
+        "name": "onReachEnd",
+        "type": "() => void",
+        "required": false,
+        "description": "Fired when the scroll region nears its bottom, for cursor-paged menus.\nMay fire repeatedly — the caller is expected to be idempotent while a page\nis already in flight."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "MermaidBlock": {
+    "source": "src/markdown/blocks/MermaidBlock.tsx",
+    "props": [
+      {
+        "name": "code",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "required": false
+      },
+      {
+        "name": "showOpenInPanelButton",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "enablePanZoom",
+        "type": "boolean",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "MobileActionSheet": {
+    "source": "src/components/overlays/MobileActionSheet/MobileActionSheet.tsx",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "entries",
+        "type": "MobileActionSheetEntry[]",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "ModalHOC": {
+    "source": "src/utils/ModalHOC.tsx",
+    "props": [],
+    "inherits": ["FunctionComponent"]
+  },
+  "PreferenceRow": {
+    "source": "src/components/settings/PreferenceRow/PreferenceRow.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "ProviderLogo": {
+    "source": "src/icons/ThemedLogo/ThemedLogo.tsx",
+    "props": [
+      {
+        "name": "logo",
+        "type": "string | null",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "default": "20"
+      }
+    ],
+    "inherits": []
+  },
+  "ReadonlySelectionField": {
+    "source": "src/components/settings/SectionCard/SectionCard.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "RuntimeSelectorLoadingIndicator": {
+    "source": "src/components/display/RuntimeSelectorPill/RuntimeSelectorPill.tsx",
+    "props": [],
+    "inherits": []
+  },
+  "RuntimeSelectorPill": {
+    "source": "src/components/display/RuntimeSelectorPill/RuntimeSelectorPill.tsx",
+    "props": [
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "leading",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "trailing",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "required": false
+      }
+    ],
+    "inherits": ["BaseButtonProps", "HTML attributes"]
+  },
+  "ScaleControl": {
+    "source": "src/components/inputs/ScaleControl/ScaleControl.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "description": "Current scale factor (1 = 100%)."
+      },
+      {
+        "name": "onChange",
+        "type": "(scale: number) => void | Promise<void>",
+        "required": true,
+        "description": "Applied on slider release, step buttons, and reset."
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "default": "0.8"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "1.3"
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "default": "0.05"
+      },
+      {
+        "name": "defaultValue",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Value the reset button restores."
+      }
+    ],
+    "inherits": []
+  },
+  "Section": {
+    "source": "src/components/layout/Section/Section.tsx",
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "Stable section id (`'repositories'`, `'changes'`, …) for persistence keys."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Header label (already localized by the caller)."
+      },
+      {
+        "name": "collapsed",
+        "type": "boolean",
+        "required": true,
+        "description": "Whether the body is hidden (controlled)."
+      },
+      {
+        "name": "onToggleCollapsed",
+        "type": "() => void",
+        "required": true,
+        "description": "Called when the header is clicked; flip `collapsed` here."
+      },
+      {
+        "name": "actions",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "Header-right action slot (e.g. the Changes section's tree/list toggle and bulk\nbuttons). Clicks here must not toggle the section, so the slot stops propagation."
+      },
+      {
+        "name": "badge",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "A short count/summary rendered dimmed after the title (e.g. changed-file count)."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Section body, rendered only while expanded."
+      }
+    ],
+    "inherits": []
+  },
+  "SectionCard": {
+    "source": "src/components/settings/SectionCard/SectionCard.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "legend",
+        "type": "{ label: string; tone: 'now' | 'next' }",
+        "required": false
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "readOnlyLabel",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "extra",
+        "type": "React.ReactNode",
+        "required": false
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "SectionDivider": {
+    "source": "src/components/layout/Section/Section.tsx",
+    "props": [
+      {
+        "name": "onDrag",
+        "type": "(totalDeltaY: number) => void",
+        "required": true,
+        "description": "Called while dragging with the total vertical distance (px) since the drag started."
+      },
+      {
+        "name": "onDragEnd",
+        "type": "() => void",
+        "required": false,
+        "description": "Called once when the drag ends (e.g. to persist the new height)."
+      },
+      {
+        "name": "onDoubleReset",
+        "type": "() => void",
+        "required": false,
+        "description": "Double-click resets the split (caller clears the stored height → natural size)."
+      }
+    ],
+    "inherits": []
+  },
+  "SettingsPageHeader": {
+    "source": "src/components/settings/SettingsPageHeader/SettingsPageHeader.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "description",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "Secondary description under the title; may contain inline links."
+      },
+      {
+        "name": "actions",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "Right-aligned action slot (search, create button, dropdowns, …)."
+      },
+      {
+        "name": "tabs",
+        "type": "SettingsPageTab[]",
+        "required": false
+      },
+      {
+        "name": "activeTab",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "onTabChange",
+        "type": "(key: string) => void",
+        "required": false
+      },
+      {
+        "name": "sticky",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "description": "Disable sticky behavior when the caller renders a fixed header outside its scroll body."
+      },
+      {
+        "name": "data-testid",
+        "type": "string",
+        "required": false,
+        "description": "Extra testid for the whole header block."
+      }
+    ],
+    "inherits": []
+  },
+  "ShadowView": {
+    "source": "src/markdown/ShadowView.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "ShimmerText": {
+    "source": "src/components/display/ShimmerText/ShimmerText.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "required": false,
+        "default": "3",
+        "description": "Animation duration in seconds"
+      },
+      {
+        "name": "pauseOnHover",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Whether to pause animation on hover"
+      }
+    ],
+    "inherits": []
+  },
+  "SiderItem": {
+    "source": "src/components/layout/SiderItem/SiderItem.tsx",
+    "props": [
+      {
+        "name": "icon",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Leading icon."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Item label; truncated with an ellipsis when too long."
+      },
+      {
+        "name": "selected",
+        "type": "boolean",
+        "required": false,
+        "description": "Highlight the item as the current one."
+      },
+      {
+        "name": "pinned",
+        "type": "boolean",
+        "required": false,
+        "description": "Show the pin marker."
+      },
+      {
+        "name": "menuItems",
+        "type": "SiderMenuItem[]",
+        "required": false,
+        "description": "Actions in the \"more\" dropdown (shown on hover; always on mobile)."
+      },
+      {
+        "name": "onMenuAction",
+        "type": "(key: string) => void",
+        "required": false,
+        "description": "Called with the chosen menu item's `key`."
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false
+      },
+      {
+        "name": "onContextMenu",
+        "type": "(e: React.MouseEvent) => void",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "SlashCommandMenu": {
+    "source": "src/components/overlays/SlashCommandMenu/SlashCommandMenu.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "items",
+        "type": "SlashCommandMenuItem[]",
+        "required": true
+      },
+      {
+        "name": "activeIndex",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "loadingText",
+        "type": "string",
+        "required": false,
+        "default": "'Loading...'"
+      },
+      {
+        "name": "onHoverItem",
+        "type": "(index: number) => void",
+        "required": true
+      },
+      {
+        "name": "onSelectItem",
+        "type": "(item: SlashCommandMenuItem) => void",
+        "required": true
+      },
+      {
+        "name": "emptyText",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "inherits": []
+  },
+  "SortableSiderEntry": {
+    "source": "src/components/layout/SortableSiderEntry/SortableSiderEntry.tsx",
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "Unique id; must match an entry of the surrounding `SortableContext` `items`."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "Temporarily exclude this entry from dragging."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "The draggable content (the whole entry is the drag handle)."
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "`data-testid` on the wrapper."
+      }
+    ],
+    "inherits": []
+  },
+  "TabBar": {
+    "source": "src/components/tabs/TabBar/TabBar.tsx",
+    "props": [
+      {
+        "name": "tabs",
+        "type": "TabBarItem[]",
+        "required": true,
+        "description": "Tabs 列表\nTabs list"
+      },
+      {
+        "name": "activeTabId",
+        "type": "string | null",
+        "required": true,
+        "description": "当前活动的 Tab ID\nCurrent active tab ID"
+      },
+      {
+        "name": "tabFadeState",
+        "type": "TabFadeState",
+        "required": true,
+        "description": "Tab 渐变状态（左右溢出指示器）\nTab fade state (left/right overflow indicators)"
+      },
+      {
+        "name": "tabsContainerRef",
+        "type": "React.RefObject<HTMLDivElement>",
+        "required": true,
+        "description": "Tabs 容器引用\nTabs container ref"
+      },
+      {
+        "name": "onSwitchTab",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "切换 Tab 回调\nSwitch tab callback"
+      },
+      {
+        "name": "onCloseTab",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "关闭 Tab 回调\nClose tab callback"
+      },
+      {
+        "name": "onContextMenu",
+        "type": "(e: React.MouseEvent, tabId: string) => void",
+        "required": true,
+        "description": "Tab 右键菜单回调\nTab context menu callback"
+      },
+      {
+        "name": "onClosePanel",
+        "type": "() => void",
+        "required": false,
+        "description": "关闭预览面板回调\nClose preview panel callback"
+      },
+      {
+        "name": "isMaximized",
+        "type": "boolean",
+        "required": false,
+        "description": "面板是否已最大化（聊天区隐藏、预览铺满）。决定最大化按钮显示的图标与提示。\nWhether the panel is maximized (chat hidden, preview filling the area).\nDrives the maximize button's icon and tooltip."
+      },
+      {
+        "name": "onToggleMaximize",
+        "type": "() => void",
+        "required": false,
+        "description": "切换最大化回调；仅桌面端提供（移动端预览本就覆盖全屏，最大化无意义）。\n未提供时不渲染最大化按钮。\nToggle-maximize callback, supplied on desktop only (on mobile the preview is\nalready a full overlay, so maximizing is meaningless). The maximize button is\nnot rendered when this is absent."
+      },
+      {
+        "name": "onNewBrowserTab",
+        "type": "() => void",
+        "required": false,
+        "description": "新建浏览器 tab 回调；仅在已有浏览器 tab 时提供，避免在纯文档场景出现无意义的加号\nNew browser tab callback. Only supplied when a browser tab already exists, so\nthe plus button never appears in a document-only panel."
+      }
+    ],
+    "inherits": []
+  },
+  "TabContextMenu": {
+    "source": "src/components/tabs/TabContextMenu/TabContextMenu.tsx",
+    "props": [
+      {
+        "name": "isMac",
+        "type": "boolean",
+        "required": false,
+        "default": "detectMac()",
+        "description": "Show macOS shortcut glyphs (⌘). Defaults to user-agent detection."
+      },
+      {
+        "name": "contextMenu",
+        "type": "TabContextMenuState",
+        "required": true,
+        "description": "上下文菜单状态\nContext menu state"
+      },
+      {
+        "name": "tabs",
+        "type": "TabBarItem[]",
+        "required": true,
+        "description": "Tabs 列表\nTabs list"
+      },
+      {
+        "name": "currentTheme",
+        "type": "'light' | 'dark'",
+        "required": true,
+        "description": "当前主题\nCurrent theme"
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "description": "关闭菜单回调\nClose menu callback"
+      },
+      {
+        "name": "onCloseTab",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "关闭右键点中的这个 Tab\nClose the tab that was right-clicked"
+      },
+      {
+        "name": "onCloseLeft",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "关闭左侧 Tabs\nClose tabs to the left"
+      },
+      {
+        "name": "onCloseRight",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "关闭右侧 Tabs\nClose tabs to the right"
+      },
+      {
+        "name": "onCloseOthers",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "关闭其他 Tabs\nClose other tabs"
+      },
+      {
+        "name": "onCloseUnmodified",
+        "type": "() => void",
+        "required": true,
+        "description": "关闭所有未修改的 Tabs\nClose all tabs without unsaved changes"
+      },
+      {
+        "name": "onCloseAll",
+        "type": "() => void",
+        "required": true,
+        "description": "关闭所有 Tabs\nClose all tabs"
+      },
+      {
+        "name": "onCopyPath",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "复制该 Tab 的绝对路径（浏览器 tab 为其 URL）\nCopy the tab's absolute path (its URL, for browser tabs)"
+      },
+      {
+        "name": "onCopyRelativePath",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "复制该 Tab 的 workspace 相对路径\nCopy the tab's workspace-relative path"
+      },
+      {
+        "name": "onRevealInFolder",
+        "type": "(tabId: string) => void",
+        "required": true,
+        "description": "在系统文件管理器中打开该文件所在目录\nShow the tab's file in the OS file manager"
+      }
+    ],
+    "inherits": []
+  },
+  "TabToolbar": {
+    "source": "src/components/tabs/TabToolbar/TabToolbar.tsx",
+    "props": [
+      {
+        "name": "content_type",
+        "type": "string",
+        "required": true,
+        "description": "内容类型\nContent type"
+      },
+      {
+        "name": "isMarkdown",
+        "type": "boolean",
+        "required": true,
+        "description": "是否为 Markdown 文件\nWhether it's a Markdown file"
+      },
+      {
+        "name": "isHTML",
+        "type": "boolean",
+        "required": true,
+        "description": "是否为 HTML 文件\nWhether it's an HTML file"
+      },
+      {
+        "name": "viewMode",
+        "type": "'source' | 'preview'",
+        "required": true,
+        "description": "当前视图模式\nCurrent view mode"
+      },
+      {
+        "name": "isSplitScreenEnabled",
+        "type": "boolean",
+        "required": true,
+        "description": "是否启用分屏模式\nWhether split-screen mode is enabled"
+      },
+      {
+        "name": "file_name",
+        "type": "string",
+        "required": false,
+        "description": "文件名\nFilename"
+      },
+      {
+        "name": "showOpenInSystemButton",
+        "type": "boolean",
+        "required": true,
+        "description": "是否显示\"在系统中打开\"按钮\nWhether to show \"Open in System\" button"
+      },
+      {
+        "name": "hasNoRenderableContent",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "这个 tab 没有内容可操作（超过大小上限，或格式无法渲染）。\n视图切换、分屏、审查元素都是对内容的操作，隐藏；\n但「在系统中打开」与「下载」照常显示 —— 那是用户唯一的出路。\n\nThe tab has no content to act on — either it exceeded the size ceiling or its\nformat cannot be rendered. View-mode switching, split screen and inspect all\noperate on content, so they are hidden; \"open in system\" and \"download\" stay,\nbecause they are the only way the user reaches the file."
+      },
+      {
+        "name": "hasFilePath",
+        "type": "boolean",
+        "required": true,
+        "description": "文件是否在磁盘上（有 file_path）。\n刻意与 showOpenInSystemButton 分开传：后者现在也接受纯 fileRef（逃生出口），\n不再等价于「文件在磁盘上」，继续复用它会让 Explorer 打开的 code/md tab\n悄悄丢掉下载按钮。\n\nWhether the file exists on disk (has a file_path). Passed separately from\nshowOpenInSystemButton on purpose: that flag now also accepts a bare fileRef\n(the escape hatch), so it no longer means \"on disk\". Reusing it here would\nsilently drop the download button from explorer-opened code/markdown tabs."
+      },
+      {
+        "name": "refreshState",
+        "type": "string",
+        "required": false,
+        "description": "刷新按钮状态 token；`'hidden'` 或未提供时不渲染。\nRefresh control state token; not rendered when `'hidden'` or absent."
+      },
+      {
+        "name": "refreshActionable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "刷新按钮是否可点 / Whether the refresh control accepts a click"
+      },
+      {
+        "name": "onRefresh",
+        "type": "() => void",
+        "required": false,
+        "description": "点击刷新 / Reload the current tab"
+      },
+      {
+        "name": "showSave",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "是否显示保存按钮（仅可编辑类型且有可渲染内容时）。\nWhether to show the save button (only editable types with renderable content)."
+      },
+      {
+        "name": "saveActionable",
+        "type": "boolean",
+        "required": false,
+        "default": "false",
+        "description": "保存按钮是否可点（有未保存修改时）/ Whether the save control accepts a click (has unsaved edits)"
+      },
+      {
+        "name": "onSave",
+        "type": "() => void",
+        "required": false,
+        "description": "点击保存 / Save the current tab"
+      },
+      {
+        "name": "onViewModeChange",
+        "type": "(mode: 'source' | 'preview') => void",
+        "required": true,
+        "description": "设置视图模式\nSet view mode"
+      },
+      {
+        "name": "onSplitScreenToggle",
+        "type": "() => void",
+        "required": true,
+        "description": "设置分屏模式\nSet split-screen mode"
+      },
+      {
+        "name": "onOpenInSystem",
+        "type": "() => void",
+        "required": true,
+        "description": "在系统中打开文件\nOpen file in system"
+      },
+      {
+        "name": "onDownload",
+        "type": "() => void",
+        "required": true,
+        "description": "下载文件\nDownload file"
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "description": "关闭预览面板\nClose preview panel"
+      },
+      {
+        "name": "inspectMode",
+        "type": "boolean",
+        "required": false,
+        "description": "HTML 审核元素模式（仅HTML类型使用）\nHTML inspect mode (only for HTML type)"
+      },
+      {
+        "name": "onInspectModeToggle",
+        "type": "() => void",
+        "required": false,
+        "description": "切换HTML审核元素模式（仅HTML类型使用）\nToggle HTML inspect mode (only for HTML type)"
+      },
+      {
+        "name": "leftExtra",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "左侧额外渲染内容\nExtra content rendered on the left section"
+      },
+      {
+        "name": "rightExtra",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "右侧额外渲染内容\nExtra content rendered on the right section"
+      }
+    ],
+    "inherits": []
+  },
+  "ThemedLogo": {
+    "source": "src/icons/ThemedLogo/ThemedLogo.tsx",
+    "props": [
+      {
+        "name": "src",
+        "type": "string | null",
+        "required": false,
+        "description": "Logo URL. Empty values render the `fallback` node."
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "required": true,
+        "description": "Accessible name. Empty string marks the logo as decorative."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "required": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "fallback",
+        "type": "React.ReactNode",
+        "required": false,
+        "default": "null",
+        "description": "Rendered when `src` is empty."
+      }
+    ],
+    "inherits": []
+  },
+  "ThoughtDisplay": {
+    "source": "src/components/display/ThoughtDisplay/ThoughtDisplay.tsx",
+    "props": [
+      {
+        "name": "thought",
+        "type": "ThoughtData",
+        "required": false
+      },
+      {
+        "name": "style",
+        "type": "'default' | 'compact'",
+        "required": false,
+        "default": "'default'"
+      },
+      {
+        "name": "running",
+        "type": "boolean",
+        "required": false,
+        "default": "false"
+      },
+      {
+        "name": "statusText",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "onStop",
+        "type": "() => void",
+        "required": false
+      },
+      {
+        "name": "onRetryStart",
+        "type": "() => void",
+        "required": false
+      },
+      {
+        "name": "startedAtMs",
+        "type": "number | null",
+        "required": false
+      },
+      {
+        "name": "externalElapsedSource",
+        "type": "boolean",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "UiProvider": {
+    "source": "src/provider/UiProvider.tsx",
+    "props": [
+      {
+        "name": "labels",
+        "type": "Partial<UiLabels>",
+        "required": false,
+        "description": "Overrides for any subset of `defaultLabels` (English). Parameterized labels are functions."
+      },
+      {
+        "name": "isMobile",
+        "type": "boolean",
+        "required": false,
+        "description": "Touch/narrow layout: hover-only affordances (row menus, marquee labels) become always visible or static."
+      },
+      {
+        "name": "fontScale",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "description": "Global UI scale factor used by components that size themselves in JS (e.g. AionModal)."
+      },
+      {
+        "name": "theme",
+        "type": "UiTheme",
+        "required": false,
+        "default": "'light'",
+        "description": "Light or dark appearance, for components that switch assets or palettes."
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "required": false,
+        "default": "'en-US'",
+        "description": "BCP 47 locale for number, currency and byte formatting."
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "UploadProgressBar": {
+    "source": "src/components/files/UploadProgressBar/UploadProgressBar.tsx",
+    "props": [
+      {
+        "name": "isUploading",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "activeCount",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "overallPercent",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "uploads",
+        "type": "UploadProgressItem[]",
+        "required": true
+      },
+      {
+        "name": "onAbort",
+        "type": "(id: number) => void",
+        "required": false,
+        "description": "Abort a single upload; the row's cancel button is hidden when omitted."
+      }
+    ],
+    "inherits": []
+  },
+  "WavedromBlock": {
+    "source": "src/markdown/blocks/WavedromBlock.tsx",
+    "props": [
+      {
+        "name": "code",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "style",
+        "type": "React.CSSProperties",
+        "required": false
+      },
+      {
+        "name": "showOpenInPanelButton",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "enablePanZoom",
+        "type": "boolean",
+        "required": false
+      }
+    ],
+    "inherits": []
+  },
+  "WindowControls": {
+    "source": "src/components/layout/WindowControls/WindowControls.tsx",
+    "props": [
+      {
+        "name": "isMaximized",
+        "type": "boolean",
+        "required": true,
+        "description": "Current window state; switches the middle button between Maximize and Restore."
+      },
+      {
+        "name": "onMinimize",
+        "type": "() => void",
+        "required": true
+      },
+      {
+        "name": "onToggleMaximize",
+        "type": "() => void",
+        "required": true,
+        "description": "Maximize when restored, restore when maximized."
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true
+      }
+    ],
+    "inherits": []
+  }
+}

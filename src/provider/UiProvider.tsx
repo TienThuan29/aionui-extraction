@@ -31,10 +31,15 @@ const defaultValue: UiContextValue = {
 const UiContext = createContext<UiContextValue>(defaultValue);
 
 export type UiProviderProps = {
+  /** Overrides for any subset of `defaultLabels` (English). Parameterized labels are functions. */
   labels?: Partial<UiLabels>;
+  /** Touch/narrow layout: hover-only affordances (row menus, marquee labels) become always visible or static. */
   isMobile?: boolean;
+  /** Global UI scale factor used by components that size themselves in JS (e.g. AionModal). @default 1 */
   fontScale?: number;
+  /** Light or dark appearance, for components that switch assets or palettes. @default 'light' */
   theme?: UiTheme;
+  /** BCP 47 locale for number, currency and byte formatting. @default 'en-US' */
   locale?: string;
   children?: React.ReactNode;
 };

@@ -8,6 +8,7 @@ import { IconLeft, IconRight } from '@arco-design/web-react/icon';
 import React, { useRef, useState, useEffect } from 'react';
 
 export type HorizontalScrollerProps = {
+  /** Items laid out in a single row; left/right buttons appear when they overflow. */
   children: React.ReactNode;
 };
 

@@ -32,9 +32,9 @@ import React from 'react';
  * ```
  */
 interface AionScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** 滚动方向：y-垂直，x-水平，both-双向 / Scroll direction: y-vertical, x-horizontal, both-bidirectional */
+  /** Scroll direction: `y` vertical, `x` horizontal, `both` both axes. */
   direction?: 'y' | 'x' | 'both';
-  /** 是否禁用滚动（用于嵌入式页面展示） */
+  /** Disable scrolling entirely (e.g. when the page is embedded in another scroller). */
   disableOverflow?: boolean;
 }
 

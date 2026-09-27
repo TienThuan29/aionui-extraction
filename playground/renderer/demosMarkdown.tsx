@@ -1,5 +1,5 @@
 import type React from 'react';
-import { Diff2Html, Markdown } from '../../src/markdown';
+import { Diff2Html, Markdown } from '@aionui/ui/markdown';
 
 type Demo = { name: string; render: () => React.ReactNode };
 

@@ -1,11 +1,11 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
-import { iconParkPlugin } from './vitePlugins';
+import { iconParkPlugin, selfAlias } from './vitePlugins';
 
 // Same icon-park transform as the library build; UnoCSS output is irrelevant to DOM tests.
 export default defineConfig({
   plugins: [iconParkPlugin()],
-  resolve: { alias: { 'virtual:uno.css': resolve(__dirname, 'tests/empty.css') } },
+  resolve: { alias: [...selfAlias, { find: 'virtual:uno.css', replacement: resolve(__dirname, 'tests/empty.css') }] },
   test: {
     globals: true,
     environment: 'jsdom',

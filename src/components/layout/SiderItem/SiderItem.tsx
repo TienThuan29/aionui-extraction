@@ -11,18 +11,26 @@ import React, { useState } from 'react';
 import { useUi } from '../../../provider';
 
 export type SiderMenuItem = {
+  /** Passed to `onMenuAction` when the item is chosen. */
   key: string;
   icon: React.ReactNode;
   label: string;
+  /** Render the item in the danger color (e.g. Delete). */
   danger?: boolean;
 };
 
 export type SiderItemProps = {
+  /** Leading icon. */
   icon: React.ReactNode;
+  /** Item label; truncated with an ellipsis when too long. */
   name: string;
+  /** Highlight the item as the current one. */
   selected?: boolean;
+  /** Show the pin marker. */
   pinned?: boolean;
+  /** Actions in the "more" dropdown (shown on hover; always on mobile). */
   menuItems?: SiderMenuItem[];
+  /** Called with the chosen menu item's `key`. */
   onMenuAction?: (key: string) => void;
   onClick?: () => void;
   onContextMenu?: (e: React.MouseEvent) => void;

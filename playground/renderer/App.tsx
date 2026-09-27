@@ -103,7 +103,8 @@ export function App() {
               <Radio value='mobile'>Mobile</Radio>
             </Radio.Group>
           </header>
-          <section className='flex-1 overflow-auto p-24px'>
+          {/* Keyed by page: a new page starts scrolled to the top. */}
+          <section key={route.page} className='flex-1 overflow-auto p-24px'>
             {page ? (
               <DocPageView page={page} example={route.example} />
             ) : (

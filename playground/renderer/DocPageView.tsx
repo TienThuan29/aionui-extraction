@@ -124,7 +124,7 @@ const propColumns = [
     title: 'Description',
     dataIndex: 'description',
     render: (description?: string) => (
-      <span className='whitespace-pre-line' style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
+      <span style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
         {description ? <RichText text={description} /> : '—'}
       </span>
     ),

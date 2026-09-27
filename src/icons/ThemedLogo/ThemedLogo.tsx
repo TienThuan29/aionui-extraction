@@ -97,8 +97,11 @@ export type ThemedLogoProps = {
   src?: string | null;
   /** Accessible name. Empty string marks the logo as decorative. */
   alt: string;
+  /** Class name; set the size here or in `style`. */
   className?: string;
+  /** Inline style. */
   style?: React.CSSProperties;
+  /** Tooltip text. */
   title?: string;
   /** Rendered when `src` is empty. */
   fallback?: React.ReactNode;
@@ -155,11 +158,17 @@ const ThemedLogo: React.FC<ThemedLogoProps> = ({ src, alt, className, style, tit
  * Provider/platform logo with the shared cloud fallback. Extracted from the
  * copies previously duplicated in AddPlatformModal and EditModeModal.
  */
-export const ProviderLogo: React.FC<{ logo: string | null; name: string; size?: number }> = ({
-  logo,
-  name,
-  size = 20,
-}) => (
+export const ProviderLogo: React.FC<{
+  /** Logo URL; `null` shows the cloud fallback icon. */
+  logo: string | null;
+  /** Provider name, used as the alt text. */
+  name: string;
+  /**
+   * Width and height in px.
+   * @default 20
+   */
+  size?: number;
+}> = ({ logo, name, size = 20 }) => (
   <ThemedLogo
     src={logo}
     alt={name}

@@ -9,54 +9,54 @@ import type { CSSProperties } from 'react';
 import React, { useMemo, useState } from 'react';
 
 /**
- * 可折叠面板组件属性 / Collapsible panel component props
+ * Collapsible panel component props
  */
 export interface AionCollapseProps {
   children: React.ReactNode;
-  /** 额外的类名 / Additional class name */
+  /** Additional class name */
   className?: string;
-  /** 非受控模式下默认展开的面板 key / Default active keys in uncontrolled mode */
+  /** Default active keys in uncontrolled mode */
   defaultActiveKey?: string | string[];
-  /** 受控模式下当前展开的面板 key / Active keys in controlled mode */
+  /** Active keys in controlled mode */
   activeKey?: string | string[];
-  /** 面板状态变化回调 / Callback when panel state changes */
+  /** Callback when panel state changes */
   onChange?: (keys: string[]) => void;
-  /** 手风琴模式，每次只能展开一个面板 / Accordion mode, only one panel can be expanded at a time */
+  /** Accordion mode, only one panel can be expanded at a time */
   accordion?: boolean;
-  /** 自定义展开图标 / Custom expand icon */
+  /** Custom expand icon */
   expandIcon?: (active: boolean) => React.ReactNode;
-  /** 展开图标位置 / Expand icon position */
+  /** Expand icon position */
   expandIconPosition?: 'left' | 'right';
-  /** 是否显示边框 / Whether to show border */
+  /** Whether to show border */
   bordered?: boolean;
 }
 
 /**
- * 可折叠面板子项属性 / Collapsible panel item props
+ * Collapsible panel item props
  */
 export interface AionCollapseItemProps {
-  /** 唯一标识符 / Unique identifier */
+  /** Unique identifier */
   name: string;
-  /** 面板标题 / Panel header */
+  /** Panel header */
   header: React.ReactNode;
-  /** 是否禁用 / Whether disabled */
+  /** Whether disabled */
   disabled?: boolean;
-  /** 额外的类名 / Additional class name */
+  /** Additional class name */
   className?: string;
-  /** 标题额外的类名 / Additional header class name */
+  /** Additional header class name */
   headerClassName?: string;
-  /** 内容额外的类名 / Additional content class name */
+  /** Additional content class name */
   contentClassName?: string;
-  /** 内容额外的样式 / Additional content style */
+  /** Additional content style */
   contentStyle?: CSSProperties;
-  /** 子内容 / Children content */
+  /** Children content */
   children?: React.ReactNode;
 }
 
 /**
- * 标准化 keys 参数为数组格式 / Normalize keys parameter to array format
- * @param keys - 单个 key 或 key 数组 / Single key or array of keys
- * @returns 标准化后的 key 数组 / Normalized array of keys
+ * Normalize keys parameter to array format
+ * @param keys - Single key or array of keys
+ * @returns Normalized array of keys
  */
 const normalizeKeys = (keys?: string | string[]): string[] => {
   if (!keys) return [];
@@ -64,7 +64,7 @@ const normalizeKeys = (keys?: string | string[]): string[] => {
 };
 
 /**
- * 默认展开/收起图标 / Default expand/collapse icon
+ * Default expand/collapse icon
  */
 const DefaultIcon: React.FC<{ active: boolean }> = ({ active }) => (
   <span className={classNames('text-xs text-t-secondary transition-transform duration-200', active && 'rotate-180')}>
@@ -73,44 +73,15 @@ const DefaultIcon: React.FC<{ active: boolean }> = ({ active }) => (
 );
 
 /**
- * 折叠面板子项组件（仅用于类型检查和结构化）
  * Collapse item component (used for type checking and structure only)
  */
 const AionCollapseItem: React.FC<AionCollapseItemProps> = ({ children }) => <>{children}</>;
 AionCollapseItem.displayName = 'AionCollapseItem';
 
 /**
- * 可折叠面板组件 / Collapsible panel component
- *
- * 支持受控和非受控模式、手风琴模式、自定义图标等
- * Supports controlled/uncontrolled mode, accordion mode, custom icons, etc.
- *
- * @example
- * ```tsx
- * // 基本用法 / Basic usage
- * <AionCollapse defaultActiveKey={['1']}>
- *   <AionCollapse.Item name="1" header="面板1">
- *     内容1
- *   </AionCollapse.Item>
- *   <AionCollapse.Item name="2" header="面板2">
- *     内容2
- *   </AionCollapse.Item>
- * </AionCollapse>
- *
- * // 手风琴模式 / Accordion mode
- * <AionCollapse accordion defaultActiveKey="1">
- *   <AionCollapse.Item name="1" header="面板1">内容1</AionCollapse.Item>
- *   <AionCollapse.Item name="2" header="面板2">内容2</AionCollapse.Item>
- * </AionCollapse>
- *
- * // 自定义图标 / Custom icon
- * <AionCollapse
- *   expandIcon={(active) => <Icon type={active ? 'up' : 'down'} />}
- *   expandIconPosition="right"
- * >
- *   <AionCollapse.Item name="1" header="面板1">内容1</AionCollapse.Item>
- * </AionCollapse>
- * ```
+ * Collapsible panels with the AionUi look. Controlled (`activeKey`) or uncontrolled
+ * (`defaultActiveKey`), with an accordion mode and a custom expand icon. Declare panels
+ * with `AionCollapse.Item`.
  */
 const AionCollapseComponent: React.FC<AionCollapseProps> & { Item: typeof AionCollapseItem } = ({
   children,
@@ -136,9 +107,9 @@ const AionCollapseComponent: React.FC<AionCollapseProps> & { Item: typeof AionCo
   }, [children]);
 
   /**
-   * 处理面板切换 / Handle panel toggle
-   * @param name - 面板唯一标识 / Panel unique identifier
-   * @param disabled - 是否禁用 / Whether disabled
+   * Handle panel toggle
+   * @param name - Panel unique identifier
+   * @param disabled - Whether disabled
    */
   const handleToggle = (name: string, disabled?: boolean) => {
     if (disabled) return;

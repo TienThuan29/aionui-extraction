@@ -1,9 +1,10 @@
+import { resolve } from 'node:path';
 import type { Plugin } from 'vite';
-import { iconParkPlugin } from '../vitePlugins';
+import { iconParkPlugin, uiSrc } from '../vitePlugins';
 
-const transform = (code: string): string | null => {
+const transform = (code: string, id = resolve(uiSrc, 'Demo.tsx')): string | null => {
   const hook = iconParkPlugin().transform as (code: string, id: string) => { code: string } | null;
-  return hook(code, '/project/src/Demo.tsx')?.code ?? null;
+  return hook(code, id)?.code ?? null;
 };
 
 describe('iconParkPlugin', () => {
@@ -29,6 +30,11 @@ describe('iconParkPlugin', () => {
   it('leaves type-only specifiers and other modules alone', () => {
     expect(transform("import { type IconProps } from '@icon-park/react';")).toBeNull();
     expect(transform("import { Close } from '@arco-design/web-react';")).toBeNull();
+  });
+
+  it('only transforms library source', () => {
+    const code = "import { Close } from '@icon-park/react';";
+    expect(transform(code, resolve(uiSrc, '../playground/docs/Icons/examples/IconPark.tsx'))).toBeNull();
   });
 
   it('is a pre-transform plugin', () => {

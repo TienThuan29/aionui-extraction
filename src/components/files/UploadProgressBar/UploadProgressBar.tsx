@@ -8,12 +8,22 @@ import React from 'react';
 import { useUi } from '../../../provider';
 import { CloseSmall } from '@icon-park/react';
 
-export type UploadProgressItem = { id: number; name: string; percent: number };
+export type UploadProgressItem = {
+  id: number;
+  /** File name. */
+  name: string;
+  /** Progress, 0–100. */
+  percent: number;
+};
 
 export type UploadProgressBarProps = {
+  /** Show the bar; `false` renders nothing. */
   isUploading: boolean;
+  /** Number of uploads in progress, shown in the summary. */
   activeCount: number;
+  /** Combined progress, 0–100. */
   overallPercent: number;
+  /** One row per file. */
   uploads: UploadProgressItem[];
   /** Abort a single upload; the row's cancel button is hidden when omitted. */
   onAbort?: (id: number) => void;

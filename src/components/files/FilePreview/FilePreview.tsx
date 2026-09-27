@@ -24,12 +24,18 @@ const getFileExtension = (fileName: string): string => {
 };
 
 export type FilePreviewProps = {
+  /** File path; the name, extension and image/file look come from it. */
   path: string;
   /** File size in bytes; shows a placeholder until known. */
   size?: number;
   /** Image data/URL for image files; a skeleton shows until it is provided. */
   imageSrc?: string;
+  /** Called by the remove (×) button. */
   onRemove: () => void;
+  /**
+   * Hide the remove button.
+   * @default false
+   */
   readonly?: boolean;
   /** Optional tooltip shown on the chip (e.g. "sent as a file path"). */
   hint?: string;

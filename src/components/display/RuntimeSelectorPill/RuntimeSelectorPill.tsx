@@ -12,14 +12,29 @@ type RuntimeSelectorPillProps = Omit<
   React.ComponentPropsWithoutRef<typeof Button>,
   'children' | 'loading' | 'className' | 'disabled' | 'onClick' | 'shape' | 'size' | 'style'
 > & {
+  /** `data-testid` on the button. */
   testId?: string;
+  /** Class name on the button (required: set the width limit here, for example `max-w-220px`). */
   className: string;
+  /** Text; scrolls as a marquee on hover when it does not fit. */
   label?: string;
+  /** Node before the label, for example a logo. */
   leading?: React.ReactNode;
+  /** Node after the label, for example a chevron. Replaced by a spinner while `loading`. */
   trailing?: React.ReactNode;
+  /**
+   * Show a spinner in place of `trailing`.
+   * @default false
+   */
   loading?: boolean;
+  /**
+   * Disable the button.
+   * @default false
+   */
   disabled?: boolean;
+  /** Click handler. */
   onClick?: () => void;
+  /** Inline style on the button. */
   style?: React.CSSProperties;
 };
 

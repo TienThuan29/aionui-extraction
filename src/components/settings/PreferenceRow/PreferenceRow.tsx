@@ -11,8 +11,11 @@ import React from 'react';
  * Displays a label and control in a unified horizontal layout
  */
 const PreferenceRow: React.FC<{
+  /** Setting name on the left. */
   label: string;
+  /** The control on the right (Switch, Select, …). */
   children: React.ReactNode;
+  /** Helper text under the label. */
   description?: string;
 }> = ({ label, children, description }) => (
   <div className='flex items-center justify-between gap-24px py-12px'>

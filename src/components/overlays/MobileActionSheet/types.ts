@@ -10,13 +10,16 @@ export interface MobileActionSheetOption {
   key: string;
   label: ReactNode;
   description?: ReactNode;
+  /** Selected (radio/checkbox checked). */
   active?: boolean;
 }
 
 export interface MobileActionSheetSubMenu {
   title: ReactNode;
   options: MobileActionSheetOption[];
+  /** Called with the tapped option's key. */
   onSelect: (key: string) => void;
+  /** Shown when `options` is empty. */
   emptyText?: ReactNode;
   /** When false, options behave as plain action rows (no radio). Default: true. */
   selectable?: boolean;
@@ -47,8 +50,12 @@ export interface MobileActionSheetEntry {
 }
 
 export interface MobileActionSheetProps {
+  /** Whether the sheet is shown (controlled). */
   open: boolean;
+  /** Called on backdrop tap, after an entry's `onClick`, and after a single-select choice. */
   onClose: () => void;
+  /** Title at the top of the sheet. */
   title?: ReactNode;
+  /** Rows; an entry with `submenu` opens a second level, one with `onClick` runs and closes. */
   entries: MobileActionSheetEntry[];
 }

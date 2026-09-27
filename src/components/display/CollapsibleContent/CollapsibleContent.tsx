@@ -25,53 +25,46 @@ const BG_GRADIENT_LIGHT =
 interface CollapsibleContentProps {
   children: React.ReactNode;
   /**
-   * 最大高度（像素），超过此高度时显示展开/折叠按钮
    * Maximum height in pixels, show expand/collapse button when content exceeds this height
    * @default 240
    */
   maxHeight?: number;
   /**
-   * 初始是否折叠
    * Whether initially collapsed
    * @default true
    */
   defaultCollapsed?: boolean;
   /**
-   * 自定义样式类名
    * Custom className
    */
   className?: string;
   /**
-   * 内容区域样式类名
    * Content area className
    */
   contentClassName?: string;
   /**
-   * 是否使用 mask 模式（适用于有背景色的场景，如 Alert）
    * Whether to use mask mode (suitable for scenarios with background color, like Alert)
    * @default false
    */
   useMask?: boolean;
   /**
-   * 是否允许横向滚动，避免宽内容被裁剪
    * Allow horizontal scrolling to prevent clipping wide content
    */
   allowHorizontalScroll?: boolean;
 }
 
 /**
- * 长内容展示组件，支持折叠/展开功能
  * Collapsible content component with expand/collapse functionality
  *
- * 特性 Features:
- * - 自动检测内容高度并显示折叠按钮 Auto-detect content height and show collapse button
- * - 渐变遮罩效果，让内容自然淡出 Gradient mask for natural content fade-out
- * - 支持亮色/暗色主题 Support light/dark theme
+ * Features:
+ * - Auto-detect content height and show collapse button
+ * - Gradient mask for natural content fade-out
+ * - Support light/dark theme
  *
  * @example
  * ```tsx
  * <CollapsibleContent maxHeight={200}>
- *   <div>很长的内容...</div>
+ *   <div>Long content…</div>
  * </CollapsibleContent>
  * ```
  */

@@ -11,42 +11,43 @@ import { Down, PreviewOpen } from '@icon-park/react';
 import { diffColors, iconColors } from '../../../tokens/colors';
 
 /**
- * 文件变更项数据 / File change item data
+ * File change item data
  */
 export interface FileChangeItem {
-  /** 文件名 / File name */
+  /** File name */
   file_name: string;
-  /** 完整路径 / Full path */
+  /** Full path */
   fullPath: string;
-  /** 新增行数 / Number of insertions */
+  /** Number of insertions */
   insertions: number;
-  /** 删除行数 / Number of deletions */
+  /** Number of deletions */
   deletions: number;
 }
 
 /**
- * 文件变更面板属性 / File changes panel props
+ * File changes panel props
  */
 export interface FileChangesPanelProps {
-  /** 面板标题 / Panel title */
+  /** Panel title */
   title: string;
-  /** 文件变更列表 / File changes list */
+  /** File changes list */
   files: FileChangeItem[];
-  /** 默认是否展开 / Default expanded state */
+  /**
+   * Start expanded.
+   * @default true
+   */
   defaultExpanded?: boolean;
-  /** 点击预览按钮的回调 / Callback when preview button is clicked */
+  /** Called when a file's Preview button is clicked. */
   onFileClick?: (file: FileChangeItem) => void;
-  /** 点击变更统计的回调（+8/-3 数字触发，打开 diff 对比）/ Callback when change stats are clicked (opens diff view) */
+  /** Callback when change stats are clicked (opens diff view) */
   onDiffClick?: (file: FileChangeItem) => void;
-  /** 额外的类名 / Additional class name */
+  /** Additional class name */
   className?: string;
 }
 
 /**
- * 文件变更面板组件
  * File changes panel component
  *
- * 用于显示会话中生成/修改的文件列表，支持展开收起
  * Used to display generated/modified files in conversation, supports expand/collapse
  */
 const FileChangesPanel: React.FC<FileChangesPanelProps> = ({

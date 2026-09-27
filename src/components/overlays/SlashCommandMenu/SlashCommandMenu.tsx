@@ -9,22 +9,42 @@ import classNames from 'classnames';
 import React from 'react';
 
 export interface SlashCommandMenuItem {
+  /** Unique key. */
   key: string;
+  /** Command text, for example `/help`. */
   label: string;
+  /** Short description after the label. */
   description?: string;
+  /** Small pill on the right, for example `builtin`. */
   badge?: string;
+  /** Character indices of `label` to highlight (fuzzy-match hits). */
   highlightIndices?: number[];
 }
 
 interface SlashCommandMenuProps {
+  /** Header title; also the listbox's accessible name. */
   title: string;
+  /** Secondary header text, for example a keyboard hint. */
   hint?: string;
+  /** Commands to list. */
   items: SlashCommandMenuItem[];
+  /** Index of the highlighted command (controlled; drive it from ↑/↓). */
   activeIndex: number;
+  /**
+   * Show `loadingText` instead of the items.
+   * @default false
+   */
   loading?: boolean;
+  /**
+   * Text shown while loading.
+   * @default 'Loading...'
+   */
   loadingText?: string;
+  /** Called with the index under the pointer. */
   onHoverItem: (index: number) => void;
+  /** Called when a command is clicked. */
   onSelectItem: (item: SlashCommandMenuItem) => void;
+  /** Text shown when `items` is empty. */
   emptyText: string;
 }
 

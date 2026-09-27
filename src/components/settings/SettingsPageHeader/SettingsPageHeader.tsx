@@ -27,15 +27,22 @@ export type SettingsPageTab = {
 };
 
 type SettingsPageHeaderProps = {
+  /** Page title. */
   title: React.ReactNode;
   /** Secondary description under the title; may contain inline links. */
   description?: React.ReactNode;
   /** Right-aligned action slot (search, create button, dropdowns, …). */
   actions?: React.ReactNode;
+  /** Underline tabs under the title; omitted or empty renders none. */
   tabs?: SettingsPageTab[];
+  /** Key of the selected tab (controlled). */
   activeTab?: string;
+  /** Called with the clicked tab's key. */
   onTabChange?: (key: string) => void;
-  /** Disable sticky behavior when the caller renders a fixed header outside its scroll body. */
+  /**
+   * Stick to the top of the scroll container. Disable it when the caller renders a fixed header outside its scroll body.
+   * @default true
+   */
   sticky?: boolean;
   /** Extra testid for the whole header block. */
   'data-testid'?: string;

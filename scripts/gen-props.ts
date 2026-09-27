@@ -98,6 +98,58 @@ export function generateProps(): Record<string, ComponentDoc> {
   const checker = program.getTypeChecker();
   const result: Record<string, ComponentDoc> = {};
 
+  /** Props table of one component symbol, or undefined when it does not take an object of props. */
+  const documentComponent = (
+    symbol: ts.Symbol,
+    decl: ts.Declaration,
+    defaults: Map<string, string>
+  ): ComponentDoc | undefined => {
+    const signature = checker.getTypeOfSymbolAtLocation(symbol, decl).getCallSignatures()[0];
+    const propsParam = signature?.getParameters()[0];
+    if (!propsParam) return undefined;
+    const propsType = checker.getTypeOfSymbolAtLocation(propsParam, decl);
+    // Components take an object of props; plain functions (hooks, utils) are not documented here.
+    if (!(propsType.flags & ts.TypeFlags.Object) && !propsType.isIntersection() && !propsType.isUnion())
+      return undefined;
+
+    const props: PropDoc[] = [];
+    const inherits = new Set<string>();
+
+    for (const prop of checker.getPropertiesOfType(propsType)) {
+      const propDecl = prop.valueDeclaration ?? prop.declarations?.[0];
+      if (!propDecl) continue;
+      if (!isOwnDeclaration(propDecl)) {
+        const owner = ownerName(propDecl);
+        // React's DOM typings split native attributes over many interfaces; one entry reads better.
+        if (owner && !IGNORED_OWNERS.has(owner)) inherits.add(DOM_OWNER.test(owner) ? 'HTML attributes' : owner);
+        continue;
+      }
+      const typeNode = (propDecl as ts.PropertySignature).type;
+      const type = typeNode
+        ? typeNode.getText()
+        : checker.typeToString(checker.getTypeOfSymbolAtLocation(prop, propDecl));
+      const jsdocDefault = prop.getJsDocTags(checker).find((tag) => tag.name === 'default');
+      const description = ts.displayPartsToString(prop.getDocumentationComment(checker)).trim();
+      props.push({
+        name: prop.name,
+        type: shorten(type),
+        required: !(prop.flags & ts.SymbolFlags.Optional),
+        ...(jsdocDefault?.text
+          ? { default: ts.displayPartsToString(jsdocDefault.text).trim() }
+          : defaults.has(prop.name)
+            ? { default: defaults.get(prop.name) }
+            : {}),
+        ...(description ? { description } : {}),
+      });
+    }
+
+    return {
+      source: relative(root, decl.getSourceFile().fileName).replace(/\\/g, '/'),
+      props,
+      inherits: [...inherits].sort(),
+    };
+  };
+
   for (const entry of entries) {
     const moduleSymbol = checker.getSymbolAtLocation(program.getSourceFile(entry)!)!;
     for (const exported of checker.getExportsOfModule(moduleSymbol)) {
@@ -106,50 +158,17 @@ export function generateProps(): Record<string, ComponentDoc> {
       const decl = symbol.valueDeclaration ?? symbol.declarations?.[0];
       if (!decl || !(symbol.flags & (ts.SymbolFlags.Value | ts.SymbolFlags.Function))) continue;
 
-      const signature = checker.getTypeOfSymbolAtLocation(symbol, decl).getCallSignatures()[0];
-      const propsParam = signature?.getParameters()[0];
-      if (!propsParam) continue;
-      const propsType = checker.getTypeOfSymbolAtLocation(propsParam, decl);
-      // Components take an object of props; plain functions (hooks, utils) are not documented here.
-      if (!(propsType.flags & ts.TypeFlags.Object) && !propsType.isIntersection() && !propsType.isUnion()) continue;
+      const doc = documentComponent(symbol, decl, destructuringDefaults(findImplementation(decl)));
+      if (!doc) continue;
+      result[exported.name] = doc;
 
-      const defaults = destructuringDefaults(findImplementation(decl));
-      const props: PropDoc[] = [];
-      const inherits = new Set<string>();
-
-      for (const prop of checker.getPropertiesOfType(propsType)) {
-        const propDecl = prop.valueDeclaration ?? prop.declarations?.[0];
-        if (!propDecl) continue;
-        if (!isOwnDeclaration(propDecl)) {
-          const owner = ownerName(propDecl);
-          // React's DOM typings split native attributes over many interfaces; one entry reads better.
-          if (owner && !IGNORED_OWNERS.has(owner)) inherits.add(DOM_OWNER.test(owner) ? 'HTML attributes' : owner);
-          continue;
-        }
-        const typeNode = (propDecl as ts.PropertySignature).type;
-        const type = typeNode
-          ? typeNode.getText()
-          : checker.typeToString(checker.getTypeOfSymbolAtLocation(prop, propDecl));
-        const jsdocDefault = prop.getJsDocTags(checker).find((tag) => tag.name === 'default');
-        const description = ts.displayPartsToString(prop.getDocumentationComment(checker)).trim();
-        props.push({
-          name: prop.name,
-          type: shorten(type),
-          required: !(prop.flags & ts.SymbolFlags.Optional),
-          ...(jsdocDefault?.text
-            ? { default: ts.displayPartsToString(jsdocDefault.text).trim() }
-            : defaults.has(prop.name)
-              ? { default: defaults.get(prop.name) }
-              : {}),
-          ...(description ? { description } : {}),
-        });
+      // Static sub-components declared here, e.g. `AionCollapse.Item`. Defaults come from JSDoc only.
+      for (const member of checker.getPropertiesOfType(checker.getTypeOfSymbolAtLocation(symbol, decl))) {
+        const memberDecl = member.valueDeclaration ?? member.declarations?.[0];
+        if (!/^[A-Z][a-z]/.test(member.name) || !memberDecl || !isOwnDeclaration(memberDecl)) continue;
+        const memberDoc = documentComponent(member, memberDecl, new Map());
+        if (memberDoc) result[`${exported.name}.${member.name}`] = memberDoc;
       }
-
-      result[exported.name] = {
-        source: relative(root, decl.getSourceFile().fileName).replace(/\\/g, '/'),
-        props,
-        inherits: [...inherits].sort(),
-      };
     }
   }
 

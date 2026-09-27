@@ -9,21 +9,34 @@ import React, { useMemo, useEffect, useState, useRef } from 'react';
 import { useUi } from '../../../provider';
 
 export interface ThoughtData {
+  /** Short title, shown as a tag. */
   subject: string;
+  /** Longer text after the tag (hidden when equal to `subject`). */
   description: string;
 }
 
 type ThoughtDisplayProps = {
+  /** The current thought. Without it, only the status row (spinner, `statusText`, elapsed time) shows. */
   thought?: ThoughtData;
+  /**
+   * `compact` caps the height at 100px and scrolls.
+   * @default 'default'
+   */
   style?: 'default' | 'compact';
+  /**
+   * Show the spinner and the elapsed-time counter.
+   * @default false
+   */
   running?: boolean;
+  /** Status text for the row without a thought; defaults to UiProvider `labels.processing`. */
   statusText?: string;
+  /** Unused; kept for API compatibility. */
   onStop?: () => void;
-  // Directed per-member attach retry, shown next to a runtime-failed status text.
+  /** Shows a retry button next to the status text (for a failed start). */
   onRetryStart?: () => void;
-  // Absolute start timestamp (ms) supplied by an external source (e.g. team slot work).
+  /** Absolute start time (ms) used when `externalElapsedSource` is set. */
   startedAtMs?: number | null;
-  // Explicit flag declaring elapsed time is driven by an external timestamp (team chain).
+  /** Count elapsed time from `startedAtMs` instead of from mount; the counter hides while `startedAtMs` is invalid. */
   externalElapsedSource?: boolean;
 };
 

@@ -11,11 +11,12 @@ import React from 'react';
 import { useUi } from '../../../provider';
 
 /**
- * Directory selection input component
- * Used for selecting and displaying system directory paths
+ * An Arco Form.Item that shows a directory path and opens the host's directory picker.
  */
 export type DirInputItemProps = {
+  /** Form item label. */
   label: string;
+  /** Form field name that holds the path. */
   field: string;
   /** Opens the host's directory picker; resolves to the chosen path, or undefined when cancelled. */
   onBrowse: (currentPath: string) => Promise<string | undefined>;

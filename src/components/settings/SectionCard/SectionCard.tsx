@@ -1,12 +1,19 @@
 import React from 'react';
 
 type SectionCardProps = {
+  /** Card title. */
   title: string;
+  /** Colored pill after the title: `now` (green) or `next` (amber), for example "Applies now". */
   legend?: { label: string; tone: 'now' | 'next' };
+  /** Show `readOnlyLabel` as a gray pill at the right of the header. */
   readOnly?: boolean;
+  /** Text of the read-only pill. */
   readOnlyLabel?: string;
+  /** Node at the right of the header, for example a button. */
   extra?: React.ReactNode;
+  /** `data-testid` on the section. */
   testId?: string;
+  /** Card body, usually ConfigRows. */
   children: React.ReactNode;
 };
 
@@ -49,11 +56,17 @@ export const SectionCard: React.FC<SectionCardProps> = ({
   );
 };
 
-export const FieldLabel: React.FC<{ children: React.ReactNode; required?: boolean; icon?: React.ReactNode }> = ({
-  children,
-  required = false,
-  icon,
-}) => {
+export const FieldLabel: React.FC<{
+  /** Label text. */
+  children: React.ReactNode;
+  /**
+   * Prefix a red asterisk.
+   * @default false
+   */
+  required?: boolean;
+  /** Icon before the text. */
+  icon?: React.ReactNode;
+}> = ({ children, required = false, icon }) => {
   return (
     <div className='w-86px flex-shrink-0 pt-6px text-13px leading-20px text-t-secondary'>
       <span className='flex items-center gap-6px leading-none'>
@@ -66,8 +79,11 @@ export const FieldLabel: React.FC<{ children: React.ReactNode; required?: boolea
 };
 
 type ConfigRowProps = {
+  /** Label in the fixed-width left column (rendered in a FieldLabel). */
   label: React.ReactNode;
+  /** The field. */
   children: React.ReactNode;
+  /** Small helper text under the field. */
   hint?: React.ReactNode;
   /** Optional leading icon shown before the label text. */
   icon?: React.ReactNode;
@@ -85,7 +101,10 @@ export const ConfigRow: React.FC<ConfigRowProps> = ({ label, children, hint, ico
   );
 };
 
-export const ReadonlySelectionField: React.FC<{ value: string }> = ({ value }) => {
+export const ReadonlySelectionField: React.FC<{
+  /** Text to show. */
+  value: string;
+}> = ({ value }) => {
   return (
     <div className='min-h-32px rounded-8px border border-border-2 bg-fill-1 px-12px py-8px text-13px leading-20px text-t-secondary'>
       {value}

@@ -12,6 +12,7 @@ import type { TokenUsageCost, TokenUsageData } from '../../../types';
 import { formatCurrency, formatNumber } from '../../../utils/format';
 
 interface ContextUsageIndicatorProps {
+  /** Latest usage; `null` renders nothing. The popover lists the breakdown and cost when present. */
   tokenUsage: TokenUsageData | null;
   /**
    * Agent-reported context window size. Without it (<= 0) the ring stays a
@@ -19,7 +20,12 @@ interface ContextUsageIndicatorProps {
    * percentage — never a percentage against a guessed denominator.
    */
   context_limit: number;
+  /** Extra class name on the ring. */
   className?: string;
+  /**
+   * Ring diameter in px.
+   * @default 20
+   */
   size?: number;
 }
 

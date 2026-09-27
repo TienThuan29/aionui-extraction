@@ -12,13 +12,6 @@ import { useUi } from '../../../provider';
 import type { TabFadeState } from '../useTabOverflow/useTabOverflow';
 
 /**
- * 单个 tab 的最大宽度。
- *
- * 网页标题可以任意长（"某某官网 - 首页 - 欢迎光临……"），不设上限时一个 tab 就能
- * 撑满整条 tab 栏，用户完全看不出还有别的 tab。180px 够放下十几个中文字或一个可
- * 辨识的域名，同时保证预览框在最小宽度（260px）下仍能露出第二个 tab 的边缘，给出
- * "还有更多"的视觉线索。
- *
  * Maximum width of a single tab. Page titles can be arbitrarily long, and without a
  * cap one tab fills the whole strip so the user cannot tell other tabs exist. 180px
  * fits a recognizable domain or a dozen CJK characters while still leaving the edge
@@ -28,7 +21,6 @@ import type { TabFadeState } from '../useTabOverflow/useTabOverflow';
 const MAX_TAB_WIDTH_PX = 180;
 
 /**
- * Tab 信息
  * Tab information
  */
 export type TabBarItem = {
@@ -38,34 +30,26 @@ export type TabBarItem = {
   id: string;
 
   /**
-   * Tab 标题
    * Tab title
    */
   title: string;
 
   /**
-   * 是否有未保存的修改
    * Whether there are unsaved changes
    */
   isDirty?: boolean;
 
   /**
-   * 站点图标 URL，仅浏览器 tab 有
    * Site icon URL, browser tabs only
    */
   favicon?: string;
 
   /**
-   * Agent 正在操作该浏览器 tab
    * Agent is currently driving this browser tab
    */
   agentActive?: boolean;
 
   /**
-   * 这个 tab 的绝对路径（浏览器 tab 为其 URL）是否可复制。刻意只给布尔值：
-   * 项目文件的绝对路径由后端解析并直接写剪贴板，渲染进程拿不到那个字符串，
-   * 菜单也就不该假装自己持有它。
-   *
    * Whether this tab's absolute path (the URL, for browser tabs) can be copied.
    * Deliberately a boolean: a project file's absolute path is resolved and written
    * to the clipboard by the backend, so the renderer never holds the string and the
@@ -74,15 +58,11 @@ export type TabBarItem = {
   canCopyPath?: boolean;
 
   /**
-   * 是否有可复制的 workspace 相对路径。文件不在 workspace 内时没有。
    * Whether a workspace-relative path is available; absent for files outside it.
    */
   canCopyRelativePath?: boolean;
 
   /**
-   * 能否在系统文件管理器中定位该文件。浏览器 tab（URL 没有所在目录）和远程
-   * WebUI（文件管理器会开在后端主机上）下不可用。
-   *
    * Whether the file can be located in the OS file manager. Unavailable for
    * browser tabs (a URL has no containing folder) and on a remote WebUI (the file
    * manager would open on the backend host).
@@ -91,68 +71,56 @@ export type TabBarItem = {
 };
 
 /**
- * PreviewTabs 组件属性
  * PreviewTabs component props
  */
 export type TabBarProps = {
   /**
-   * Tabs 列表
    * Tabs list
    */
   tabs: TabBarItem[];
 
   /**
-   * 当前活动的 Tab ID
    * Current active tab ID
    */
   activeTabId: string | null;
 
   /**
-   * Tab 渐变状态（左右溢出指示器）
    * Tab fade state (left/right overflow indicators)
    */
   tabFadeState: TabFadeState;
 
   /**
-   * Tabs 容器引用
    * Tabs container ref
    */
-  tabsContainerRef: React.RefObject<HTMLDivElement>;
+  tabsContainerRef: React.RefObject<HTMLDivElement | null>;
 
   /**
-   * 切换 Tab 回调
    * Switch tab callback
    */
   onSwitchTab: (tabId: string) => void;
 
   /**
-   * 关闭 Tab 回调
    * Close tab callback
    */
   onCloseTab: (tabId: string) => void;
 
   /**
-   * Tab 右键菜单回调
    * Tab context menu callback
    */
   onContextMenu: (e: React.MouseEvent, tabId: string) => void;
 
   /**
-   * 关闭预览面板回调
    * Close preview panel callback
    */
   onClosePanel?: () => void;
 
   /**
-   * 面板是否已最大化（聊天区隐藏、预览铺满）。决定最大化按钮显示的图标与提示。
    * Whether the panel is maximized (chat hidden, preview filling the area).
    * Drives the maximize button's icon and tooltip.
    */
   isMaximized?: boolean;
 
   /**
-   * 切换最大化回调；仅桌面端提供（移动端预览本就覆盖全屏，最大化无意义）。
-   * 未提供时不渲染最大化按钮。
    * Toggle-maximize callback, supplied on desktop only (on mobile the preview is
    * already a full overlay, so maximizing is meaningless). The maximize button is
    * not rendered when this is absent.
@@ -160,7 +128,6 @@ export type TabBarProps = {
   onToggleMaximize?: () => void;
 
   /**
-   * 新建浏览器 tab 回调；仅在已有浏览器 tab 时提供，避免在纯文档场景出现无意义的加号
    * New browser tab callback. Only supplied when a browser tab already exists, so
    * the plus button never appears in a document-only panel.
    */
@@ -168,13 +135,10 @@ export type TabBarProps = {
 };
 
 /**
- * 预览面板 Tabs 栏组件
  * Preview panel tabs bar component
  *
- * 显示多个 Tab，支持切换、关闭和右键菜单
  * Displays multiple tabs, supports switching, closing, and context menu
  *
- * 包含左右渐变指示器，提示用户可以滚动查看更多 Tab
  * Includes left/right gradient indicators to prompt users that more tabs can be scrolled
  */
 const TabBar: React.FC<TabBarProps> = ({

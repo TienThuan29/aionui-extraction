@@ -133,7 +133,12 @@ const propColumns = [
     title: 'Type',
     dataIndex: 'type',
     width: 280,
-    render: (type: string) => <code className='text-12px font-mono text-t-secondary break-all'>{type}</code>,
+    render: (type: string) => (
+      // Wrap at spaces first (the Arco cell sets break-all); split only a token wider than the column.
+      <code className='text-12px font-mono text-t-secondary' style={{ wordBreak: 'normal', overflowWrap: 'anywhere' }}>
+        {type}
+      </code>
+    ),
   },
   {
     title: 'Default',

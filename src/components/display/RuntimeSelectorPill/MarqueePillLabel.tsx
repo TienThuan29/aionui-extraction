@@ -26,6 +26,7 @@ const MARQUEE_SPEED = 30;
  * inline-block container always has scrollWidth === clientWidth.
  */
 const MarqueePillLabel: React.FC<{
+  /** The label text. */
   children: string;
 }> = ({ children }) => {
   const containerRef = useRef<HTMLSpanElement>(null);

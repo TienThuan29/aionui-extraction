@@ -436,10 +436,18 @@ const MAX_RECENT_EMOJIS = 24;
 type PopoverPosition = 'top' | 'bottom' | 'left' | 'right' | 'tl' | 'tr' | 'bl' | 'br' | 'lt' | 'lb' | 'rt' | 'rb';
 
 interface EmojiPickerProps {
+  /** The selected emoji (or avatar src), highlighted in the grid. */
   value?: string;
+  /** Called with the chosen emoji, or the avatar `src` from the built-in tab. The popover then closes. */
   onChange?: (emoji: string) => void;
+  /** Trigger element; clicking it opens the picker. */
   children?: React.ReactNode;
+  /**
+   * Arco Popover position.
+   * @default 'bl'
+   */
   placement?: PopoverPosition;
+  /** Extra image avatars, shown in a second tab when not empty. */
   builtinAvatars?: Array<{
     id: string;
     label: string;

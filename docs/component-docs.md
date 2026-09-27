@@ -89,7 +89,10 @@ The existing smoke and dist tests are unchanged. Visual checks use playground sc
 ### Steps (one commit each; gates: typecheck, lint, format, test, playground build)
 
 1. Framework, props generator and props test, Overview, and the 9 Layout pages. **Pause for review with screenshots.** This step also fixed the icon-park transform for `import { A as B }` (the AionUi original emitted invalid code), with a test.
-2. Inputs, Overlays, Display, Settings, Files, Tabs and Icons.
+2. Inputs, Overlays, Display, Settings, Files, Tabs and Icons (28 pages). Along the way:
+   - the props generator also documents static sub-components declared in `src/` (`AionCollapse.Item`, `AionSteps.Step`, `AionSelect.Option`);
+   - the icon-park transform now runs on `src/` only, so examples render exactly as in a consumer app;
+   - `TabBar`'s `tabsContainerRef` accepts `RefObject<HTMLDivElement | null>`, so the ref from `useTabOverflow` fits without a cast (a widening, backward-compatible type fix).
 3. Markdown, and Hooks & utils.
 4. JSDoc fill, props regeneration, the coverage test, removal of the old demos, and a full screenshot pass.
 

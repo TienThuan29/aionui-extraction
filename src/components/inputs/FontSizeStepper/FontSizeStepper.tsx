@@ -9,12 +9,19 @@ import { useUi } from '../../../provider';
 import { Button } from '@arco-design/web-react';
 
 type FontSizeStepperProps = {
+  /** Current size in px (controlled). */
   value: number;
+  /** Smallest allowed value; the minus button disables there. */
   min: number;
+  /** Largest allowed value; the plus button disables there. */
   max: number;
+  /** Amount each button adds or removes. */
   step: number;
+  /** Value the reset button restores. */
   defaultValue: number;
+  /** Text of the reset button. */
   resetLabel: string;
+  /** Called with the new value, already clamped to `min`–`max`. */
   onChange: (next: number) => void;
 };
 

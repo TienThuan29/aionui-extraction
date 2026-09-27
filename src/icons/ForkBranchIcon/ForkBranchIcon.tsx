@@ -13,11 +13,20 @@ import React from 'react';
  * shape; props mirror the icon-park subset our buttons already pass
  * (`size` / `fill` / `className`).
  */
-const ForkBranchIcon: React.FC<{ size?: number | string; fill?: string; className?: string }> = ({
-  size = 16,
-  fill = 'currentColor',
-  className,
-}) => (
+const ForkBranchIcon: React.FC<{
+  /**
+   * Width and height (number = px).
+   * @default 16
+   */
+  size?: number | string;
+  /**
+   * Stroke color.
+   * @default 'currentColor'
+   */
+  fill?: string;
+  /** Class name on the svg. */
+  className?: string;
+}> = ({ size = 16, fill = 'currentColor', className }) => (
   <svg
     width={size}
     height={size}

@@ -11,51 +11,105 @@
         "name": "className",
         "type": "string",
         "required": false,
-        "description": "额外的类名 / Additional class name"
+        "description": "Additional class name"
       },
       {
         "name": "defaultActiveKey",
         "type": "string | string[]",
         "required": false,
-        "description": "非受控模式下默认展开的面板 key / Default active keys in uncontrolled mode"
+        "description": "Default active keys in uncontrolled mode"
       },
       {
         "name": "activeKey",
         "type": "string | string[]",
         "required": false,
-        "description": "受控模式下当前展开的面板 key / Active keys in controlled mode"
+        "description": "Active keys in controlled mode"
       },
       {
         "name": "onChange",
         "type": "(keys: string[]) => void",
         "required": false,
-        "description": "面板状态变化回调 / Callback when panel state changes"
+        "description": "Callback when panel state changes"
       },
       {
         "name": "accordion",
         "type": "boolean",
         "required": false,
-        "description": "手风琴模式，每次只能展开一个面板 / Accordion mode, only one panel can be expanded at a time"
+        "description": "Accordion mode, only one panel can be expanded at a time"
       },
       {
         "name": "expandIcon",
         "type": "(active: boolean) => React.ReactNode",
         "required": false,
-        "description": "自定义展开图标 / Custom expand icon"
+        "description": "Custom expand icon"
       },
       {
         "name": "expandIconPosition",
         "type": "'left' | 'right'",
         "required": false,
         "default": "'left'",
-        "description": "展开图标位置 / Expand icon position"
+        "description": "Expand icon position"
       },
       {
         "name": "bordered",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "是否显示边框 / Whether to show border"
+        "description": "Whether to show border"
+      }
+    ],
+    "inherits": []
+  },
+  "AionCollapse.Item": {
+    "source": "src/components/display/AionCollapse/AionCollapse.tsx",
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier"
+      },
+      {
+        "name": "header",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Panel header"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether disabled"
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "Additional class name"
+      },
+      {
+        "name": "headerClassName",
+        "type": "string",
+        "required": false,
+        "description": "Additional header class name"
+      },
+      {
+        "name": "contentClassName",
+        "type": "string",
+        "required": false,
+        "description": "Additional content class name"
+      },
+      {
+        "name": "contentStyle",
+        "type": "CSSProperties",
+        "required": false,
+        "description": "Additional content style"
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "Children content"
       }
     ],
     "inherits": []
@@ -67,56 +121,61 @@
         "name": "value",
         "type": "string",
         "required": true,
-        "description": "当前输入值（受控）"
+        "description": "Current value (controlled)."
       },
       {
         "name": "onChange",
         "type": "(value: string) => void",
         "required": true,
-        "description": "值变化回调，返回最新字符串"
+        "description": "Called with the new string on every change."
       },
       {
         "name": "placeholder",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Placeholder text."
       },
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Extra class name on the wrapper."
       },
       {
         "name": "style",
         "type": "CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Inline style on the wrapper."
       },
       {
         "name": "autoFocus",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Focus the input on mount."
       },
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Disable the input."
       },
       {
         "name": "data-testid",
         "type": "string",
         "required": false,
-        "description": "落在原生 input 上（测试用 fill 需要它指向真实输入框）"
+        "description": "Test id on the native input."
       },
       {
         "name": "wrapTestId",
         "type": "string",
         "required": false,
-        "description": "落在外层容器上，用于定位整块搜索栏"
+        "description": "Test id on the wrapper."
       },
       {
         "name": "inputProps",
         "type": "Omit< InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'placeholder' | 'disabled' | 'autoFocus' | 'className' >",
         "required": false,
-        "description": "透传给原生 input 的额外属性（如 onKeyDown、aria-label 等）"
+        "description": "Extra attributes for the native input (for example `onKeyDown`, `aria-label`)."
       }
     ],
     "inherits": []
@@ -127,37 +186,38 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Modal body."
       },
       {
         "name": "variant",
         "type": "'standard'",
         "required": false,
-        "description": "布局变体。'standard' 启用统一的任务型三段式布局：\n标题区(自带标准内边距 + 下分隔线) / 内容区(标准内边距、超出滚动) / 按钮区(上分隔线 + 标准内边距)。\n不传时保持既有行为（便于逐个弹窗平滑迁移）。"
+        "description": "`'standard'` enables the task-dialog layout: a padded header with a divider, a padded\nscrolling body, and a footer with a divider. Omit it for the plain layout."
       },
       {
         "name": "size",
         "type": "ModalSize",
         "required": false,
-        "description": "预设尺寸，会被 style 中的 width/height 覆盖"
+        "description": "Preset size; `style.width`/`style.height` override it."
       },
       {
         "name": "header",
         "type": "React.ReactNode | ModalHeaderConfig",
         "required": false,
-        "description": "Header 配置，可以是简单的 title 字符串或完整配置对象"
+        "description": "A title (string or node, with a close button) or a full header configuration."
       },
       {
         "name": "footer",
         "type": "React.ReactNode | ModalFooterConfig | null",
         "required": false,
-        "description": "Footer 配置，可以是 ReactNode 或配置对象"
+        "description": "Footer node or configuration. Omitted: Cancel and OK buttons wired to `onCancel`/`onOk`.\n`null`: no footer."
       },
       {
         "name": "contentStyle",
         "type": "ModalContentStyleConfig",
         "required": false,
-        "description": "Modal 内容区域样式配置"
+        "description": "Style of the content area."
       },
       {
         "name": "title",
@@ -200,68 +260,74 @@
         "name": "value",
         "type": "string",
         "required": true,
-        "description": "当前输入值（受控）"
+        "description": "Current value (controlled)."
       },
       {
         "name": "onChange",
         "type": "(value: string) => void",
         "required": true,
-        "description": "值变化回调，返回最新字符串"
+        "description": "Called with the new string on every change."
       },
       {
         "name": "placeholder",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Placeholder text."
       },
       {
         "name": "allowClear",
         "type": "boolean",
         "required": false,
-        "description": "是否显示清除按钮（有内容时），默认 true"
+        "default": "true",
+        "description": "Show the clear button while there is a value."
       },
       {
         "name": "onClear",
         "type": "() => void",
         "required": false,
-        "description": "自定义清除逻辑，默认清空为 ''"
+        "description": "Custom clear handler; by default clearing calls `onChange('')`."
       },
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Extra class name on the wrapper."
       },
       {
         "name": "style",
         "type": "CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Inline style on the wrapper."
       },
       {
         "name": "autoFocus",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Focus the input on mount."
       },
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Disable the input."
       },
       {
         "name": "data-testid",
         "type": "string",
         "required": false,
-        "description": "落在原生 input 上（测试用 fill 需要它指向真实输入框）"
+        "description": "Test id on the native input."
       },
       {
         "name": "wrapTestId",
         "type": "string",
         "required": false,
-        "description": "落在外层容器上，用于定位整块搜索栏"
+        "description": "Test id on the wrapper."
       },
       {
         "name": "inputProps",
         "type": "Omit< InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'placeholder' | 'disabled' | 'autoFocus' | 'className' >",
         "required": false,
-        "description": "透传给原生 input 的额外属性（如 onKeyDown、aria-label 等）"
+        "description": "Extra attributes for the native input (for example `onKeyDown`, `aria-label`)."
       }
     ],
     "inherits": []
@@ -273,16 +339,27 @@
         "name": "className",
         "type": "string",
         "required": false,
-        "description": "额外的类名 / Additional class name"
+        "description": "Extra class name on the root element."
       },
       {
         "name": "size",
         "type": "AionSelectSize",
         "required": false,
-        "description": "统一尺寸，新增 middle（32px）/ Unified size with additional \"middle\" (32px)"
+        "default": "'middle'",
+        "description": "Arco sizes plus `middle` (32px, the AionUi default)."
       }
     ],
     "inherits": ["InputTagProps", "SelectProps", "SelectViewCommonProps"]
+  },
+  "AionSelect.OptGroup": {
+    "source": "src/components/inputs/AionSelect/AionSelect.tsx",
+    "props": [],
+    "inherits": ["HTML attributes", "OptGroupProps"]
+  },
+  "AionSelect.Option": {
+    "source": "src/components/inputs/AionSelect/AionSelect.tsx",
+    "props": [],
+    "inherits": ["HTML attributes", "OptionProps"]
   },
   "AionSteps": {
     "source": "src/components/display/AionSteps/AionSteps.tsx",
@@ -291,10 +368,15 @@
         "name": "className",
         "type": "string",
         "required": false,
-        "description": "额外的类名 / Additional class name"
+        "description": "Additional class name"
       }
     ],
     "inherits": ["StepsProps"]
+  },
+  "AionSteps.Step": {
+    "source": "src/components/display/AionSteps/AionSteps.tsx",
+    "props": [],
+    "inherits": ["StepProps"]
   },
   "AppLoader": {
     "source": "src/components/layout/AppLoader/AppLoader.tsx",
@@ -412,40 +494,40 @@
         "type": "number",
         "required": false,
         "default": "240",
-        "description": "最大高度（像素），超过此高度时显示展开/折叠按钮\nMaximum height in pixels, show expand/collapse button when content exceeds this height"
+        "description": "Maximum height in pixels, show expand/collapse button when content exceeds this height"
       },
       {
         "name": "defaultCollapsed",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "初始是否折叠\nWhether initially collapsed"
+        "description": "Whether initially collapsed"
       },
       {
         "name": "className",
         "type": "string",
         "required": false,
-        "description": "自定义样式类名\nCustom className"
+        "description": "Custom className"
       },
       {
         "name": "contentClassName",
         "type": "string",
         "required": false,
-        "description": "内容区域样式类名\nContent area className"
+        "description": "Content area className"
       },
       {
         "name": "useMask",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "是否使用 mask 模式（适用于有背景色的场景，如 Alert）\nWhether to use mask mode (suitable for scenarios with background color, like Alert)"
+        "description": "Whether to use mask mode (suitable for scenarios with background color, like Alert)"
       },
       {
         "name": "allowHorizontalScroll",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "是否允许横向滚动，避免宽内容被裁剪\nAllow horizontal scrolling to prevent clipping wide content"
+        "description": "Allow horizontal scrolling to prevent clipping wide content"
       }
     ],
     "inherits": []
@@ -456,17 +538,20 @@
       {
         "name": "label",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "Label in the fixed-width left column (rendered in a FieldLabel)."
       },
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "The field."
       },
       {
         "name": "hint",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Small helper text under the field."
       },
       {
         "name": "icon",
@@ -483,7 +568,8 @@
       {
         "name": "tokenUsage",
         "type": "TokenUsageData | null",
-        "required": true
+        "required": true,
+        "description": "Latest usage; `null` renders nothing. The popover lists the breakdown and cost when present."
       },
       {
         "name": "context_limit",
@@ -495,13 +581,15 @@
         "name": "className",
         "type": "string",
         "required": false,
-        "default": "''"
+        "default": "''",
+        "description": "Extra class name on the ring."
       },
       {
         "name": "size",
         "type": "number",
         "required": false,
-        "default": "20"
+        "default": "20",
+        "description": "Ring diameter in px."
       }
     ],
     "inherits": []
@@ -566,12 +654,14 @@
       {
         "name": "label",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Form item label."
       },
       {
         "name": "field",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Form field name that holds the path."
       },
       {
         "name": "onBrowse",
@@ -594,29 +684,34 @@
       {
         "name": "value",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "The selected emoji (or avatar src), highlighted in the grid."
       },
       {
         "name": "onChange",
         "type": "(emoji: string) => void",
-        "required": false
+        "required": false,
+        "description": "Called with the chosen emoji, or the avatar `src` from the built-in tab. The popover then closes."
       },
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Trigger element; clicking it opens the picker."
       },
       {
         "name": "placement",
         "type": "PopoverPosition",
         "required": false,
-        "default": "'bl'"
+        "default": "'bl'",
+        "description": "Arco Popover position."
       },
       {
         "name": "builtinAvatars",
         "type": "Array<{ id: string; label: string; src: string; }>",
         "required": false,
-        "default": "[]"
+        "default": "[]",
+        "description": "Extra image avatars, shown in a second tab when not empty."
       }
     ],
     "inherits": []
@@ -627,18 +722,21 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "Label text."
       },
       {
         "name": "required",
         "type": "boolean",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Prefix a red asterisk."
       },
       {
         "name": "icon",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Icon before the text."
       }
     ],
     "inherits": []
@@ -650,38 +748,38 @@
         "name": "title",
         "type": "string",
         "required": true,
-        "description": "面板标题 / Panel title"
+        "description": "Panel title"
       },
       {
         "name": "files",
         "type": "FileChangeItem[]",
         "required": true,
-        "description": "文件变更列表 / File changes list"
+        "description": "File changes list"
       },
       {
         "name": "defaultExpanded",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "默认是否展开 / Default expanded state"
+        "description": "Start expanded."
       },
       {
         "name": "onFileClick",
         "type": "(file: FileChangeItem) => void",
         "required": false,
-        "description": "点击预览按钮的回调 / Callback when preview button is clicked"
+        "description": "Called when a file's Preview button is clicked."
       },
       {
         "name": "onDiffClick",
         "type": "(file: FileChangeItem) => void",
         "required": false,
-        "description": "点击变更统计的回调（+8/-3 数字触发，打开 diff 对比）/ Callback when change stats are clicked (opens diff view)"
+        "description": "Callback when change stats are clicked (opens diff view)"
       },
       {
         "name": "className",
         "type": "string",
         "required": false,
-        "description": "额外的类名 / Additional class name"
+        "description": "Additional class name"
       }
     ],
     "inherits": []
@@ -692,7 +790,8 @@
       {
         "name": "path",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "File path; the name, extension and image/file look come from it."
       },
       {
         "name": "size",
@@ -709,13 +808,15 @@
       {
         "name": "onRemove",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "description": "Called by the remove (×) button."
       },
       {
         "name": "readonly",
         "type": "boolean",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Hide the remove button."
       },
       {
         "name": "hint",
@@ -750,37 +851,44 @@
       {
         "name": "value",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Current size in px (controlled)."
       },
       {
         "name": "min",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Smallest allowed value; the minus button disables there."
       },
       {
         "name": "max",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Largest allowed value; the plus button disables there."
       },
       {
         "name": "step",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Amount each button adds or removes."
       },
       {
         "name": "defaultValue",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Value the reset button restores."
       },
       {
         "name": "resetLabel",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Text of the reset button."
       },
       {
         "name": "onChange",
         "type": "(next: number) => void",
-        "required": true
+        "required": true,
+        "description": "Called with the new value, already clamped to `min`–`max`."
       }
     ],
     "inherits": []
@@ -792,18 +900,21 @@
         "name": "size",
         "type": "number | string",
         "required": false,
-        "default": "16"
+        "default": "16",
+        "description": "Width and height (number = px)."
       },
       {
         "name": "fill",
         "type": "string",
         "required": false,
-        "default": "'currentColor'"
+        "default": "'currentColor'",
+        "description": "Stroke color."
       },
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Class name on the svg."
       }
     ],
     "inherits": []
@@ -987,7 +1098,8 @@
       {
         "name": "children",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "The label text."
       }
     ],
     "inherits": []
@@ -1017,7 +1129,8 @@
         "name": "loading",
         "type": "boolean",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Marks the listbox as busy (`aria-busy`)."
       },
       {
         "name": "title",
@@ -1035,7 +1148,8 @@
         "name": "maxHeight",
         "type": "string",
         "required": false,
-        "default": "DEFAULT_MAX_HEIGHT"
+        "default": "'min(34vh, 260px)'",
+        "description": "CSS max-height of the scroll region."
       },
       {
         "name": "bodyClassName",
@@ -1052,7 +1166,8 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "The options. Mark each with `role=\"option\"` and the active one with `aria-selected`."
       }
     ],
     "inherits": []
@@ -1089,22 +1204,26 @@
       {
         "name": "open",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "description": "Whether the sheet is shown (controlled)."
       },
       {
         "name": "onClose",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "description": "Called on backdrop tap, after an entry's `onClick`, and after a single-select choice."
       },
       {
         "name": "title",
         "type": "ReactNode",
-        "required": false
+        "required": false,
+        "description": "Title at the top of the sheet."
       },
       {
         "name": "entries",
         "type": "MobileActionSheetEntry[]",
-        "required": true
+        "required": true,
+        "description": "Rows; an entry with `submenu` opens a second level, one with `onClick` runs and closes."
       }
     ],
     "inherits": []
@@ -1114,23 +1233,31 @@
     "props": [],
     "inherits": ["FunctionComponent"]
   },
+  "ModalHOC.Extra": {
+    "source": "src/utils/ModalHOC.tsx",
+    "props": [],
+    "inherits": []
+  },
   "PreferenceRow": {
     "source": "src/components/settings/PreferenceRow/PreferenceRow.tsx",
     "props": [
       {
         "name": "label",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Setting name on the left."
       },
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "The control on the right (Switch, Select, …)."
       },
       {
         "name": "description",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Helper text under the label."
       }
     ],
     "inherits": []
@@ -1141,18 +1268,21 @@
       {
         "name": "logo",
         "type": "string | null",
-        "required": true
+        "required": true,
+        "description": "Logo URL; `null` shows the cloud fallback icon."
       },
       {
         "name": "name",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Provider name, used as the alt text."
       },
       {
         "name": "size",
         "type": "number",
         "required": false,
-        "default": "20"
+        "default": "20",
+        "description": "Width and height in px."
       }
     ],
     "inherits": []
@@ -1163,7 +1293,8 @@
       {
         "name": "value",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Text to show."
       }
     ],
     "inherits": []
@@ -1179,49 +1310,58 @@
       {
         "name": "testId",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "`data-testid` on the button."
       },
       {
         "name": "className",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Class name on the button (required: set the width limit here, for example `max-w-220px`)."
       },
       {
         "name": "label",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Text; scrolls as a marquee on hover when it does not fit."
       },
       {
         "name": "leading",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Node before the label, for example a logo."
       },
       {
         "name": "trailing",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Node after the label, for example a chevron. Replaced by a spinner while `loading`."
       },
       {
         "name": "loading",
         "type": "boolean",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Show a spinner in place of `trailing`."
       },
       {
         "name": "disabled",
         "type": "boolean",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Disable the button."
       },
       {
         "name": "onClick",
         "type": "() => void",
-        "required": false
+        "required": false,
+        "description": "Click handler."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Inline style on the button."
       }
     ],
     "inherits": ["BaseButtonProps", "HTML attributes"]
@@ -1245,19 +1385,22 @@
         "name": "min",
         "type": "number",
         "required": false,
-        "default": "0.8"
+        "default": "0.8",
+        "description": "Smallest scale."
       },
       {
         "name": "max",
         "type": "number",
         "required": false,
-        "default": "1.3"
+        "default": "1.3",
+        "description": "Largest scale."
       },
       {
         "name": "step",
         "type": "number",
         "required": false,
-        "default": "0.05"
+        "default": "0.05",
+        "description": "Amount each button adds or removes."
       },
       {
         "name": "defaultValue",
@@ -1323,37 +1466,44 @@
       {
         "name": "title",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Card title."
       },
       {
         "name": "legend",
         "type": "{ label: string; tone: 'now' | 'next' }",
-        "required": false
+        "required": false,
+        "description": "Colored pill after the title: `now` (green) or `next` (amber), for example \"Applies now\"."
       },
       {
         "name": "readOnly",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Show `readOnlyLabel` as a gray pill at the right of the header."
       },
       {
         "name": "readOnlyLabel",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Text of the read-only pill."
       },
       {
         "name": "extra",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Node at the right of the header, for example a button."
       },
       {
         "name": "testId",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "`data-testid` on the section."
       },
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "Card body, usually ConfigRows."
       }
     ],
     "inherits": []
@@ -1388,7 +1538,8 @@
       {
         "name": "title",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "Page title."
       },
       {
         "name": "description",
@@ -1405,24 +1556,27 @@
       {
         "name": "tabs",
         "type": "SettingsPageTab[]",
-        "required": false
+        "required": false,
+        "description": "Underline tabs under the title; omitted or empty renders none."
       },
       {
         "name": "activeTab",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Key of the selected tab (controlled)."
       },
       {
         "name": "onTabChange",
         "type": "(key: string) => void",
-        "required": false
+        "required": false,
+        "description": "Called with the clicked tab's key."
       },
       {
         "name": "sticky",
         "type": "boolean",
         "required": false,
         "default": "true",
-        "description": "Disable sticky behavior when the caller renders a fixed header outside its scroll body."
+        "description": "Stick to the top of the scroll container. Disable it when the caller renders a fixed header outside its scroll body."
       },
       {
         "name": "data-testid",
@@ -1532,49 +1686,58 @@
       {
         "name": "title",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Header title; also the listbox's accessible name."
       },
       {
         "name": "hint",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Secondary header text, for example a keyboard hint."
       },
       {
         "name": "items",
         "type": "SlashCommandMenuItem[]",
-        "required": true
+        "required": true,
+        "description": "Commands to list."
       },
       {
         "name": "activeIndex",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Index of the highlighted command (controlled; drive it from ↑/↓)."
       },
       {
         "name": "loading",
         "type": "boolean",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Show `loadingText` instead of the items."
       },
       {
         "name": "loadingText",
         "type": "string",
         "required": false,
-        "default": "'Loading...'"
+        "default": "'Loading...'",
+        "description": "Text shown while loading."
       },
       {
         "name": "onHoverItem",
         "type": "(index: number) => void",
-        "required": true
+        "required": true,
+        "description": "Called with the index under the pointer."
       },
       {
         "name": "onSelectItem",
         "type": "(item: SlashCommandMenuItem) => void",
-        "required": true
+        "required": true,
+        "description": "Called when a command is clicked."
       },
       {
         "name": "emptyText",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Text shown when `items` is empty."
       }
     ],
     "inherits": []
@@ -1617,67 +1780,67 @@
         "name": "tabs",
         "type": "TabBarItem[]",
         "required": true,
-        "description": "Tabs 列表\nTabs list"
+        "description": "Tabs list"
       },
       {
         "name": "activeTabId",
         "type": "string | null",
         "required": true,
-        "description": "当前活动的 Tab ID\nCurrent active tab ID"
+        "description": "Current active tab ID"
       },
       {
         "name": "tabFadeState",
         "type": "TabFadeState",
         "required": true,
-        "description": "Tab 渐变状态（左右溢出指示器）\nTab fade state (left/right overflow indicators)"
+        "description": "Tab fade state (left/right overflow indicators)"
       },
       {
         "name": "tabsContainerRef",
-        "type": "React.RefObject<HTMLDivElement>",
+        "type": "React.RefObject<HTMLDivElement | null>",
         "required": true,
-        "description": "Tabs 容器引用\nTabs container ref"
+        "description": "Tabs container ref"
       },
       {
         "name": "onSwitchTab",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "切换 Tab 回调\nSwitch tab callback"
+        "description": "Switch tab callback"
       },
       {
         "name": "onCloseTab",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "关闭 Tab 回调\nClose tab callback"
+        "description": "Close tab callback"
       },
       {
         "name": "onContextMenu",
         "type": "(e: React.MouseEvent, tabId: string) => void",
         "required": true,
-        "description": "Tab 右键菜单回调\nTab context menu callback"
+        "description": "Tab context menu callback"
       },
       {
         "name": "onClosePanel",
         "type": "() => void",
         "required": false,
-        "description": "关闭预览面板回调\nClose preview panel callback"
+        "description": "Close preview panel callback"
       },
       {
         "name": "isMaximized",
         "type": "boolean",
         "required": false,
-        "description": "面板是否已最大化（聊天区隐藏、预览铺满）。决定最大化按钮显示的图标与提示。\nWhether the panel is maximized (chat hidden, preview filling the area).\nDrives the maximize button's icon and tooltip."
+        "description": "Whether the panel is maximized (chat hidden, preview filling the area).\nDrives the maximize button's icon and tooltip."
       },
       {
         "name": "onToggleMaximize",
         "type": "() => void",
         "required": false,
-        "description": "切换最大化回调；仅桌面端提供（移动端预览本就覆盖全屏，最大化无意义）。\n未提供时不渲染最大化按钮。\nToggle-maximize callback, supplied on desktop only (on mobile the preview is\nalready a full overlay, so maximizing is meaningless). The maximize button is\nnot rendered when this is absent."
+        "description": "Toggle-maximize callback, supplied on desktop only (on mobile the preview is\nalready a full overlay, so maximizing is meaningless). The maximize button is\nnot rendered when this is absent."
       },
       {
         "name": "onNewBrowserTab",
         "type": "() => void",
         "required": false,
-        "description": "新建浏览器 tab 回调；仅在已有浏览器 tab 时提供，避免在纯文档场景出现无意义的加号\nNew browser tab callback. Only supplied when a browser tab already exists, so\nthe plus button never appears in a document-only panel."
+        "description": "New browser tab callback. Only supplied when a browser tab already exists, so\nthe plus button never appears in a document-only panel."
       }
     ],
     "inherits": []
@@ -1696,79 +1859,79 @@
         "name": "contextMenu",
         "type": "TabContextMenuState",
         "required": true,
-        "description": "上下文菜单状态\nContext menu state"
+        "description": "Context menu state"
       },
       {
         "name": "tabs",
         "type": "TabBarItem[]",
         "required": true,
-        "description": "Tabs 列表\nTabs list"
+        "description": "Tabs list"
       },
       {
         "name": "currentTheme",
         "type": "'light' | 'dark'",
         "required": true,
-        "description": "当前主题\nCurrent theme"
+        "description": "Current theme"
       },
       {
         "name": "onClose",
         "type": "() => void",
         "required": true,
-        "description": "关闭菜单回调\nClose menu callback"
+        "description": "Close menu callback"
       },
       {
         "name": "onCloseTab",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "关闭右键点中的这个 Tab\nClose the tab that was right-clicked"
+        "description": "Close the tab that was right-clicked"
       },
       {
         "name": "onCloseLeft",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "关闭左侧 Tabs\nClose tabs to the left"
+        "description": "Close tabs to the left"
       },
       {
         "name": "onCloseRight",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "关闭右侧 Tabs\nClose tabs to the right"
+        "description": "Close tabs to the right"
       },
       {
         "name": "onCloseOthers",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "关闭其他 Tabs\nClose other tabs"
+        "description": "Close other tabs"
       },
       {
         "name": "onCloseUnmodified",
         "type": "() => void",
         "required": true,
-        "description": "关闭所有未修改的 Tabs\nClose all tabs without unsaved changes"
+        "description": "Close all tabs without unsaved changes"
       },
       {
         "name": "onCloseAll",
         "type": "() => void",
         "required": true,
-        "description": "关闭所有 Tabs\nClose all tabs"
+        "description": "Close all tabs"
       },
       {
         "name": "onCopyPath",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "复制该 Tab 的绝对路径（浏览器 tab 为其 URL）\nCopy the tab's absolute path (its URL, for browser tabs)"
+        "description": "Copy the tab's absolute path (its URL, for browser tabs)"
       },
       {
         "name": "onCopyRelativePath",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "复制该 Tab 的 workspace 相对路径\nCopy the tab's workspace-relative path"
+        "description": "Copy the tab's workspace-relative path"
       },
       {
         "name": "onRevealInFolder",
         "type": "(tabId: string) => void",
         "required": true,
-        "description": "在系统文件管理器中打开该文件所在目录\nShow the tab's file in the OS file manager"
+        "description": "Show the tab's file in the OS file manager"
       }
     ],
     "inherits": []
@@ -1780,149 +1943,149 @@
         "name": "content_type",
         "type": "string",
         "required": true,
-        "description": "内容类型\nContent type"
+        "description": "Content type"
       },
       {
         "name": "isMarkdown",
         "type": "boolean",
         "required": true,
-        "description": "是否为 Markdown 文件\nWhether it's a Markdown file"
+        "description": "Whether it's a Markdown file"
       },
       {
         "name": "isHTML",
         "type": "boolean",
         "required": true,
-        "description": "是否为 HTML 文件\nWhether it's an HTML file"
+        "description": "Whether it's an HTML file"
       },
       {
         "name": "viewMode",
         "type": "'source' | 'preview'",
         "required": true,
-        "description": "当前视图模式\nCurrent view mode"
+        "description": "Current view mode"
       },
       {
         "name": "isSplitScreenEnabled",
         "type": "boolean",
         "required": true,
-        "description": "是否启用分屏模式\nWhether split-screen mode is enabled"
+        "description": "Whether split-screen mode is enabled"
       },
       {
         "name": "file_name",
         "type": "string",
         "required": false,
-        "description": "文件名\nFilename"
+        "description": "Filename"
       },
       {
         "name": "showOpenInSystemButton",
         "type": "boolean",
         "required": true,
-        "description": "是否显示\"在系统中打开\"按钮\nWhether to show \"Open in System\" button"
+        "description": "Whether to show \"Open in System\" button"
       },
       {
         "name": "hasNoRenderableContent",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "这个 tab 没有内容可操作（超过大小上限，或格式无法渲染）。\n视图切换、分屏、审查元素都是对内容的操作，隐藏；\n但「在系统中打开」与「下载」照常显示 —— 那是用户唯一的出路。\n\nThe tab has no content to act on — either it exceeded the size ceiling or its\nformat cannot be rendered. View-mode switching, split screen and inspect all\noperate on content, so they are hidden; \"open in system\" and \"download\" stay,\nbecause they are the only way the user reaches the file."
+        "description": "The tab has no content to act on — either it exceeded the size ceiling or its\nformat cannot be rendered. View-mode switching, split screen and inspect all\noperate on content, so they are hidden; \"open in system\" and \"download\" stay,\nbecause they are the only way the user reaches the file."
       },
       {
         "name": "hasFilePath",
         "type": "boolean",
         "required": true,
-        "description": "文件是否在磁盘上（有 file_path）。\n刻意与 showOpenInSystemButton 分开传：后者现在也接受纯 fileRef（逃生出口），\n不再等价于「文件在磁盘上」，继续复用它会让 Explorer 打开的 code/md tab\n悄悄丢掉下载按钮。\n\nWhether the file exists on disk (has a file_path). Passed separately from\nshowOpenInSystemButton on purpose: that flag now also accepts a bare fileRef\n(the escape hatch), so it no longer means \"on disk\". Reusing it here would\nsilently drop the download button from explorer-opened code/markdown tabs."
+        "description": "Whether the file exists on disk (has a file_path). Passed separately from\nshowOpenInSystemButton on purpose: that flag now also accepts a bare fileRef\n(the escape hatch), so it no longer means \"on disk\". Reusing it here would\nsilently drop the download button from explorer-opened code/markdown tabs."
       },
       {
         "name": "refreshState",
         "type": "string",
         "required": false,
-        "description": "刷新按钮状态 token；`'hidden'` 或未提供时不渲染。\nRefresh control state token; not rendered when `'hidden'` or absent."
+        "description": "Refresh control state token; not rendered when `'hidden'` or absent. `'updated'` highlights it,\n`'idle-no-signal'` and `'disabled'` change its tooltip; any other value is the plain refresh."
       },
       {
         "name": "refreshActionable",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "刷新按钮是否可点 / Whether the refresh control accepts a click"
+        "description": "Whether the refresh control accepts a click"
       },
       {
         "name": "onRefresh",
         "type": "() => void",
         "required": false,
-        "description": "点击刷新 / Reload the current tab"
+        "description": "Reload the current tab"
       },
       {
         "name": "showSave",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "是否显示保存按钮（仅可编辑类型且有可渲染内容时）。\nWhether to show the save button (only editable types with renderable content)."
+        "description": "Whether to show the save button (only editable types with renderable content)."
       },
       {
         "name": "saveActionable",
         "type": "boolean",
         "required": false,
         "default": "false",
-        "description": "保存按钮是否可点（有未保存修改时）/ Whether the save control accepts a click (has unsaved edits)"
+        "description": "Whether the save control accepts a click (has unsaved edits)"
       },
       {
         "name": "onSave",
         "type": "() => void",
         "required": false,
-        "description": "点击保存 / Save the current tab"
+        "description": "Save the current tab"
       },
       {
         "name": "onViewModeChange",
         "type": "(mode: 'source' | 'preview') => void",
         "required": true,
-        "description": "设置视图模式\nSet view mode"
+        "description": "Set view mode"
       },
       {
         "name": "onSplitScreenToggle",
         "type": "() => void",
         "required": true,
-        "description": "设置分屏模式\nSet split-screen mode"
+        "description": "Set split-screen mode"
       },
       {
         "name": "onOpenInSystem",
         "type": "() => void",
         "required": true,
-        "description": "在系统中打开文件\nOpen file in system"
+        "description": "Open file in system"
       },
       {
         "name": "onDownload",
         "type": "() => void",
         "required": true,
-        "description": "下载文件\nDownload file"
+        "description": "Download file"
       },
       {
         "name": "onClose",
         "type": "() => void",
         "required": true,
-        "description": "关闭预览面板\nClose preview panel"
+        "description": "Close preview panel"
       },
       {
         "name": "inspectMode",
         "type": "boolean",
         "required": false,
-        "description": "HTML 审核元素模式（仅HTML类型使用）\nHTML inspect mode (only for HTML type)"
+        "description": "HTML inspect mode (only for HTML type)"
       },
       {
         "name": "onInspectModeToggle",
         "type": "() => void",
         "required": false,
-        "description": "切换HTML审核元素模式（仅HTML类型使用）\nToggle HTML inspect mode (only for HTML type)"
+        "description": "Toggle HTML inspect mode (only for HTML type)"
       },
       {
         "name": "leftExtra",
         "type": "React.ReactNode",
         "required": false,
-        "description": "左侧额外渲染内容\nExtra content rendered on the left section"
+        "description": "Extra content rendered on the left section"
       },
       {
         "name": "rightExtra",
         "type": "React.ReactNode",
         "required": false,
-        "description": "右侧额外渲染内容\nExtra content rendered on the right section"
+        "description": "Extra content rendered on the right section"
       }
     ],
     "inherits": []
@@ -1945,17 +2108,20 @@
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Class name; set the size here or in `style`."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Inline style."
       },
       {
         "name": "title",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Tooltip text."
       },
       {
         "name": "fallback",
@@ -1973,44 +2139,52 @@
       {
         "name": "thought",
         "type": "ThoughtData",
-        "required": false
+        "required": false,
+        "description": "The current thought. Without it, only the status row (spinner, `statusText`, elapsed time) shows."
       },
       {
         "name": "style",
         "type": "'default' | 'compact'",
         "required": false,
-        "default": "'default'"
+        "default": "'default'",
+        "description": "`compact` caps the height at 100px and scrolls."
       },
       {
         "name": "running",
         "type": "boolean",
         "required": false,
-        "default": "false"
+        "default": "false",
+        "description": "Show the spinner and the elapsed-time counter."
       },
       {
         "name": "statusText",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Status text for the row without a thought; defaults to UiProvider `labels.processing`."
       },
       {
         "name": "onStop",
         "type": "() => void",
-        "required": false
+        "required": false,
+        "description": "Unused; kept for API compatibility."
       },
       {
         "name": "onRetryStart",
         "type": "() => void",
-        "required": false
+        "required": false,
+        "description": "Shows a retry button next to the status text (for a failed start)."
       },
       {
         "name": "startedAtMs",
         "type": "number | null",
-        "required": false
+        "required": false,
+        "description": "Absolute start time (ms) used when `externalElapsedSource` is set."
       },
       {
         "name": "externalElapsedSource",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Count elapsed time from `startedAtMs` instead of from mount; the counter hides while `startedAtMs` is invalid."
       }
     ],
     "inherits": []
@@ -2065,22 +2239,26 @@
       {
         "name": "isUploading",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "description": "Show the bar; `false` renders nothing."
       },
       {
         "name": "activeCount",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Number of uploads in progress, shown in the summary."
       },
       {
         "name": "overallPercent",
         "type": "number",
-        "required": true
+        "required": true,
+        "description": "Combined progress, 0–100."
       },
       {
         "name": "uploads",
         "type": "UploadProgressItem[]",
-        "required": true
+        "required": true,
+        "description": "One row per file."
       },
       {
         "name": "onAbort",

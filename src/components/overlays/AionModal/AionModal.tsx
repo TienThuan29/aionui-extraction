@@ -12,12 +12,12 @@ import type { CSSProperties } from 'react';
 import { useUi } from '../../../provider';
 import React from 'react';
 
-// ==================== 类型定义导出 ====================
+// ==================== Types ====================
 
-/** 预设尺寸类型 */
+/** Preset sizes. */
 export type ModalSize = 'small' | 'medium' | 'large' | 'xlarge' | 'full';
 
-/** 预设尺寸配置 */
+/** Width/height of each preset size. */
 export const MODAL_SIZES: Record<ModalSize, { width: string; height?: string }> = {
   small: { width: '400px', height: '300px' },
   medium: { width: '600px', height: '400px' },
@@ -26,85 +26,87 @@ export const MODAL_SIZES: Record<ModalSize, { width: string; height?: string }> 
   full: { width: '90vw', height: '90vh' },
 };
 
-/** Header 配置 */
+/** Header configuration. */
 export interface ModalHeaderConfig {
-  /** 自定义完整 header 内容 */
+  /** Render the whole header yourself. */
   render?: () => React.ReactNode;
-  /** 标题文本或节点 */
+  /** Title text or node. */
   title?: React.ReactNode;
-  /** 副标题（可选）。不传时该行完全不渲染、不占位、不留白。 */
+  /** Optional subtitle; when omitted the row is not rendered at all. */
   subtitle?: React.ReactNode;
-  /** 是否显示关闭按钮 */
+  /** Show the close button. */
   showClose?: boolean;
-  /** 关闭按钮图标 */
+  /** Custom close icon. */
   closeIcon?: React.ReactNode;
-  /** Header 额外的类名 */
+  /** Extra class name on the header. */
   className?: string;
-  /** Header 额外的样式 */
+  /** Extra style on the header. */
   style?: CSSProperties;
 }
 
-/** Footer 配置 */
+/** Footer configuration. */
 export interface ModalFooterConfig {
-  /** 自定义完整 footer 内容 */
+  /** Render the whole footer yourself. */
   render?: () => React.ReactNode;
-  /** Footer 额外的类名 */
+  /** Extra class name on the footer. */
   className?: string;
-  /** Footer 额外的样式 */
+  /** Extra style on the footer. */
   style?: CSSProperties;
   /**
-   * 是否由组件统一渲染 footer 的上分隔线与标准内边距（内容↔按钮区）。
-   * 任务型弹窗迁移时显式传 true，并删除自身 footer 里手写的 border-t / padding。
-   * 默认 false —— 保持既有行为不变，便于逐个弹窗平滑迁移。
+   * Draw the standard top divider and padding around the footer.
+   * @default false
    */
   divider?: boolean;
 }
 
-/** Modal 内容区域样式配置 */
+/** Style of the modal content area. */
 export interface ModalContentStyleConfig {
-  /** 背景色，默认 var(--dialog-fill-0) */
+  /** Background; defaults to `var(--dialog-fill-0)`. */
   background?: string;
-  /** 圆角大小，默认 16px */
+  /** Corner radius; defaults to 16px. */
   borderRadius?: string | number;
-  /** 内边距，默认 0 */
+  /** Padding; defaults to 0. */
   padding?: string | number;
-  /** 内容区域滚动行为，默认 auto */
+  /** Overflow of the content area; defaults to `auto`. */
   overflow?: 'auto' | 'scroll' | 'hidden' | 'visible';
-  /** 内容区域高度（支持 number 或 px 字符串） */
+  /** Content height (number = px). */
   height?: string | number;
-  /** 内容区域最小高度 */
+  /** Content minimum height. */
   minHeight?: string | number;
-  /** 内容区域最大高度 */
+  /** Content maximum height. */
   maxHeight?: string | number;
 }
 
-/** AionModal 组件 Props */
+/** AionModal props. */
 export interface AionModalProps extends Omit<ModalProps, 'title' | 'footer'> {
+  /** Modal body. */
   children?: React.ReactNode;
 
   /**
-   * 布局变体。'standard' 启用统一的任务型三段式布局：
-   * 标题区(自带标准内边距 + 下分隔线) / 内容区(标准内边距、超出滚动) / 按钮区(上分隔线 + 标准内边距)。
-   * 不传时保持既有行为（便于逐个弹窗平滑迁移）。
+   * `'standard'` enables the task-dialog layout: a padded header with a divider, a padded
+   * scrolling body, and a footer with a divider. Omit it for the plain layout.
    */
   variant?: 'standard';
 
-  /** 预设尺寸，会被 style 中的 width/height 覆盖 */
+  /** Preset size; `style.width`/`style.height` override it. */
   size?: ModalSize;
 
-  /** Header 配置，可以是简单的 title 字符串或完整配置对象 */
+  /** A title (string or node, with a close button) or a full header configuration. */
   header?: React.ReactNode | ModalHeaderConfig;
 
-  /** Footer 配置，可以是 ReactNode 或配置对象 */
+  /**
+   * Footer node or configuration. Omitted: Cancel and OK buttons wired to `onCancel`/`onOk`.
+   * `null`: no footer.
+   */
   footer?: React.ReactNode | ModalFooterConfig | null;
 
-  /** Modal 内容区域样式配置 */
+  /** Style of the content area. */
   contentStyle?: ModalContentStyleConfig;
 
-  // === 向后兼容的 Props ===
-  /** @deprecated 请使用 header.title */
+  // === Backward-compatible props ===
+  /** @deprecated Use `header.title`. */
   title?: React.ReactNode;
-  /** @deprecated 请使用 header.showClose */
+  /** @deprecated Use `header.showClose`. */
   showCustomClose?: boolean;
 }
 
@@ -115,72 +117,25 @@ const TITLE_BASE_CLASS = 'text-18px font-500 text-t-primary m-0';
 const CLOSE_BUTTON_CLASS =
   'w-32px h-32px flex items-center justify-center rd-8px transition-colors duration-200 cursor-pointer border-0 bg-transparent p-0 hover:bg-2 focus:outline-none';
 const FOOTER_BASE_CLASS = 'flex-shrink-0 bg-transparent';
-/** 任务型弹窗 footer 的统一分隔线 + 内边距（内容↔按钮区）。 */
+/** Footer divider and padding for task dialogs. */
 const FOOTER_DIVIDER_CLASS = 'flex-shrink-0 border-t border-solid border-[var(--bg-3)] px-24px py-16px';
 
 // ===== standard 变体：统一三段式布局 =====
-/** 标题区：上 20 / 左右 24 / 下 16，底部一条贯穿全宽的分隔线。 */
+/** Header: 20/24/16 padding with a full-width bottom divider. */
 const STD_HEADER_CLASS = 'aionui-modal-std-header flex items-start justify-between gap-16px px-24px pt-20px pb-16px';
 const STD_TITLE_CLASS = 'text-18px font-600 leading-26px text-t-primary m-0';
 const STD_SUBTITLE_CLASS = 'text-13px leading-20px text-t-secondary m-0 mt-4px';
-/** 内容区布局：撑满剩余高度、超出滚动（不含内边距）。 */
+/** Body layout: fills the remaining height and scrolls (padding separate). */
 const STD_BODY_LAYOUT_CLASS = 'aionui-modal-std-body min-h-0 flex-1 overflow-y-auto';
-/** 内容区标准内边距：上下 20 / 左右 24。整栏通铺（如团队双栏）时可通过 contentStyle.padding 关闭。 */
+/** Standard body padding (20/24); `contentStyle.padding` replaces it. */
 const STD_BODY_PADDING_CLASS = 'px-24px py-20px';
 const STD_CLOSE_BTN_CLASS =
   'shrink-0 w-32px h-32px flex items-center justify-center rd-8px transition-colors duration-200 cursor-pointer border-0 bg-transparent p-0 text-t-secondary hover:bg-fill-2 focus:outline-none';
 
 /**
- * 自定义模态框组件 / Custom modal component
- *
- * 基于 Arco Design Modal 的封装，提供统一的样式主题、预设尺寸和字体缩放支持
- * Wrapper around Arco Design Modal with unified theme styling, preset sizes, and font scaling support
- *
- * @features
- * - 预设尺寸支持 / Preset size support (small/medium/large/xlarge/full)
- * - 响应字体缩放 / Responsive to font scale changes
- * - 灵活的 header/footer 配置 / Flexible header/footer configuration
- * - 向后兼容旧 API / Backward compatible with old API
- * - 自动视口适配 / Auto viewport adaptation
- *
- * @example
- * ```tsx
- * // 基本用法 / Basic usage
- * <AionModal visible={true} onCancel={handleClose} header="标题">
- *   内容
- * </AionModal>
- *
- * // 预设尺寸 / Preset size
- * <AionModal visible={true} size="large" header="大型弹窗">
- *   内容
- * </AionModal>
- *
- * // 自定义 header / Custom header
- * <AionModal
- *   visible={true}
- *   header={{
- *     title: "自定义标题",
- *     showClose: true,
- *     className: "custom-header"
- *   }}
- * >
- *   内容
- * </AionModal>
- *
- * // 自定义 footer / Custom footer
- * <AionModal
- *   visible={true}
- *   header="标题"
- *   footer={
- *     <div className="flex gap-2">
- *       <Button onClick={handleCancel}>取消</Button>
- *       <Button type="primary" onClick={handleOk}>确定</Button>
- *     </div>
- *   }
- * >
- *   内容
- * </AionModal>
- * ```
+ * Arco Modal with the AionUi look: preset sizes, header/footer configuration, a standard
+ * task-dialog layout, sizes that follow the UiProvider font scale, and a viewport-fitting
+ * maximum size.
  */
 const dimensionKeys = ['width', 'minWidth', 'maxWidth', 'height', 'minHeight', 'maxHeight'] as const;
 type DimensionKey = (typeof dimensionKeys)[number];

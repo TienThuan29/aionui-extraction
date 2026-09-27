@@ -23,11 +23,19 @@ type MentionMenuShellProps = {
   itemCount: number;
   /** Accessible name for the listbox. */
   label: string;
+  /**
+   * Marks the listbox as busy (`aria-busy`).
+   * @default false
+   */
   loading?: boolean;
   /** Visible header title. Omit for a headerless menu. */
   title?: string;
   /** Secondary header text; only rendered alongside a title. */
   hint?: string;
+  /**
+   * CSS max-height of the scroll region.
+   * @default 'min(34vh, 260px)'
+   */
   maxHeight?: string;
   /** Extra classes for the scroll region (e.g. `flex flex-col gap-2px`). */
   bodyClassName?: string;
@@ -35,6 +43,7 @@ type MentionMenuShellProps = {
    *  May fire repeatedly — the caller is expected to be idempotent while a page
    *  is already in flight. */
   onReachEnd?: () => void;
+  /** The options. Mark each with `role="option"` and the active one with `aria-selected`. */
   children: React.ReactNode;
 };
 

@@ -13,15 +13,17 @@ export const uiSrc = resolve(__dirname, 'src');
  * Wraps every named `@icon-park/react` import in (lazy) IconParkHOC, so icons get
  * AionUi's defaults (size 16, stroke 3, secondary fill, cursor-pointer).
  * Copied from packages/desktop/electron.vite.config.ts; runs at library build
- * time so published output needs no consumer-side transform.
+ * time so published output needs no consumer-side transform. Only library source is
+ * transformed: playground docs examples must render as they would in a consumer app.
  */
 export function iconParkPlugin(): Plugin {
+  const srcDir = uiSrc.replace(/\\/g, '/') + '/';
   const hocPath = resolve(uiSrc, 'icons/IconParkHOC/IconParkHOC.tsx').replace(/\\/g, '/');
   return {
     name: 'aionui-ui-icon-park',
     enforce: 'pre',
     transform(source, id) {
-      if (!id.endsWith('.tsx') || id.includes('node_modules')) return null;
+      if (!id.endsWith('.tsx') || !id.replace(/\\/g, '/').startsWith(srcDir)) return null;
       // Never wrap inside the HOC itself (it imports from @icon-park/react/es/runtime).
       if (id.replace(/\\/g, '/') === hocPath) return null;
       if (!source.includes('@icon-park/react')) return null;

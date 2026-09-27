@@ -13,20 +13,32 @@ const EPSILON = 0.001;
 const RESET_THRESHOLD = 0.01;
 
 /**
- * 缩放控制组件 / Scale control component
- *
- * 提供界面缩放功能，支持滑块和按钮调节
- * Provides interface scaling with slider and button controls
+ * Interface scale control: a slider with minus/plus buttons, a percentage and a reset button.
  */
 export type ScaleControlProps = {
   /** Current scale factor (1 = 100%). */
   value: number;
   /** Applied on slider release, step buttons, and reset. */
   onChange: (scale: number) => void | Promise<void>;
+  /**
+   * Smallest scale.
+   * @default 0.8
+   */
   min?: number;
+  /**
+   * Largest scale.
+   * @default 1.3
+   */
   max?: number;
+  /**
+   * Amount each button adds or removes.
+   * @default 0.05
+   */
   step?: number;
-  /** Value the reset button restores. */
+  /**
+   * Value the reset button restores.
+   * @default 1
+   */
   defaultValue?: number;
 };
 
@@ -61,8 +73,8 @@ const ScaleControl: React.FC<ScaleControlProps> = ({
   );
 
   /**
-   * 拖动过程中只更新临时显示值，不触发缩放 / While dragging, only update the transient value — no scaling
-   * @param value - 新的缩放值 / New scale value
+   * While dragging, only update the transient value — no scaling
+   * @param value - New scale value
    */
   const handleSliderChange = (value: number | number[]) => {
     if (typeof value === 'number') {
@@ -71,8 +83,8 @@ const ScaleControl: React.FC<ScaleControlProps> = ({
   };
 
   /**
-   * 松开滑块时才真正应用缩放 / Apply the scale only when the slider is released
-   * @param value - 最终的缩放值 / Final scale value
+   * Apply the scale only when the slider is released
+   * @param value - Final scale value
    */
   const handleSliderAfterChange = (value: number | number[]) => {
     if (typeof value === 'number') {
@@ -82,8 +94,8 @@ const ScaleControl: React.FC<ScaleControlProps> = ({
   };
 
   /**
-   * 处理步进调节 / Handle step adjustment
-   * @param delta - 步进增量（正数增大，负数减小）/ Step delta (positive to increase, negative to decrease)
+   * Handle step adjustment
+   * @param delta - Step delta (positive to increase, negative to decrease)
    */
   const handleStep = (delta: number) => {
     const next = clamp(Number((fontScale + delta).toFixed(2)));
@@ -91,7 +103,7 @@ const ScaleControl: React.FC<ScaleControlProps> = ({
   };
 
   /**
-   * 重置到默认值 / Reset to default value
+   * Reset to default value
    */
   const handleReset = () => {
     void setFontScale(FONT_SCALE_DEFAULT);

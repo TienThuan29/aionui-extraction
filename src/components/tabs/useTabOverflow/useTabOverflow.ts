@@ -9,39 +9,33 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 const TAB_OVERFLOW_THRESHOLD = 2;
 
 /**
- * Tab 渐变状态
  * Tab fade state for gradient indicators
  */
 export type TabFadeState = {
   /**
-   * 是否显示左侧渐变指示器
    * Whether to show left gradient indicator
    */
   left: boolean;
 
   /**
-   * 是否显示右侧渐变指示器
    * Whether to show right gradient indicator
    */
   right: boolean;
 };
 
 /**
- * Tab 横向溢出检测 Hook
  * Hook for detecting tab horizontal overflow
  *
- * 用于显示左右渐变指示器，提示用户可以滚动查看更多 Tab
  * Used to display left/right gradient indicators to prompt users that more tabs can be scrolled
  *
- * @param deps - 依赖项数组，当这些值变化时会重新检测溢出状态 / Dependencies array, overflow state will be recalculated when these values change
- * @returns 包含容器引用和渐变状态的对象 / Object containing container ref and fade state
+ * @param deps - Dependencies array, overflow state will be recalculated when these values change
+ * @returns Object containing container ref and fade state
  */
 export const useTabOverflow = (deps: unknown[] = []) => {
   const tabsContainerRef = useRef<HTMLDivElement>(null);
   const [tabFadeState, setTabFadeState] = useState<TabFadeState>({ left: false, right: false });
 
   /**
-   * 更新 Tab 溢出状态
    * Update tab overflow state
    */
   const updateTabOverflow = useCallback(() => {

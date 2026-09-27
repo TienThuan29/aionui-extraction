@@ -10,37 +10,31 @@ import { createPortal } from 'react-dom';
 import type { TabBarItem } from '../TabBar/TabBar';
 
 /**
- * 上下文菜单状态
  * Context menu state
  */
 export type TabContextMenuState = {
   /**
-   * 是否显示菜单
    * Whether to show menu
    */
   show: boolean;
 
   /**
-   * 菜单 X 坐标
    * Menu X coordinate
    */
   x: number;
 
   /**
-   * 菜单 Y 坐标
    * Menu Y coordinate
    */
   y: number;
 
   /**
-   * 关联的 Tab ID
    * Associated tab ID
    */
   tabId: string | null;
 };
 
 /**
- * 菜单与视口边缘的最小间距，避免贴边显示。
  * Minimum gap between the menu and the viewport edge, so it never sits flush.
  */
 const VIEWPORT_MARGIN_PX = 8;
@@ -48,95 +42,78 @@ const VIEWPORT_MARGIN_PX = 8;
 const detectMac = (): boolean => typeof navigator !== 'undefined' && /mac/i.test(navigator.userAgent);
 
 /**
- * PreviewContextMenu 组件属性
  * PreviewContextMenu component props
  */
 export type TabContextMenuProps = {
   /** Show macOS shortcut glyphs (⌘). Defaults to user-agent detection. */
   isMac?: boolean;
   /**
-   * 上下文菜单状态
    * Context menu state
    */
   contextMenu: TabContextMenuState;
 
   /**
-   * Tabs 列表
    * Tabs list
    */
   tabs: TabBarItem[];
 
   /**
-   * 当前主题
    * Current theme
    */
   currentTheme: 'light' | 'dark';
 
   /**
-   * 关闭菜单回调
    * Close menu callback
    */
   onClose: () => void;
 
   /**
-   * 关闭右键点中的这个 Tab
    * Close the tab that was right-clicked
    */
   onCloseTab: (tabId: string) => void;
 
   /**
-   * 关闭左侧 Tabs
    * Close tabs to the left
    */
   onCloseLeft: (tabId: string) => void;
 
   /**
-   * 关闭右侧 Tabs
    * Close tabs to the right
    */
   onCloseRight: (tabId: string) => void;
 
   /**
-   * 关闭其他 Tabs
    * Close other tabs
    */
   onCloseOthers: (tabId: string) => void;
 
   /**
-   * 关闭所有未修改的 Tabs
    * Close all tabs without unsaved changes
    */
   onCloseUnmodified: () => void;
 
   /**
-   * 关闭所有 Tabs
    * Close all tabs
    */
   onCloseAll: () => void;
 
   /**
-   * 复制该 Tab 的绝对路径（浏览器 tab 为其 URL）
    * Copy the tab's absolute path (its URL, for browser tabs)
    */
   onCopyPath: (tabId: string) => void;
 
   /**
-   * 复制该 Tab 的 workspace 相对路径
    * Copy the tab's workspace-relative path
    */
   onCopyRelativePath: (tabId: string) => void;
 
   /**
-   * 在系统文件管理器中打开该文件所在目录
    * Show the tab's file in the OS file manager
    */
   onRevealInFolder: (tabId: string) => void;
 };
 
 /**
- * 单个菜单项。禁用态只置灰并吞掉点击 —— 保留条目而不是隐藏，菜单的行高才稳定，
- * 用户也能看出「这项存在，只是现在没有目标」。
- *
  * A single menu entry. The disabled state greys out and swallows the click:
  * keeping the entry rather than hiding it holds the menu's layout steady and
  * shows the user the action exists but currently has no target.
@@ -161,14 +138,12 @@ const MenuItem: React.FC<{
   </div>
 );
 
-/** 分隔线 / Divider */
+/** Divider */
 const MenuDivider: React.FC = () => <div className='h-1px bg-border-1 my-4px mx-8px' />;
 
 /**
- * 预览面板右键菜单组件
  * Preview panel context menu component
  *
- * 提供关闭当前/左侧/右侧/其他/未修改/全部 Tab，以及复制路径、定位文件的功能
  * Provides closing this/left/right/other/unmodified/all tabs, copying paths, and
  * locating the file on disk
  */

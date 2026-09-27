@@ -32,7 +32,9 @@ export type SiderItemProps = {
   menuItems?: SiderMenuItem[];
   /** Called with the chosen menu item's `key`. */
   onMenuAction?: (key: string) => void;
+  /** Called when the row is clicked. */
   onClick?: () => void;
+  /** Called on right-click, for a custom context menu. */
   onContextMenu?: (e: React.MouseEvent) => void;
 };
 

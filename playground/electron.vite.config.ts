@@ -11,7 +11,12 @@ export default defineConfig({
     build: { outDir: out('main'), lib: { entry: resolve(__dirname, 'main/index.ts') } },
   },
   preload: {
-    build: { outDir: out('preload'), lib: { entry: resolve(__dirname, 'preload/index.ts') } },
+    // Sandboxed preloads must be CommonJS; main/index.ts loads preload/index.js.
+    build: {
+      outDir: out('preload'),
+      lib: { entry: resolve(__dirname, 'preload/index.ts') },
+      rollupOptions: { output: { format: 'cjs', entryFileNames: '[name].js' } },
+    },
   },
   renderer: {
     root: resolve(__dirname, 'renderer'),

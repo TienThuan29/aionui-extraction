@@ -91,9 +91,19 @@ that way loads only that module, not the whole entry.
 ```bash
 bun run build        # dist/ (JS + .d.ts + styles.css + arco-theme.css)
 bun run test         # builds first, then smoke/dist/unit tests
-bun run playground   # Electron playground rendering src/ (light/dark, desktop/mobile)
+bun run playground   # component docs: live examples, copyable code, props tables (light/dark, desktop/mobile)
+bun run docs:props   # regenerate playground/docs/props.generated.json after changing component props
 PLAYGROUND_SHOTS=./shots bun run playground:build && electron playground/out/main/index.js   # screenshots
 ```
+
+### Documenting a component
+
+Each docs page is a folder `playground/docs/<Page>/` with a `meta.ts` (title, group, description,
+components, examples, notes) and `examples/<Name>.tsx` files. An example file default-exports the demo
+and imports only `@aionui/ui`, `@aionui/ui/markdown` and peer packages; the page shows the same file as
+its copyable code. Props tables come from the TypeScript types and their JSDoc, so describe new props
+with JSDoc and run `bun run docs:props`. `bun run test` fails when a page, an example or the props data
+is missing or stale. See `docs/component-docs.md` for the design.
 
 ## License
 

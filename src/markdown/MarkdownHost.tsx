@@ -43,10 +43,12 @@ export type MarkdownHostValue = {
 const MarkdownHostContext = createContext<MarkdownHostValue>({});
 
 /** Nested providers merge: inner values override outer ones, unspecified keys inherit. */
-export const MarkdownHostProvider: React.FC<MarkdownHostValue & { children?: React.ReactNode }> = ({
-  children,
-  ...value
-}) => {
+export const MarkdownHostProvider: React.FC<
+  MarkdownHostValue & {
+    /** Markdown renderers that use these values. */
+    children?: React.ReactNode;
+  }
+> = ({ children, ...value }) => {
   const parent = useContext(MarkdownHostContext);
   const { onOpenLink, onOpenPreview, renderLocalImage, customCss, onPreviewDiff, diffPreviewLoading } = value;
   const merged = useMemo<MarkdownHostValue>(() => {

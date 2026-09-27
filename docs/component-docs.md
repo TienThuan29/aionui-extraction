@@ -1,7 +1,7 @@
 # Component documentation — design
 
 - **Date:** 2026-09-27
-- **Status:** approved; implementation starts with step 1 (framework + Layout pilot) and pauses there for review
+- **Status:** implemented (steps 1–4)
 
 ## Understanding summary
 
@@ -94,7 +94,10 @@ The existing smoke and dist tests are unchanged. Visual checks use playground sc
    - the icon-park transform now runs on `src/` only, so examples render exactly as in a consumer app;
    - `TabBar`'s `tabsContainerRef` accepts `RefObject<HTMLDivElement | null>`, so the ref from `useTabOverflow` fits without a cast (a widening, backward-compatible type fix).
 3. Markdown (9 pages), and Hooks & utils. `useAutoScroll`'s `containerRef` gets the same nullable-ref widening as TabBar, and the playground sets Arco's `ConfigProvider` locale to en-US.
-4. JSDoc fill, props regeneration, the coverage test, removal of the old demos, and a full screenshot pass.
+4. JSDoc fill, props regeneration, the coverage test, removal of the old demos, and a full screenshot pass (48 pages × light/dark × desktop/mobile). Also:
+   - `@deprecated` props show their deprecation note as the description; `docs:props` formats its output;
+   - the playground header is now the real title bar of its frameless window, with working `WindowControls`;
+   - the preload is built as CommonJS `preload/index.js`: it was emitted as `index.mjs` while the main process loads `index.js`, so the window bridge never loaded (a playground bug that predates the docs).
 
 ### Known issues found while documenting (pre-existing in AionUi, not fixed: out of scope)
 

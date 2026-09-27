@@ -5,7 +5,7 @@ const page: DocPage = {
   group: 'Markdown',
   order: 5,
   description:
-    'Renders WaveJSON (timing diagrams) with WaveDrom, using a dark skin in dark mode. Same controls as MermaidBlock. Markdown uses it for fenced `wavedrom` and `wavejson` blocks.',
+    'Renders WaveJSON (timing diagrams) with WaveDrom on a light card in both themes, for readable signal colors. Same controls as MermaidBlock. Markdown uses it for fenced `wavedrom` and `wavejson` blocks.',
   importFrom: '@aionui/ui/markdown',
   components: ['WavedromBlock'],
   examples: [

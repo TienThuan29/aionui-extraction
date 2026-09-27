@@ -41,6 +41,7 @@ export type UiProviderProps = {
   theme?: UiTheme;
   /** BCP 47 locale for number, currency and byte formatting. @default 'en-US' */
   locale?: string;
+  /** The app, or the part of it these values apply to. */
   children?: React.ReactNode;
 };
 

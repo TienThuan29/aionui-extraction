@@ -1,16 +1,14 @@
 import { ConfigProvider, Radio } from '@arco-design/web-react';
 import enUS from '@arco-design/web-react/es/locale/en-US';
+import type React from 'react';
 import { useEffect, useState } from 'react';
-import { UiProvider, type UiTheme } from '@aionui/ui';
+import { UiProvider, WindowControls, type UiTheme } from '@aionui/ui';
 import { docPages } from '../docs/registry';
 import { DOC_GROUPS } from '../docs/types';
+import type { PlaygroundWindowControls } from '../preload';
 import { DocPageView } from './DocPageView';
-import { demos } from './demos';
 
 type Route = { page: string; example?: string; theme: UiTheme; layout: 'desktop' | 'mobile' };
-
-// Old demos stay reachable until every component has a docs page (then demos*.tsx are removed).
-const legacyDemos = demos.filter((demo) => !docPages.some((page) => page.id === demo.name));
 
 const parseHash = (): Route => {
   const [path, query = ''] = window.location.hash.replace(/^#\/?/, '').split('?');
@@ -26,11 +24,32 @@ const parseHash = (): Route => {
 const toHash = (r: Route) =>
   `#/${r.page}?${r.example ? `example=${encodeURIComponent(r.example)}&` : ''}theme=${r.theme}&layout=${r.layout}`;
 
-// Exposed for the main process's screenshot mode: every docs page, then the remaining legacy demos.
-(window as unknown as { __PLAYGROUND_DEMOS__: string[] }).__PLAYGROUND_DEMOS__ = [
-  ...docPages.map((page) => page.id),
-  ...legacyDemos.map((demo) => demo.name),
-];
+// Exposed for the main process's screenshot mode: every docs page.
+(window as unknown as { __PLAYGROUND_DEMOS__: string[] }).__PLAYGROUND_DEMOS__ = docPages.map((page) => page.id);
+
+const windowApi = (window as unknown as { playground?: { windowControls: PlaygroundWindowControls } }).playground
+  ?.windowControls;
+
+/** The playground window is frameless; these are its real title-bar buttons. */
+function TitleBarControls() {
+  const [isMaximized, setIsMaximized] = useState(false);
+  useEffect(() => {
+    if (!windowApi) return undefined;
+    void windowApi.isMaximized().then(setIsMaximized);
+    return windowApi.onMaximizedChange(setIsMaximized);
+  }, []);
+  if (!windowApi) return null;
+  return (
+    <WindowControls
+      isMaximized={isMaximized}
+      onMinimize={() => void windowApi.minimize()}
+      onToggleMaximize={() => void windowApi.toggleMaximize()}
+      onClose={() => void windowApi.close()}
+    />
+  );
+}
+
+const noDrag = { WebkitAppRegion: 'no-drag' } as React.CSSProperties;
 
 function NavLink({ label, active, href }: { label: string; active: boolean; href: string }) {
   return (
@@ -62,7 +81,6 @@ export function App() {
     window.location.hash = toHash({ ...route, example: undefined, ...patch });
   };
   const page = docPages.find((p) => p.id === route.page);
-  const legacy = page ? undefined : legacyDemos.find((d) => d.name === route.page);
   const isMobile = route.layout === 'mobile';
   const pageHref = (id: string) => toHash({ ...route, page: id, example: undefined });
 
@@ -85,35 +103,44 @@ export function App() {
                 </div>
               );
             })}
-            {legacyDemos.length > 0 && (
-              <div className='mb-12px'>
-                <div className='text-11px uppercase tracking-wide text-t-secondary px-8px mb-4px'>Legacy demos</div>
-                {legacyDemos.map((d) => (
-                  <NavLink key={d.name} label={d.name} active={d.name === route.page} href={pageHref(d.name)} />
-                ))}
-              </div>
-            )}
           </nav>
           <main className='flex-1 min-w-0 flex flex-col'>
-            <header className='flex items-center gap-16px px-16px h-48px border-b border-b-base'>
-              <strong className='text-15px'>{page?.title ?? legacy?.name ?? 'Not found'}</strong>
-              <Radio.Group type='button' size='small' value={route.theme} onChange={(theme) => go({ theme })}>
+            {/* Draggable title bar (frameless window); interactive children opt out. */}
+            <header
+              className='flex items-center gap-16px ps-16px h-48px border-b border-b-base'
+              style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
+            >
+              <strong className='text-15px'>{page?.title ?? 'Not found'}</strong>
+              <Radio.Group
+                style={noDrag}
+                type='button'
+                size='small'
+                value={route.theme}
+                onChange={(theme) => go({ theme })}
+              >
                 <Radio value='light'>Light</Radio>
                 <Radio value='dark'>Dark</Radio>
               </Radio.Group>
-              <Radio.Group type='button' size='small' value={route.layout} onChange={(layout) => go({ layout })}>
+              <Radio.Group
+                style={noDrag}
+                type='button'
+                size='small'
+                value={route.layout}
+                onChange={(layout) => go({ layout })}
+              >
                 <Radio value='desktop'>Desktop</Radio>
                 <Radio value='mobile'>Mobile</Radio>
               </Radio.Group>
+              <div className='ms-auto self-stretch flex'>
+                <TitleBarControls />
+              </div>
             </header>
             {/* Keyed by page: a new page starts scrolled to the top. */}
             <section key={route.page} className='flex-1 overflow-auto p-24px'>
               {page ? (
                 <DocPageView page={page} example={route.example} />
               ) : (
-                <div className={isMobile ? 'w-390px mx-auto border border-b-base rounded-12px p-16px' : ''}>
-                  {legacy?.render()}
-                </div>
+                <div className='text-14px text-t-secondary'>No page named “{route.page}”.</div>
               )}
             </section>
           </main>

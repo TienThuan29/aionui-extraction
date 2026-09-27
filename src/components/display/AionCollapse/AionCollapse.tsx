@@ -12,6 +12,7 @@ import React, { useMemo, useState } from 'react';
  * Collapsible panel component props
  */
 export interface AionCollapseProps {
+  /** `AionCollapse.Item` elements. */
   children: React.ReactNode;
   /** Additional class name */
   className?: string;

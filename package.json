@@ -48,7 +48,7 @@
     "lint:fix": "oxlint --fix",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "docs:props": "bun scripts/gen-props.ts"
+    "docs:props": "bun scripts/gen-props.ts && oxfmt playground/docs/props.generated.json"
   },
   "dependencies": {
     "classnames": "^2.5.1"

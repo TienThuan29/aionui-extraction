@@ -5,7 +5,8 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "`AionCollapse.Item` elements."
       },
       {
         "name": "className",
@@ -222,13 +223,15 @@
       {
         "name": "title",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Deprecated. Use `header.title`."
       },
       {
         "name": "showCustomClose",
         "type": "boolean",
         "required": false,
-        "default": "true"
+        "default": "true",
+        "description": "Deprecated. Use `header.showClose`."
       }
     ],
     "inherits": ["ModalProps"]
@@ -493,7 +496,8 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "The content to cap."
       },
       {
         "name": "maxHeight",
@@ -1098,7 +1102,8 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Markdown renderers that use these values."
       }
     ],
     "inherits": []
@@ -1632,12 +1637,14 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "The text."
       },
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Class name on the text element."
       },
       {
         "name": "duration",
@@ -1698,12 +1705,14 @@
       {
         "name": "onClick",
         "type": "() => void",
-        "required": false
+        "required": false,
+        "description": "Called when the row is clicked."
       },
       {
         "name": "onContextMenu",
         "type": "(e: React.MouseEvent) => void",
-        "required": false
+        "required": false,
+        "description": "Called on right-click, for a custom context menu."
       }
     ],
     "inherits": []
@@ -2256,7 +2265,8 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "The app, or the part of it these values apply to."
       }
     ],
     "inherits": []
@@ -2341,7 +2351,8 @@
       {
         "name": "onMinimize",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "description": "Minimize the window."
       },
       {
         "name": "onToggleMaximize",
@@ -2352,7 +2363,8 @@
       {
         "name": "onClose",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "description": "Close the window."
       }
     ],
     "inherits": []

@@ -8,7 +8,9 @@ import React from 'react';
 import classNames from 'classnames';
 
 interface ShimmerTextProps {
+  /** The text. */
   children: React.ReactNode;
+  /** Class name on the text element. */
   className?: string;
   /**
    * Animation duration in seconds

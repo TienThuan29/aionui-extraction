@@ -30,23 +30,23 @@ function createWindow(): BrowserWindow {
 }
 
 /**
- * Screenshot mode: PLAYGROUND_SHOTS=<dir> renders every demo in each theme/layout,
- * writes <demo>--<theme>-<layout>.png, then quits. The renderer drives it via the hash route.
+ * Screenshot mode: PLAYGROUND_SHOTS=<dir> renders every docs page in each theme/layout,
+ * writes <page>--<theme>-<layout>.png, then quits. The renderer drives it via the hash route.
  */
 async function captureAll(win: BrowserWindow, dir: string): Promise<void> {
   /* oxlint-disable no-await-in-loop -- one shared window: routes must render and capture strictly in order */
   mkdirSync(dir, { recursive: true });
   await new Promise<void>((done) => win.webContents.once('did-finish-load', () => done()));
-  const demos: string[] = await win.webContents.executeJavaScript('window.__PLAYGROUND_DEMOS__');
-  for (const demo of demos) {
+  const pages: string[] = await win.webContents.executeJavaScript('window.__PLAYGROUND_DEMOS__');
+  for (const page of pages) {
     for (const theme of ['light', 'dark']) {
       for (const layout of ['desktop', 'mobile']) {
         await win.webContents.executeJavaScript(
-          `window.location.hash = ${JSON.stringify(`#/${demo}?theme=${theme}&layout=${layout}`)}`
+          `window.location.hash = ${JSON.stringify(`#/${page}?theme=${theme}&layout=${layout}`)}`
         );
         await new Promise((r) => setTimeout(r, 700));
         const image = await win.webContents.capturePage();
-        writeFileSync(join(dir, `${demo}--${theme}-${layout}.png`), image.toPNG());
+        writeFileSync(join(dir, `${page}--${theme}-${layout}.png`), image.toPNG());
       }
     }
   }

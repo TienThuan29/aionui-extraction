@@ -129,7 +129,10 @@ export function generateProps(): Record<string, ComponentDoc> {
         ? typeNode.getText()
         : checker.typeToString(checker.getTypeOfSymbolAtLocation(prop, propDecl));
       const jsdocDefault = prop.getJsDocTags(checker).find((tag) => tag.name === 'default');
-      const description = ts.displayPartsToString(prop.getDocumentationComment(checker)).trim();
+      const deprecated = prop.getJsDocTags(checker).find((tag) => tag.name === 'deprecated');
+      const description =
+        ts.displayPartsToString(prop.getDocumentationComment(checker)).trim() ||
+        (deprecated ? `Deprecated. ${ts.displayPartsToString(deprecated.text).trim()}`.trim() : '');
       props.push({
         name: prop.name,
         type: shorten(type),

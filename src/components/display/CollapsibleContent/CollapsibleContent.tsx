@@ -23,6 +23,7 @@ const BG_GRADIENT_LIGHT =
   'linear-gradient(to bottom, rgba(247, 248, 250, 0) 0%, rgba(247, 248, 250, 0.6) 40%, rgba(247, 248, 250, 0.95) 80%, rgba(247, 248, 250, 1) 100%)';
 
 interface CollapsibleContentProps {
+  /** The content to cap. */
   children: React.ReactNode;
   /**
    * Maximum height in pixels, show expand/collapse button when content exceeds this height

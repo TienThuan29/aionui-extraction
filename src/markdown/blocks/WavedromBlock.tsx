@@ -21,13 +21,20 @@ import DiagramZoomOverlay from './DiagramZoomOverlay';
 import { withResponsiveSvg } from '../markdownUtils';
 
 type WavedromBlockProps = {
+  /** WaveJSON source. */
   code: string;
+  /** Style on the container. */
   style?: React.CSSProperties;
+  /**
+   * Show the "open in panel" button (it also needs MarkdownHost `onOpenPreview`).
+   * @default true
+   */
   showOpenInPanelButton?: boolean;
-  // Enable drag-to-pan + zoom buttons over the rendered diagram. Chat messages and
-  // the preview panel opt in via CodeBlock; other callers keep diagrams static by
-  // default. Wheel is left to the page so scrolling a long document past a diagram
-  // never zooms it (matches the Mermaid blocks).
+  /**
+   * Drag-to-pan and zoom buttons over the diagram. The wheel is left to the page, so scrolling
+   * a long document past a diagram never zooms it.
+   * @default false
+   */
   enablePanZoom?: boolean;
 };
 

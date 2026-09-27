@@ -389,32 +389,38 @@
       {
         "name": "children",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "The code. Single-line code renders inline."
       },
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "`language-xxx` picks highlighting; `mermaid`, `wavedrom`/`wavejson`, `math`/`latex`/`tex` and `diff` get special renderers."
       },
       {
         "name": "node",
         "type": "unknown",
-        "required": false
+        "required": false,
+        "description": "The hast node from react-markdown (ignored)."
       },
       {
         "name": "hiddenCodeCopyButton",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Hide the copy button."
       },
       {
         "name": "codeStyle",
         "type": "React.CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Style on the block container."
       },
       {
         "name": "diagramPanZoom",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Enable drag-to-pan + zoom on rendered diagrams (Mermaid, WaveDrom). Chat messages and the\npreview panel both opt in; other surfaces keep diagrams static."
       }
     ],
     "inherits": []
@@ -600,12 +606,14 @@
       {
         "name": "svg",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "SVG markup to show."
       },
       {
         "name": "onClose",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "description": "Called by the close button, the backdrop and Escape."
       },
       {
         "name": "ariaLabel",
@@ -628,22 +636,26 @@
       {
         "name": "diff",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Unified diff text."
       },
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Class name on the card."
       },
       {
         "name": "title",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Header title; defaults to the file path. It is inserted as HTML, so never pass untrusted text.\nA leading `File:` is stripped for the preview request."
       },
       {
         "name": "file_path",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "File path; read from the diff headers when omitted or a bare name."
       }
     ],
     "inherits": []
@@ -942,17 +954,20 @@
       {
         "name": "reference",
         "type": "LocalFileLinkReference",
-        "required": true
+        "required": true,
+        "description": "Parsed link, from `resolveLocalFileLinkReference(href)`."
       },
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": false
+        "required": false,
+        "description": "Label; defaults to the file name."
       },
       {
         "name": "onOpen",
         "type": "(path: string, reference?: LocalFileLinkReference) => void | Promise<void>",
-        "required": false
+        "required": false,
+        "description": "Opens the file; without it the chip only offers copying the reference."
       }
     ],
     "inherits": []
@@ -999,32 +1014,38 @@
       {
         "name": "children",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Markdown source (GFM, math, line breaks). `file://` prefixes are stripped."
       },
       {
         "name": "hiddenCodeCopyButton",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "description": "Hide the copy button of fenced code blocks."
       },
       {
         "name": "codeStyle",
         "type": "React.CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Style applied to every code block and diagram container."
       },
       {
         "name": "className",
         "type": "string",
-        "required": false
+        "required": false,
+        "description": "Class name on the outer wrapper."
       },
       {
         "name": "onRef",
         "type": "(el?: HTMLDivElement | null) => void",
-        "required": false
+        "required": false,
+        "description": "Receives the rendered body element inside the shadow root (for scrolling, measuring)."
       },
       {
         "name": "onLocalFileLink",
         "type": "(path: string, reference?: LocalFileLinkReference) => void | Promise<void>",
-        "required": false
+        "required": false,
+        "description": "Opens links to local files (`/Users/me/a.ts:12`, `C:\\x.ts#L3`); without it they render as plain chips."
       },
       {
         "name": "allowHtml",
@@ -1178,22 +1199,28 @@
       {
         "name": "code",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "Mermaid source."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Style on the container."
       },
       {
         "name": "showOpenInPanelButton",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "default": "true",
+        "description": "Show the \"open in panel\" button (it also needs MarkdownHost `onOpenPreview`)."
       },
       {
         "name": "enablePanZoom",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "default": "false",
+        "description": "Drag-to-pan and zoom buttons over the diagram. The wheel is left to the page, so scrolling\na long document past a diagram never zooms it."
       }
     ],
     "inherits": []
@@ -1593,7 +1620,8 @@
       {
         "name": "children",
         "type": "React.ReactNode",
-        "required": true
+        "required": true,
+        "description": "Content rendered inside an open shadow root with the markdown styles, theme variables and KaTeX CSS."
       }
     ],
     "inherits": []
@@ -2275,22 +2303,28 @@
       {
         "name": "code",
         "type": "string",
-        "required": true
+        "required": true,
+        "description": "WaveJSON source."
       },
       {
         "name": "style",
         "type": "React.CSSProperties",
-        "required": false
+        "required": false,
+        "description": "Style on the container."
       },
       {
         "name": "showOpenInPanelButton",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "default": "true",
+        "description": "Show the \"open in panel\" button (it also needs MarkdownHost `onOpenPreview`)."
       },
       {
         "name": "enablePanZoom",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "default": "false",
+        "description": "Drag-to-pan and zoom buttons over the diagram. The wheel is left to the page, so scrolling\na long document past a diagram never zooms it."
       }
     ],
     "inherits": []

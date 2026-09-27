@@ -23,36 +23,35 @@ const addWindowEventListener = <K extends keyof WindowEventMap>(
 };
 
 interface UseResizableSplitOptions {
-  /** 默认宽度。`unit: 'ratio'` 时为百分比 (0-100)，`unit: 'px'` 时为像素值 */
+  /** Default width: a percentage (0-100) with `unit: 'ratio'`, pixels with `unit: 'px'`. Default: 50. */
   defaultWidth?: number;
-  /** 最小宽度（同 defaultWidth 的单位） */
+  /** Minimum width, in the same unit. Default: 20. */
   minWidth?: number;
-  /** 最大宽度（同 defaultWidth 的单位） */
+  /** Maximum width, in the same unit. Default: 80. */
   maxWidth?: number;
-  /** LocalStorage 存储键名（用于记录偏好） */
+  /** localStorage key that remembers the user's width. */
   storageKey?: string;
-  /** 单位：百分比或像素。默认 'ratio'（向后兼容） */
+  /** Percentage of the container or pixels. Default: 'ratio'. */
   unit?: 'ratio' | 'px';
   /**
-   * 收起吸附阈值（仅 px 模式；不传则关闭 collapse 语义，退化为纯 clamp）。
-   * 拖拽实时宽度 < 此值时进入收起预览态：面板吸到 `collapsedWidth`，松手即收起，
-   * 且**不写盘**（保留最后一次合法宽度）。≥ 此值恢复正常跟手 + 写盘。
+   * Collapse snap threshold (px mode only; omit to disable collapsing and just clamp).
+   * Dragging below it previews the collapsed state (the panel snaps to `collapsedWidth`);
+   * releasing there collapses without saving, so the last valid width is kept.
    */
   collapseThreshold?: number;
-  /** 收起态的显示宽度（配合 collapseThreshold，通常为 0） */
+  /** Width while collapsed (with `collapseThreshold`), usually 0. */
   collapsedWidth?: number;
-  /** 外部持有的收起态：hook 读它决定拖拽起点（收起时从 collapsedWidth 起拖） */
+  /** Collapsed state owned by the caller; a drag from collapsed starts at `collapsedWidth`. */
   collapsed?: boolean;
-  /** 跨阈值 / 松手时回调收起态变化 */
+  /** Called when a drag crosses the threshold or ends, with the new collapsed state. */
   onCollapsedChange?: (collapsed: boolean) => void;
 }
 
 /**
- * 可拖动分割面板 Hook，支持记录用户偏好
- * Resizable split panel Hook with user preference persistence
+ * Resizable split panel hook with user preference persistence.
  *
- * @param options - 配置选项 / Configuration options
- * @returns 分割比例、拖动句柄和设置函数 / Split ratio, drag handle, and setter function
+ * @param options - Configuration options
+ * @returns `splitRatio`, a ready `dragHandle`, `setSplitRatio`, and `createDragHandle(options)` for custom handles
  */
 export const useResizableSplit = (options: UseResizableSplitOptions = {}) => {
   const { defaultWidth = 50, minWidth = 20, maxWidth = 80, storageKey, unit = 'ratio' } = options;

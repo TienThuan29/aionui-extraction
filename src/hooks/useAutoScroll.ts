@@ -7,11 +7,16 @@
 import { useEffect } from 'react';
 
 interface UseAutoScrollOptions {
-  containerRef: React.RefObject<HTMLDivElement>; // 容器引用 / Container ref
-  content: string; // 内容（用于监听变化）/ Content (for watching changes)
-  enabled?: boolean; // 是否启用自动滚动 / Whether to enable auto-scroll
-  threshold?: number; // 触发自动滚动的距离底部阈值（px）/ Distance from bottom threshold to trigger auto-scroll (px)
-  behavior?: ScrollBehavior; // 滚动行为 / Scroll behavior
+  /** The scroll container. */
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  /** Content to watch; each change scrolls to the bottom if the user is near it. */
+  content: string;
+  /** Turn auto-scroll on or off. Default: true. */
+  enabled?: boolean;
+  /** Only follow when within this many px of the bottom, so reading older content is not interrupted. Default: 200. */
+  threshold?: number;
+  /** Scroll behavior. Default: 'smooth'. */
+  behavior?: ScrollBehavior;
 }
 
 /**

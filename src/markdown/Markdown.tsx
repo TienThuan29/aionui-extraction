@@ -30,11 +30,17 @@ const isLocalFilePath = (src: string): boolean => {
 };
 
 export type MarkdownViewProps = MarkdownHostValue & {
+  /** Markdown source (GFM, math, line breaks). `file://` prefixes are stripped. */
   children: string;
+  /** Hide the copy button of fenced code blocks. */
   hiddenCodeCopyButton?: boolean;
+  /** Style applied to every code block and diagram container. */
   codeStyle?: React.CSSProperties;
+  /** Class name on the outer wrapper. */
   className?: string;
+  /** Receives the rendered body element inside the shadow root (for scrolling, measuring). */
   onRef?: (el?: HTMLDivElement | null) => void;
+  /** Opens links to local files (`/Users/me/a.ts:12`, `C:\x.ts#L3`); without it they render as plain chips. */
   onLocalFileLink?: (path: string, reference?: LocalFileLinkReference) => void | Promise<void>;
   /** Enable raw HTML rendering in markdown content. Use with caution — only for trusted sources. */
   allowHtml?: boolean;

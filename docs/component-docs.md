@@ -93,8 +93,14 @@ The existing smoke and dist tests are unchanged. Visual checks use playground sc
    - the props generator also documents static sub-components declared in `src/` (`AionCollapse.Item`, `AionSteps.Step`, `AionSelect.Option`);
    - the icon-park transform now runs on `src/` only, so examples render exactly as in a consumer app;
    - `TabBar`'s `tabsContainerRef` accepts `RefObject<HTMLDivElement | null>`, so the ref from `useTabOverflow` fits without a cast (a widening, backward-compatible type fix).
-3. Markdown, and Hooks & utils.
+3. Markdown (9 pages), and Hooks & utils. `useAutoScroll`'s `containerRef` gets the same nullable-ref widening as TabBar, and the playground sets Arco's `ConfigProvider` locale to en-US.
 4. JSDoc fill, props regeneration, the coverage test, removal of the old demos, and a full screenshot pass.
+
+### Known issues found while documenting (pre-existing in AionUi, not fixed: out of scope)
+
+- Mermaid flowchart labels are clipped inside `Markdown`: Mermaid measures text with the page font but the shadow root renders it in another font. Standalone `MermaidBlock` is fine.
+- The line badge of `LocalFileLink` (`L12`) is unstyled inside `Markdown`: it uses UnoCSS classes, which do not reach the shadow root (`ShadowView` styles a `.markdown-local-file-line` class the component never sets).
+- `Diff2Html` writes `title` into the header with `innerHTML`; untrusted titles would be injected as HTML.
 
 ## Decision log
 

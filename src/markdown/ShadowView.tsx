@@ -349,7 +349,12 @@ const getKatexStyleSheet = (): CSSStyleSheet | null => {
 
 type ShadowDivElement = HTMLDivElement & { __init__shadow?: boolean };
 
-const ShadowView = ({ children }: { children: React.ReactNode }) => {
+const ShadowView = ({
+  children,
+}: {
+  /** Content rendered inside an open shadow root with the markdown styles, theme variables and KaTeX CSS. */
+  children: React.ReactNode;
+}) => {
   const [root, setRoot] = useState<ShadowRoot | null>(null);
   const styleRef = React.useRef<HTMLStyleElement | null>(null);
   const { customCss: rawCustomCss } = useMarkdownHost();

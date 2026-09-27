@@ -41,6 +41,7 @@ import '@aionui/ui/arco-theme.css'; // optional`,
   ],
   notes: [
     'UiProvider is optional: without it components use English labels, the desktop layout, scale 1, the light theme and en-US number formatting.',
+    'Arco components have their own texts (zh-CN by default); wrap the app in Arco `ConfigProvider` with a locale such as `@arco-design/web-react/es/locale/en-US`.',
     'Nested providers merge: the inner one overrides only the values it sets.',
     'Every module is also importable by path (for example @aionui/ui/components/layout/Section/Section); that loads only that module.',
   ],

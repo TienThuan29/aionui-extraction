@@ -24,14 +24,20 @@ const CODE_PADDING_VERTICAL = 13;
 const COLLAPSED_HEIGHT = PREVIEW_LINES * CODE_LINE_HEIGHT + CODE_PADDING_VERTICAL;
 
 type CodeBlockProps = {
+  /** The code. Single-line code renders inline. */
   children: string;
+  /** `language-xxx` picks highlighting; `mermaid`, `wavedrom`/`wavejson`, `math`/`latex`/`tex` and `diff` get special renderers. */
   className?: string;
+  /** The hast node from react-markdown (ignored). */
   node?: unknown;
+  /** Hide the copy button. */
   hiddenCodeCopyButton?: boolean;
+  /** Style on the block container. */
   codeStyle?: React.CSSProperties;
-  // Enable drag-to-pan + zoom on rendered diagrams (Mermaid, WaveDrom). Chat
-  // messages and the preview panel both opt in; other surfaces keep diagrams
-  // static.
+  /**
+   * Enable drag-to-pan + zoom on rendered diagrams (Mermaid, WaveDrom). Chat messages and the
+   * preview panel both opt in; other surfaces keep diagrams static.
+   */
   diagramPanZoom?: boolean;
   [key: string]: unknown;
 };

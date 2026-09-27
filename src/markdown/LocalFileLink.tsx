@@ -13,8 +13,11 @@ import { copyText } from '../utils/clipboard';
 import type { LocalFileLinkReference } from './markdownUtils';
 
 type LocalFileLinkProps = {
+  /** Parsed link, from `resolveLocalFileLinkReference(href)`. */
   reference: LocalFileLinkReference;
+  /** Label; defaults to the file name. */
   children?: React.ReactNode;
+  /** Opens the file; without it the chip only offers copying the reference. */
   onOpen?: (path: string, reference?: LocalFileLinkReference) => void | Promise<void>;
 };
 

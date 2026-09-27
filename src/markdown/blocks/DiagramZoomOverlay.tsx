@@ -11,7 +11,9 @@ import { createPortal } from 'react-dom';
 import { getSvgIntrinsicSize, type DiagramSize } from '../markdownUtils';
 
 type DiagramZoomOverlayProps = {
+  /** SVG markup to show. */
   svg: string;
+  /** Called by the close button, the backdrop and Escape. */
   onClose: () => void;
   /** Accessible name for the dialog (e.g. the diagram type title). */
   ariaLabel: string;

@@ -7,9 +7,12 @@
 import { useEffect, useRef, useState } from 'react';
 
 interface UseTypingAnimationOptions {
-  content: string; // 原始内容 / Original content
-  enabled?: boolean; // 是否启用动画 / Whether to enable animation
-  speed?: number; // 打字速度（字符/秒）/ Typing speed (characters per second)
+  /** The full (growing) content. */
+  content: string;
+  /** Animate; when false the content shows at once. Default: true. */
+  enabled?: boolean;
+  /** Typing speed in characters per second. Default: 50. */
+  speed?: number;
 }
 
 /**

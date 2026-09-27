@@ -8,6 +8,7 @@ import React, { createContext, useContext, useMemo } from 'react';
 import type { PreviewContentType } from '../types';
 
 /** What a diff card asks the host to open in its preview surface. */
+/** What Diff2Html passes to `onPreviewDiff`. */
 export type DiffPreviewRequest = {
   relativePath: string;
   originalPath?: string;

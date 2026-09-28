@@ -94,6 +94,7 @@ bun run test         # builds first, then smoke/dist/unit tests
 bun run playground   # component docs: live examples, copyable code, props tables (light/dark, desktop/mobile)
 bun run docs:props   # regenerate playground/docs/props.generated.json after changing component props
 PLAYGROUND_SHOTS=./shots bun run playground:build && electron playground/out/main/index.js   # screenshots
+bun run playground:pack   # release/AionUI-Docs-<version>-portable.exe: the docs as a one-file Windows app
 ```
 
 ### Documenting a component

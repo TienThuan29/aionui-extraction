@@ -1,0 +1,22 @@
+# Packages the docs playground (not the library) as a desktop app: bun run playground:pack
+appId: com.aionui.ui-docs
+productName: AionUI Docs
+copyright: Copyright © 2025 AionUi
+directories:
+  output: release
+# The build is self-contained (Vite bundles every renderer dependency), so ship only playground/out.
+files:
+  - playground/out/**/*
+  - '!**/*.map'
+  - '!node_modules/**/*'
+extraMetadata:
+  name: aionui-ui-docs
+  main: playground/out/main/index.js
+# Reuse the installed Electron instead of downloading it again.
+electronDist: node_modules/electron/dist
+win:
+  target: portable
+  # No code-signing certificate: Windows SmartScreen warns on first launch.
+  signAndEditExecutable: false
+portable:
+  artifactName: AionUI-Docs-${version}-portable.exe

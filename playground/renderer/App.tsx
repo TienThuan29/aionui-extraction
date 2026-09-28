@@ -1,9 +1,10 @@
 import { ConfigProvider, Radio } from '@arco-design/web-react';
 import enUS from '@arco-design/web-react/es/locale/en-US';
 import type React from 'react';
-import { useEffect, useState } from 'react';
-import { UiProvider, WindowControls, type UiTheme } from '@aionui/ui';
+import { useEffect, useRef, useState } from 'react';
+import { AionSearchInput, UiProvider, WindowControls, type UiTheme } from '@aionui/ui';
 import { docPages } from '../docs/registry';
+import { bestDocPage, filterDocPages } from '../docs/search';
 import { DOC_GROUPS } from '../docs/types';
 import type { PlaygroundWindowControls } from '../preload';
 import { DocPageView } from './DocPageView';
@@ -71,6 +72,23 @@ export function App() {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
+  const [query, setQuery] = useState('');
+  const searchRef = useRef<HTMLInputElement>(null);
+  const visiblePages = filterDocPages(docPages, query);
+
+  // Ctrl/⌘+K or Ctrl/⌘+F focuses the sidebar search.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'f')) {
+        e.preventDefault();
+        searchRef.current?.focus();
+        searchRef.current?.select();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   // The three attributes every consumer must set (see README).
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', route.theme);
@@ -91,8 +109,29 @@ export function App() {
         <div className='flex h-screen bg-1 text-t-primary'>
           <nav className='w-230px shrink-0 overflow-auto border-r border-b-base p-12px'>
             <div className='text-15px font-700 px-8px mb-12px'>@aionui/ui</div>
+            <AionSearchInput
+              ref={searchRef}
+              className='mb-12px'
+              value={query}
+              onChange={setQuery}
+              placeholder='Search… (Ctrl+K)'
+              inputProps={{
+                'aria-label': 'Search docs',
+                onKeyDown: (e) => {
+                  const best = e.key === 'Enter' && bestDocPage(visiblePages, query);
+                  if (best) window.location.hash = pageHref(best.id);
+                  if (e.key === 'Escape') {
+                    if (query) setQuery('');
+                    else e.currentTarget.blur();
+                  }
+                },
+              }}
+            />
+            {visiblePages.length === 0 && (
+              <div className='text-13px text-t-secondary px-8px'>No results for “{query.trim()}”.</div>
+            )}
             {DOC_GROUPS.map((group) => {
-              const pages = docPages.filter((p) => p.group === group);
+              const pages = visiblePages.filter((p) => p.group === group);
               if (pages.length === 0) return null;
               return (
                 <div key={group} className='mb-12px'>

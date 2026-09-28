@@ -6,6 +6,20 @@ Reusable React UI components extracted from [AionUi](https://github.com/iOfficeA
 - **Core entry** `@aionui/ui`: layout, inputs, overlays, display, settings and tab components, hooks, utils, design tokens.
 - **Markdown entry** `@aionui/ui/markdown`: Markdown renderer with code highlighting, KaTeX, Mermaid, WaveDrom and a diff viewer.
 
+## Docs app
+
+Browse every component with live, copyable examples in the desktop docs app:
+
+| Platform              | Download                                                                                                                                                                                                                     |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Windows (x64)         | [AionUI-Docs-portable.exe](https://github.com/TienThuan29/aionui-extraction/releases/latest/download/AionUI-Docs-portable.exe): no install, just run it                                                                      |
+| macOS (Apple Silicon) | [AionUI-Docs-mac.dmg](https://github.com/TienThuan29/aionui-extraction/releases/latest/download/AionUI-Docs-mac.dmg) · [.zip](https://github.com/TienThuan29/aionui-extraction/releases/latest/download/AionUI-Docs-mac.zip) |
+| Linux (x64)           | [AionUI-Docs-linux.AppImage](https://github.com/TienThuan29/aionui-extraction/releases/latest/download/AionUI-Docs-linux.AppImage): `chmod +x` it, then run it                                                               |
+
+The builds are unsigned. On Windows, SmartScreen warns on first launch (More info → Run anyway). On macOS,
+right-click the app → Open, or run `xattr -cr "/Applications/AionUI Docs.app"`. Older versions:
+[Releases](https://github.com/TienThuan29/aionui-extraction/releases).
+
 ## Install
 
 ```bash

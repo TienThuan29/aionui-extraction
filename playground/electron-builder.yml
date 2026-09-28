@@ -19,15 +19,16 @@ win:
   # No code-signing certificate: Windows SmartScreen warns on first launch.
   signAndEditExecutable: false
 portable:
-  artifactName: AionUI-Docs-${version}-portable.exe
+  artifactName: AionUI-Docs-portable.exe
+# File names carry no version so the README's releases/latest/download links stay valid.
 # macOS and Linux must be built on that OS (electronDist is the host's Electron): see .github/workflows/pack.yml.
 mac:
   target: [dmg, zip]
   category: public.app-category.developer-tools
   # Unsigned: users right-click → Open on first launch (or run `xattr -cr "AionUI Docs.app"`).
   identity: null
-  artifactName: AionUI-Docs-${version}-mac-${arch}.${ext}
+  artifactName: AionUI-Docs-mac.${ext}
 linux:
   target: AppImage
   category: Development
-  artifactName: AionUI-Docs-${version}-linux-${arch}.${ext}
+  artifactName: AionUI-Docs-linux.${ext}

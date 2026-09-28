@@ -20,3 +20,14 @@ win:
   signAndEditExecutable: false
 portable:
   artifactName: AionUI-Docs-${version}-portable.exe
+# macOS and Linux must be built on that OS (electronDist is the host's Electron): see .github/workflows/pack.yml.
+mac:
+  target: [dmg, zip]
+  category: public.app-category.developer-tools
+  # Unsigned: users right-click → Open on first launch (or run `xattr -cr "AionUI Docs.app"`).
+  identity: null
+  artifactName: AionUI-Docs-${version}-mac-${arch}.${ext}
+linux:
+  target: AppImage
+  category: Development
+  artifactName: AionUI-Docs-${version}-linux-${arch}.${ext}
